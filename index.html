@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leonardo | AstrakSK</title>
+
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
+    <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+
+    <!-- Zen Dots -->
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+
+    <!-- Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ENTER SCREEN -->
+
+    <div id="enterScreen">
+
+        <div class="enter-content">
+
+            <h1>Leonardo</h1>
+
+            <p>Click anywhere to enter</p>
+
+        </div>
+
+    </div>
+
+    <!-- Background -->
+
+    <div class="background"></div>
+
+    <!-- Particles -->
+
+    <canvas id="particles"></canvas>
+
+    <!-- Music -->
+
+    <audio id="bgMusic" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Card -->
+
+    <main class="card">
+
+        <div class="avatar-container">
+
+            <div class="avatar-glow"></div>
+
+            <img src="assets/avatar.webp"
+                 alt="Leonardo Avatar"
+                 class="avatar">
+
+        </div>
+
+        <h1 class="name">
+            Leonardo
+        </h1>
+
+        <div class="nickname">
+            AstrakSK
+        </div>
+
+        <p class="subtitle">
+            Networks • CyberSecurity • Minecraft Infrastructure
+        </p>
+
+        <!-- MENU -->
+
+        <div class="tags-row">
+
+            <button class="tag-btn active" data-tab="minecraft">
+                <i class="fa-solid fa-cube"></i>
+                Minecraft Administrator
+            </button>
+
+            <button class="tag-btn" data-tab="java">
+                <i class="fa-solid fa-code"></i>
+                Java Developer
+            </button>
+
+            <button class="tag-btn" data-tab="security">
+                <i class="fa-solid fa-shield-halved"></i>
+                CyberSecurity
+            </button>
+        </div>
+
+        <div class="tags-row second-row">
+
+            <button class="tag-btn" data-tab="cisco">
+                <i class="fa-solid fa-network-wired"></i>
+                Cisco
+            </button>
+
+            <button class="tag-btn" data-tab="school">
+                <i class="fa-solid fa-graduation-cap"></i>
+                IT School
+            </button>
+
+        </div>
+
+        <!-- INFO PANEL -->
+
+        <div class="info-panel">
+
+            <div class="tab-content" id="school">
+
+                <h3>🎓 IT School</h3>
+
+                <p>
+                    Študujem odbor Informačné a sieťové technológie.
+                    <br><br>
+                    Počas štúdia sa venujem počítačovým sieťam, serverovým systémom, virtualizácii a správe IT infraštruktúry.
+                </p>
+
+            </div>
+
+            <div class="tab-content" id="security">
+
+                <h3>🛡 CyberSecurity</h3>
+
+                <p>
+                    Venujem sa bezpečnosti počítačov, serverov, sietí a IT infraštruktúry.
+                    <br><br>
+                    Pracujem s Linux a Unix systémami, VPN a proxy riešeniami, správou služieb, monitorovaním a konfiguráciou sieťových prvkov so zameraním na stabilitu a bezpečnosť prostredia.
+                </p>
+
+            </div>
+
+            <div class="tab-content" id="cisco">
+
+                <h3>🌐 Cisco Networking</h3>
+
+                <p>
+                    Venujem sa návrhu a správe počítačových sietí.
+                    <br><br>
+                    V rámci Cisco Networking Academy rozvíjam praktické skúsenosti v oblasti sieťovej infraštruktúry, sieťovej komunikácie a moderných sieťových riešení.
+                </p>
+
+            </div>
+
+            <div class="tab-content active" id="minecraft">
+
+                <h3>⛏ Minecraft Administrator</h3>
+
+                <p>
+                    Spravujem Minecraft servery a hernú infraštruktúru viac ako 6 rokov.
+                    <br><br>
+                    Zabezpečujem konfiguráciu pluginov, optimalizáciu výkonu, správu databáz a technickú prevádzku serverov. Súčasťou mojej práce je aj vývoj vlastných riešení pre hráčske komunity.
+                </p>
+
+            </div>
+
+            <div class="tab-content" id="java">
+
+                <h3>☕ Java Developer</h3>
+
+                <p>
+                    Vyvíjam Minecraft pluginy v programovacom jazyku Java.
+                    <br><br>
+                    Pracujem s API, databázami, backend logikou a vývojom riešení pre Paper a Spigot servery.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Discord -->
+
+    <div class="social-section">
+
+        <button class="discord-btn" id="discordButton">
+
+            <i class="fa-brands fa-discord"></i>
+
+            <div class="discord-text">
+
+                <span class="discord-title">
+                    Discord
+                </span>
+
+                <span class="discord-name">
+                    astraksk
+                </span>
+
+            </div>
+
+        </button>
+
+    </div>
+
+    <!-- Toast -->
+
+    <div id="toast">
+        Discord username copied!
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
