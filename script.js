@@ -8,7 +8,7 @@ const portfolioData = {
                     events: [
                         {
                             title: "AstralysShield (mód + plugin) – client-side AntiCheat",
-                            note: "Priestor pre opis vývoja client-side AntiCheatu – módu aj pluginu."
+                            note: ""
                         }
                     ]
                 },
@@ -17,11 +17,11 @@ const portfolioData = {
                     events: [
                         {
                             title: "AntiGhostTotem",
-                            note: "Priestor pre opis pluginu a problému, ktorý rieši."
+                            note: ""
                         },
                         {
                             title: "CZ/SK Tiers",
-                            note: "Priestor pre opis prvého pluginu a jeho funkcií."
+                            note: ""
                         }
                     ]
                 },
@@ -30,15 +30,15 @@ const portfolioData = {
                     events: [
                         {
                             title: "Astralys.CZ",
-                            note: "Priestor pre opis projektu a tvojej roly."
+                            note: ""
                         },
                         {
                             title: "Raid serveru Fishcraft.cz",
-                            note: "Viac info v ´Projects´ nižšie."
+                            note: "Nenechal som tak útok na moju osobnosť, znevažovanie a pochybnosti o mojich skúsenostiach s MC administráciou."
                         },
                         {
                             title: "MC developer na Fishcraft.cz",
-                            note: "Keďže Flip skončil a chcel som stále pokračovať v administrácií nejakého serveru, tak som sa stal developerom na malom serveri Fishcraft.cz. Viac info v ´Projects´ nižšie."
+                            note: "Keďže Flip skončil a chcel som stále pokračovať v administrácií nejakého serveru, tak som sa stal developerom na malom serveri Fishcraft.cz."
                         }
                     ]
                 },
@@ -47,7 +47,7 @@ const portfolioData = {
                     events: [
                         {
                             title: "Flip skončil",
-                            note: "Priestor pre opis ukončenia spolupráce a zhrnutie obdobia na serveri Flip."
+                            note: ""
                         }
                     ]
                 },
@@ -61,7 +61,7 @@ const portfolioData = {
                     events: [
                         {
                             title: "Co-Owner serveru Flip (predtým známy ako FLIPSMP)",
-                            note: "Priestor pre opis roly co-ownera a obdobia na serveri Flip."
+                            note: ""
                         }
                     ]
                 }
@@ -157,7 +157,7 @@ const portfolioData = {
         {
             name: "Fishcraft",
             status: "ARCHÍVNY PROJEKT",
-            intro: "Keďže Flip skončil a chcel som stále pokračovať v administrácií nejakého serveru, tak som sa stal developerom na Fishcraft.cz. Tento server vlastne patrí k Discord komunite spojením komunity EsikoCZ a Sttamiko (známa aj s ASMR streamami). Keďže som mal skúsenosti (síce nie také ako majitelia/developery na fakt známych a veľkých serveroch), som im chcel pomôcť Fiscraft vylepšiť (optimalizácia, celkový dojem, design, bezpečnos a pod.). Skončilo sa to ale po pár dňoch fiaskom... V tej dobe som mal problémy v osobnom živote a aj so školou a nemohol som venovať času serveru, spravil som nejaké veci, to áno, ale nie toľko, koľko som chcel. Keďže som nepracoval na serveri, sa Esiko (platila server a mala podpalcom hosting) rozhodla spraviť eľkú údržbu. Niektoré veic, čo spravila, by som ja ako majiteľ, bez znalostí technickej stránky, v momente vyhodil. Ešte v ten deň sa stala vec, že z pre  mňa neznámych dôvodov začal na mňa útok, ako zo strany tej helperky, tak aj samotnej Stamiko. Stalo sa to, že som sa teleportoval na helperku a tá hneĎ na mňa útočila slovne (cez chat v hre) a ja v tom momente som dal príkaz a výpis jej IP adresy (aby som zistil nejaké malé info). Neviem ako, ale zistila, že som použil ten príkaz a povedala to Stamiko, ktorá sa postavila na jej stranu. Tá (helperka) ma následne začala urážať a aj spamovať dms na Discorde, posielať mi obrázok penisu s tým, že taký mám ´malý maďarksý penis´ alebo niečo v tomto zmysle (ešte som dostal aj ban z ich Discordu). Po tomto som sám odišiel a explicitne som napísal, čo majú spraviť, aby mi dali preč všetky oprávnenia. Tak isto, ešte v ten večer, Stamiko streamovala a na streame ma rezoberali kde ona tvrdila, že ja ako niekto s toľkými skúsenosťami, som za 2 dni nepsravil to, čo Esiko za 8h (ako som povedal, za také kritické chyby by som ju vyhodil z DevTeamu). Vtedy som sa ešte držal... Ale po asi 2-3 týždňoch možno, som zistil, že mi práva na serveri zostali a som ukarát volal s bandou, ktorých son poznal a hrali na Flipe, sme ten server raidli. Dal som OPčko a robili čo chceli. Spravil som to preto, lebo nikto nebude pochybovať o mojich schopnostiach a bedôvodne urážať, tak nech vedia, že ja som nezabudol. A za tým raidom si stojím. Odvtedy, s nimi nemám žiadnu komunikáciu ani pod. a server vraj prešiel reworkom (Fishcraft 2.0), tak uvidíme, či sa ich bezpečnosť zlepšila."
+            intro: "ACCESS-DENIED"
         }
     ],
     javaProjects: [
