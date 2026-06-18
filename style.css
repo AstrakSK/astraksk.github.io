@@ -507,7 +507,7 @@ body::before {
     );
     background-size: 42.43px 42.43px;
     box-shadow: 0 0 26px rgba(139, 92, 246, .45), inset 0 0 14px rgba(0, 0, 0, .28);
-    animation: wipStripes 1.7s linear infinite;
+    animation: wipStripes 3.1s linear infinite;
 }
 
 @keyframes wipStripes {
