@@ -25,7 +25,7 @@ const portfolioData = {
                     events: [
                         {
                             title: "➕ Nový plugin AntiGhostTotem",
-                            note: "Priestor pre opis pluginu a problému, ktorý rieši."
+                            note: "Zachraňuje hráčov pred nespravodlivou smrťou spôsobenou ghost totemami."
                         },
                         {
                             title: "➕ Nový plugin CZ/SK Tiers – plugin pre integráciu CZ/SK PvP tierlistu",
