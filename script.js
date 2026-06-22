@@ -7,8 +7,16 @@ const portfolioData = {
                     month: "Jún",
                     events: [
                         {
-                            title: "AstralysShield (mód + plugin) – client-side AntiCheat",
+                            title: "➕ Nový plugin AstrixAI",
+                            note: "Experimentálny plugin využívajúci AI pre automatizáciu a inteligentné spracovanie informácií v Minecraft prostredí. Projekt je aktuálne vo vývoji."
+                        },
+                        {
+                            title: "➕ Nový plugin ShopPulse",
                             note: ""
+                        },
+                        {
+                            title: "➕ Nový projekt AstralysShield (mód ✚ plugin) – client-side AntiCheat",
+                            note: "Najambicióznejší projekt doteraz. Kombinácia serverového pluginu a klientského módu zameraná na pokročilejšiu detekciu cheatov, integritu klienta a bezpečnosť legit hráčov."
                         }
                     ]
                 },
@@ -16,12 +24,12 @@ const portfolioData = {
                     month: "Máj",
                     events: [
                         {
-                            title: "AntiGhostTotem",
-                            note: ""
+                            title: "➕ Nový plugin AntiGhostTotem",
+                            note: "Priestor pre opis pluginu a problému, ktorý rieši."
                         },
                         {
-                            title: "CZ/SK Tiers",
-                            note: ""
+                            title: "➕ Nový plugin CZ/SK Tiers – plugin pre integráciu CZ/SK PvP tierlistu",
+                            note: "(Bude) Prvý verejne distribuovaný plugin. Umožňuje zobrazovanie CZ/SK PvP tierov, PlaceholderAPI integráciu a leaderboardy pre jednotlivé PvP módy."
                         }
                     ]
                 },
@@ -29,16 +37,16 @@ const portfolioData = {
                     month: "Apríl",
                     events: [
                         {
-                            title: "Astralys.CZ",
-                            note: ""
+                            title: "➕ Založenie nového projektu (server) Astralys.CZ",
+                            note: "Začiatok budovania vlastného projektu od základov. Cieľom je vytvoriť moderný Minecraft server s dôrazom na kvalitu, bezpečnosť a vlastný vývoj."
                         },
                         {
-                            title: "Raid serveru Fishcraft.cz",
-                            note: "Nenechal som tak útok na moju osobnosť, znevažovanie a pochybnosti o mojich skúsenostiach s MC administráciou."
+                            title: "Resign zo serveru Fishcraft.cz ➜ (14d later) ➜ Raid serveru Fishcraft.cz",
+                            note: "Po odchode z projektu došlo približne o dva týždne neskôr k raid incidentu, ktorý výrazne ovplyvnil ďalší vývoj servera."
                         },
                         {
                             title: "MC developer na Fishcraft.cz",
-                            note: "Keďže Flip skončil a chcel som stále pokračovať v administrácií nejakého serveru, tak som sa stal developerom na malom serveri Fishcraft.cz."
+                            note: "Po skončení Flipu som pokračoval ako developer na malom serveri Fishcraft.cz, kde som sa venoval vývoju, konfigurácii a technickému rozvoju servera."
                         }
                     ]
                 },
@@ -46,8 +54,8 @@ const portfolioData = {
                     month: "Október",
                     events: [
                         {
-                            title: "Flip skončil",
-                            note: ""
+                            title: "➖ Flip skončil",
+                            note: "Ukončenie jednej z najvýznamnejších etáp mojej serverovej administrátorskej kariéry a začiatok hľadania nových príležitostí."
                         }
                     ]
                 },
@@ -61,7 +69,42 @@ const portfolioData = {
                     events: [
                         {
                             title: "Co-Owner serveru Flip (predtým známy ako FLIPSMP)",
+                            note: "Pôsobenie na pozícii Co-Ownera. Zodpovednosť za technickú stránku server, správu servera a podieľanie sa na jeho rozvoji."
+                        }
+                    ]
+                },
+                { 
+                    month: "Apríl",
+                    events: [
+                        {
+                            title: "➖ Tensium.eu skončilo",
+                            note: "Ukončenie projektu Tensium.eu po období vývoja a získavania prvých väčších skúseností s vedením servera."
+                        }
+                    ]
+                },
+                { 
+                    month: "Marec",
+                    events: [
+                        {
+                            title: "Prvé skúsenosti s proxy (Velocity) - multi-servre",
+                            note: "Prvé nasadenie Velocity proxy a multi-server architektúry. Významný krok v rozširovaní technických znalostí."
+                        },
+                        {
+                            title: "Developer ➜ (v ten deň) Co-owner serveru tensimi",
                             note: ""
+                        }
+                    ]
+                },
+                { 
+                    month: "Február",
+                    events: [
+                        {
+                            title: "➕ tensimi ➜ Tensium.eu",
+                            note: "Rebranding projektu a postupný prechod k väčším plánom a profesionálnejšiemu smerovaniu servera."
+                        },
+                        {
+                            title: "Developer ➜ (v ten deň) ➜ Co-owner serveru tensimi",
+                            note: "Rýchly posun z pozície developera na pozíciu Co-Ownera vďaka vyššej miere zapojenia do serveru"
                         }
                     ]
                 }
@@ -127,11 +170,11 @@ const portfolioData = {
             year: "2020",
             months: [
                 {
-                    month: "Január",
+                    month: "Apríl",
                     events: [
                         {
-                            title: "Info zatiaľ nie je k dispozícii",
-                            note: ""
+                            title: "Prvý server",
+                            note: "Moje úplné začiatky v Minecraft administrácii. Práve tu vznikol záujem o servery, konfigurácie a neskôr aj vývoj pluginov."
                         }
                     ]
                 }
@@ -157,8 +200,8 @@ const portfolioData = {
         {
             name: "Fishcraft",
             status: "ARCHÍVNY PROJEKT",
-            intro: "ACCESS-DENIED"
-        }
+            intro: "Acess-Denied"
+        } 
     ],
     javaProjects: [
         {
