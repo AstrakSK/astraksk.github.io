@@ -1,22 +1,80 @@
 const portfolioData = {
+    stats: [
+        { value: "6", unit: "rokov", label: "prevádzky Minecraft serverov" },
+        { value: "8", unit: "", label: "vlastných projektov v registri" },
+        { value: "4", unit: "jazyky", label: "v produkcii — Java, Kotlin, JavaScript, TypeScript" }
+    ],
+
+    featured: [
+        {
+            id: "astralys-shield",
+            name: "AstralysShield",
+            line: "Anti-cheat, ktorý neháda z packetov, ale overuje samotného klienta.",
+            state: "vo vývoji"
+        },
+        {
+            id: "together",
+            name: "Together",
+            line: "Súkromná Android aplikácia s vlastným backendom.",
+            state: "v prevádzke"
+        },
+        {
+            id: "tiertagger",
+            name: "TierTagger",
+            line: "Tiery z tierlistu priamo v hre — nad hlavou, v TABe aj v chate.",
+            state: "v prevádzke"
+        }
+    ],
+
     timeline: [
         {
             year: "2026",
             months: [
                 {
-                    month: "Jún",
+                    month: "Október",
                     events: [
                         {
-                            title: "➕ Nový plugin AstrixAI",
-                            note: "Experimentálny plugin využívajúci AI pre automatizáciu a inteligentné spracovanie informácií v Minecraft prostredí. Projekt je aktuálne vo vývoji."
-                        },
+                            title: "Flip skončil",
+                            note: "Koniec najdlhšej etapy v pozícii co-ownera."
+                        }
+                    ]
+                },
+                {
+                    month: "September",
+                    events: [
                         {
-                            title: "➕ Nový plugin ShopPulse",
+                            title: "Android aplikácia dokončená",
                             note: ""
                         },
                         {
-                            title: "➕ Nový projekt AstralysShield (mód ✚ plugin) – client-side AntiCheat",
-                            note: "Najambicióznejší projekt doteraz. Kombinácia serverového pluginu a klientského módu zameraná na pokročilejšiu detekciu cheatov, integritu klienta a bezpečnosť legit hráčov."
+                            title: "Astralys pozastavený na dobu neurčitú",
+                            note: "Projekt som začal prerábať od základov, ale súbežne bežiace projekty si vyžiadali viac času, než som čakal. Nerušim ho — nechcem ho robiť narýchlo a v polovičnej kvalite."
+                        }
+                    ]
+                },
+                {
+                    month: "August",
+                    events: [
+                        {
+                            title: "Začal vývoj Android aplikácie",
+                            note: ""
+                        }
+                    ]
+                },
+                {
+                    month: "Jún",
+                    events: [
+                        {
+                            title: "AstralysShield — klientský anti-cheat",
+                            note: "Doteraz najambicióznejší projekt. Serverový plugin a klientský Fabric mód, ktoré si navzájom overujú identitu. Cieľom nie je chytiť viac cheaterov, ale mať o klientovi dosť kontextu na rozumné rozhodnutie."
+                        },
+                        {
+                            title: "AstrixAI",
+                            note: "Experiment so spracovaním informácií priamo na serveri. Vo vývoji."
+                        },
+                        {
+                            title: "ShopPulse",
+                            note: ""
                         }
                     ]
                 },
@@ -24,12 +82,12 @@ const portfolioData = {
                     month: "Máj",
                     events: [
                         {
-                            title: "➕ Nový plugin AntiGhostTotem",
-                            note: "Zachraňuje hráčov pred nespravodlivou smrťou spôsobenou ghost totemami."
+                            title: "CZ/SK Tiers — plugin pre PvP tierlist",
+                            note: "Prvý plugin, ktorý používa aj niekto iný než ja. Načítava tiery z externého API, drží ich v pamäti a vystavuje cez PlaceholderAPI do TABu, hologramov a rebríčkov."
                         },
                         {
-                            title: "➕ Nový plugin CZ/SK Tiers – plugin pre integráciu CZ/SK PvP tierlistu",
-                            note: "(Bude) Prvý verejne distribuovaný plugin. Umožňuje zobrazovanie CZ/SK PvP tierov, PlaceholderAPI integráciu a leaderboardy pre jednotlivé PvP módy."
+                            title: "AntiGhostTotem",
+                            note: "Rieši smrť ghost totemom — situáciu, keď hráč totem má, ale server ho kvôli latencii nezapočíta."
                         }
                     ]
                 },
@@ -37,28 +95,15 @@ const portfolioData = {
                     month: "Apríl",
                     events: [
                         {
-                            title: "➕ Založenie nového projektu (server) Astralys.CZ",
-                            note: "Začiatok budovania vlastného projektu od základov. Cieľom je vytvoriť moderný Minecraft server s dôrazom na kvalitu, bezpečnosť a vlastný vývoj."
+                            title: "Založenie Astralys.cz",
+                            note: "Prvý projekt, kde nie som developer pre niekoho iného, ale staviam celok od základov — infraštruktúru, ochranu pred útokmi, pluginy aj branding."
                         },
                         {
-                            title: "Resign zo serveru Fishcraft.cz ➜ (14d later) ➜ Raid serveru Fishcraft.cz",
-                            note: "Po odchode z projektu došlo približne o dva týždne neskôr k raid incidentu, ktorý výrazne ovplyvnil ďalší vývoj servera."
-                        },
-                        {
-                            title: "MC developer na Fishcraft.cz",
-                            note: "Po skončení Flipu som pokračoval ako developer na malom serveri Fishcraft.cz, kde som sa venoval vývoju, konfigurácii a technickému rozvoju servera."
+                            title: "Developer na Fishcraft.cz, v tom istom mesiaci odchod",
+                            note: "Vývoj, konfigurácia a technický rozvoj menšieho servera. Približne dva týždne po mojom odchode server postihol raid, ktorý výrazne ovplyvnil jeho ďalší vývoj."
                         }
                     ]
-                },
-                {
-                    month: "Október",
-                    events: [
-                        {
-                            title: "➖ Flip skončil",
-                            note: "Ukončenie jednej z najvýznamnejších etáp mojej serverovej administrátorskej kariéry a začiatok hľadania nových príležitostí."
-                        }
-                    ]
-                },
+                }
             ]
         },
         {
@@ -68,103 +113,48 @@ const portfolioData = {
                     month: "Jún",
                     events: [
                         {
-                            title: "Co-Owner serveru Flip (predtým známy ako FLIPSMP)",
-                            note: "Pôsobenie na pozícii Co-Ownera. Zodpovednosť za technickú stránku server, správu servera a podieľanie sa na jeho rozvoji."
+                            title: "Co-owner serveru Flip (predtým FLIPSMP)",
+                            note: "Zodpovednosť za technickú stránku servera, jeho správu a podiel na smerovaní projektu."
                         }
                     ]
                 },
-                { 
+                {
                     month: "Apríl",
                     events: [
                         {
-                            title: "➖ Tensium.eu skončilo",
-                            note: "Ukončenie projektu Tensium.eu po období vývoja a získavania prvých väčších skúseností s vedením servera."
+                            title: "Tensium.eu skončilo",
+                            note: "Koniec projektu po období vývoja a prvých väčších skúseností s vedením servera."
                         }
                     ]
                 },
-                { 
+                {
                     month: "Marec",
                     events: [
                         {
-                            title: "Prvé skúsenosti s proxy (Velocity) - multi-servre",
-                            note: "Prvé nasadenie Velocity proxy a multi-server architektúry. Významný krok v rozširovaní technických znalostí."
-                        },
-                        {
-                            title: "Developer ➜ (v ten deň) Co-owner serveru tensimi",
-                            note: ""
+                            title: "Prvá proxy sieť na Velocity",
+                            note: "Nasadenie Velocity a multi-server architektúry — hráči prechádzajú medzi servermi bez odpojenia. Prvý raz, keď som riešil sieť serverov, nie jeden server."
                         }
                     ]
                 },
-                { 
+                {
                     month: "Február",
                     events: [
                         {
-                            title: "➕ tensimi ➜ Tensium.eu",
-                            note: "Rebranding projektu a postupný prechod k väčším plánom a profesionálnejšiemu smerovaniu servera."
+                            title: "tensimi sa mení na Tensium.eu",
+                            note: "Rebranding a posun k väčším plánom."
                         },
                         {
-                            title: "Developer ➜ (v ten deň) ➜ Co-owner serveru tensimi",
-                            note: "Rýchly posun z pozície developera na pozíciu Co-Ownera vďaka vyššej miere zapojenia do serveru"
+                            title: "Developer, v ten istý deň co-owner serveru tensimi",
+                            note: "Posun z vývoja na vedenie projektu vďaka miere zapojenia."
                         }
                     ]
                 }
             ]
         },
         {
-            year: "2024",
-            months: [
-                {
-                    month: "Január",
-                    events: [
-                        {
-                            title: "Info zatiaľ nie je k dispozícii",
-                            note: ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            year: "2023",
-            months: [
-                {
-                    month: "Január",
-                    events: [
-                        {
-                            title: "Info zatiaľ nie je k dispozícii",
-                            note: ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            year: "2022",
-            months: [
-                {
-                    month: "Január",
-                    events: [
-                        {
-                            title: "Info zatiaľ nie je k dispozícii",
-                            note: ""
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            year: "2021",
-            months: [
-                {
-                    month: "Január",
-                    events: [
-                        {
-                            title: "Info zatiaľ nie je k dispozícii",
-                            note: ""
-                        }
-                    ]
-                }
-            ]
+            year: "2021 — 2024",
+            gap: true,
+            note: "Priebežná správa a administrácia serverov. Detaily z tohto obdobia dopĺňam."
         },
         {
             year: "2020",
@@ -174,198 +164,447 @@ const portfolioData = {
                     events: [
                         {
                             title: "Prvý server",
-                            note: "Moje úplné začiatky v Minecraft administrácii. Práve tu vznikol záujem o servery, konfigurácie a neskôr aj vývoj pluginov."
+                            note: "Úplný začiatok. Tu vznikol záujem o servery, konfigurácie a neskôr aj o vývoj pluginov."
                         }
                     ]
                 }
             ]
-        }   
+        }
     ],
-    minecraftProjects: [
+    servers: [
         {
             name: "Astralys.cz",
-            status: "Aktívny projekt",
-            intro: "Info zatiaľ nie je k dispozícii."
+            status: "pozastavený",
+            role: "Zakladateľ",
+            period: "apríl — september 2026",
+            intro: "Vlastný projekt stavaný od nuly — infraštruktúra, ochrana pred útokmi, vlastné pluginy aj vizuálna identita. Vývoj je pozastavený na dobu neurčitú: projekt som začal prerábať od základov, ale súbežné projekty si vyžiadali viac času, než som čakal. Zrušený nie je — nechcem ho robiť narýchlo a v polovičnej kvalite."
+        },
+        {
+            name: "Fishcraft.cz",
+            status: "ukončené",
+            role: "Developer",
+            period: "apríl 2026",
+            intro: "Vývoj, konfigurácia a technický rozvoj menšieho servera. Krátka epizóda — nástup aj odchod v tom istom mesiaci."
         },
         {
             name: "Flip",
-            status: "UKONČENÝ PROJEKT",
-            intro: "Info zatiaľ nie je k dispozícii."
+            status: "ukončené",
+            role: "Co-owner",
+            period: "jún 2025 — október 2026",
+            intro: "Predtým FLIPSMP. Zodpovednosť za technickú stránku servera a podiel na jeho smerovaní. Najdlhšie obdobie v pozícii co-ownera."
         },
         {
             name: "Tensium.eu",
-            status: "UKONČENÝ PROJEKT",
-            intro: "Info zatiaľ nie je k dispozícii."
-        },
-        {
-            name: "Fishcraft",
-            status: "ARCHÍVNY PROJEKT",
-            intro: "Acess-Denied"
-        } 
+            status: "ukončené",
+            role: "Developer, neskôr co-owner",
+            period: "február — apríl 2025",
+            intro: "Predtým tensimi. Server, na ktorom som prvý raz nasadil Velocity proxy a multi-server architektúru — a prvý raz riešil sieť serverov namiesto jedného."
+        }
     ],
-    javaProjects: [
+    devProjects: [
         {
             id: "astralys-shield",
             name: "AstralysShield",
-            type: "Mod + Plugin",
-            icon: "fa-solid fa-shield",
-            summary: "Klient-server bezpečnostný systém pre Minecraft, ktorý overuje integritu klienta a pomáha serveru vyhodnocovať rizikové správanie.",
-            description: "AstralysShield je klientsko-serverový anti-cheat a trust systém pre Minecraft 1.21.11. Kombinuje Fabric klienta a Paper/Folia plugin do jedného riešenia, ktoré pomáha serverom overovať klienta, vyhodnocovať podozrivé signály a znižovať ban evasion.",
-            features: [
-                "Real-time Mod List Analysis – analýza načítaných Fabric modov a klientskych rozšírení.",
-                "Client File Verification – kontrola vybraných Minecraft konfigurácií a súborov.",
-                "Client Integrity Validation – overovanie integrity klienta a detekcia neoprávnených zásahov.",
-                "Risk & Trust Engine – viacúrovňové vyhodnocovanie rizika namiesto jednoduchého ´legit / cheat´ modelu.",
-                "Secure Client ↔ Server Handshake – zabezpečená komunikácia medzi klientom a serverom."
+            kind: "Mód + plugin",
+            year: "2026",
+            state: "vo vývoji",
+            stack: ["Java", "Fabric", "Paper", "HMAC", "SQLite"],
+            summary: "Klient-server bezpečnostný systém, ktorý serveru dá kontext o stave klienta namiesto odhadovania z packetov.",
+            problem: "Serverový anti-cheat vidí len to, čo mu klient pošle, a zvyšok musí odhadovať z pohybu a packetov. Čím prísnejšie hádanie, tým viac potrestaných hráčov, ktorí nič nespravili.",
+            approach: "Fabric mód na klientovi a Paper plugin na serveri si pri pripojení overia identitu a potom si priebežne potvrdzujú, že komunikuje stále ten istý, nezmenený klient. Server tak nepracuje s dohadmi, ale s overenými informáciami.",
+            points: [
+                "Overenie klienta pri pripojení a priebežné potvrdzovanie počas hry.",
+                "Analýza načítaných módov a klientskych rozšírení v reálnom čase.",
+                "Vyhodnocovanie rizika na škále namiesto rozhodnutia legit alebo cheat.",
+                "Modulárna architektúra — nová detekcia sa pridáva bez prepisovania existujúcich."
             ],
-            process: "AstralysShield vznikol ako odpoveď na limity tradičných serverových anti-cheatov, ktoré dokážu pracovať iba s dátami prijatými zo servera a často musia odhadovať správanie klienta na základe packetov alebo pohybu hráča. Cieľom projektu bolo vytvoriť systém, ktorý poskytne serveru viac kontextu o stave klienta a zároveň zachová flexibilitu pre ďalší vývoj a rozširovanie. Projekt začal ako jednoduchý experiment s overovaním klienta pri pripojení, no postupne sa rozrástol na komplexný ekosystém pozostávajúci zo serverového pluginu a klientského Fabric módu. Počas vývoja boli navrhnuté a implementované mechanizmy pre zabezpečenú komunikáciu, správu session, integrity kontroly, risk scoring, trust systém, hardvérové fingerprinty a viacvrstvové vyhodnocovanie podozrivých udalostí. Veľká časť vývoja bola venovaná hľadaniu rovnováhy medzi efektívnou detekciou a minimalizáciou false positive výsledkov. Namiesto jednoduchého modelu „legit alebo cheat“ využíva AstralysShield viacero nezávislých signálov, ktoré sa kombinujú do jedného výsledku. To umožňuje administrátorom robiť lepšie rozhodnutia a zároveň znižuje riziko nesprávnych postihov pre legitímnych hráčov. Dôležitou súčasťou projektu je aj modularita a rozšíriteľnosť. Architektúra bola navrhnutá tak, aby bolo možné v budúcnosti pridávať nové detekčné mechanizmy, bezpečnostné kontroly, integrácie a analytické nástroje bez potreby prepisovania existujúcich systémov. Vďaka tomu je projekt pripravený na dlhodobý vývoj a prispôsobovanie novým typom klientov, modifikácií a techník obchádzania ochrany. AstralysShield je aktívne vyvíjaný projekt. Funkcionalita, detekčné mechanizmy aj interná architektúra sa priebežne upravujú na základe testovania, spätnej väzby a nových poznatkov z oblasti Minecraft bezpečnosti. Aktuálny stav preto nepredstavuje finálnu verziu, ale základ pre ďalšie rozširovanie a postupné budovanie komplexného klient-server bezpečnostného riešenia.",
-            stack: " Java • Fabric • Paper/Spigot • HMAC • SQLite"
+            closing: "Aktívne sa vyvíja. Väčšina času nejde na detekciu, ale na obmedzovanie falošných poplachov — nesprávny ban stojí server viac než jeden neodhalený cheater."
         },
         {
-            id: "czsk-tiers",
-            name: "CZ/SK Tiers",
-            type: "Plugin",
-            icon: "fa-solid fa-ranking-star",
-            summary: "Integrácia oficiálneho CZ/SK PvP tierlistu priamo do Minecraft servera pomocou cacheovaného dátového systému, PlaceholderAPI a automatickej synchronizácie.",
-            description: "Technické riešenie pre správu úrovní, hodnotení a konzistentného hráčskeho progresu.",
-            features: [
-                "Real-time synchronizácia - Automatické načítavanie a aktualizácia PvP tierov z externej databázy bez zaťaženia servera.",
-                "PlaceholderAPI - Dynamické placeholdery pre TAB, hologramy, NPC a rebríčky vrátane TOP hráčov v jednotlivých PvP módoch.",
-                "Cache architektúra - Dáta sú uložené v pamäti servera a pravidelne synchronizované, čo zabezpečuje vysoký výkon a minimálny počet požiadaviek."
+            id: "together",
+            name: "Together",
+            kind: "Android aplikácia + backend",
+            year: "2026",
+            state: "v prevádzke",
+            stack: ["Kotlin", "Jetpack Compose", "Room", "Spring Boot", "PostgreSQL", "WebSocket", "Docker"],
+            summary: "Súkromný projekt pre uzavretý okruh používateľov. Účel ani funkcie nezverejňujem — verejná je len technická stránka.",
+            problem: "",
+            approach: "",
+            points: [
+                "Android klient v Kotline a Compose, backend v Spring Boote, oboje na vlastnom serveri v Dockeri — bez služieb tretích strán.",
+                "Prenos cez WebSocket, ktorý pri výpadku prepne na REST, takže dáta dorazia aj na zlom signáli.",
+                "Vlastná distribúcia aktualizácií mimo Google Play — klient si stiahne balík zo servera a pred inštaláciou overí kontrolný súčet.",
+                "Lokálna databáza s reálnymi migráciami, takže aktualizácia nikdy nezmaže dáta.",
+                "Diagnostický režim, ktorý pri probléme povie, čia je chyba — zariadenia, aplikácie, siete alebo servera."
             ],
-            process: "Projekt vznikol ako riešenie pre integráciu oficiálneho CZ/SK PvP tierlistu priamo do Minecraft serverov. Hlavným cieľom bolo odstrániť potrebu manuálneho spracovania dát a umožniť ich okamžité využitie v TABe, hologramoch, NPC systémoch a vlastných pluginoch. Počas vývoja bola navrhnutá vlastná cache vrstva, synchronizačný systém a podpora dynamických PlaceholderAPI placeholderov vrátane globálnych a módovo špecifických leaderboardov.",
-            stack: " Java • Paper API • PlaceholderAPI • JSON API • Cache Architecture • Leaderboards"
+            closing: "Najviac času nezobral kód, ale prípady, keď niečo zlyhalo potichu. Odvtedy si každá časť ukladá dôvod posledného zlyhania a ten sa dá zobraziť."
+        },
+        {
+            id: "tiertagger",
+            name: "CZSKTiers TierTagger",
+            kind: "Klientský mód",
+            year: "2026",
+            state: "v prevádzke",
+            stack: ["Java", "Fabric", "Mod Menu"],
+            summary: "Zobrazuje PvP tiery priamo v hre — nad hlavou, v TABe, v chate aj na karte hráča.",
+            problem: "Tiery boli len na webe. Kto ich chcel vidieť počas hry, musel prepínať do prehliadača — čiže presne vo chvíli, keď je tá informácia najužitočnejšia, nebola po ruke.",
+            approach: "Mód beží výhradne na klientovi — na server neposiela nič, len dokresľuje to, čo hráč aj tak vidí. Dáta si sťahuje sám a drží ich v pamäti, takže tier je nad hlavou hneď, nie po sekunde čakania.",
+            points: [
+                "Tier za nickom nad hlavou, v TABe a v chate.",
+                "Karta hráča so všetkými deviatimi kitmi a bodmi.",
+                "Obľúbení hráči — hlásenie, kto z nich je práve na serveri.",
+                "Nastavenia cez Mod Menu, dáta sa cachujú a obnovujú na povel."
+            ],
+            closing: ""
+        },
+        {
+            id: "czsktiers",
+            name: "CZSKTiers",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "v prevádzke",
+            stack: ["Java", "Paper API", "PlaceholderAPI", "JSON API"],
+            summary: "Načíta PvP tiery z externého API a sprístupní ich celému serveru cez PlaceholderAPI.",
+            problem: "Tiery boli v externej databáze. Aby sa dali použiť v TABe, na hologramoch alebo v NPC, musel by ich niekto ručne prepisovať.",
+            approach: "Plugin si dáta stiahne, drží ich v pamäti a pravidelne obnovuje. Server sa tak pýta pamäte, nie siete — placeholder v TABe nesmie čakať na HTTP odpoveď.",
+            points: [
+                "Placeholdery pre TAB, hologramy, NPC a rebríčky.",
+                "Rebríčky celkovo aj pre jednotlivé PvP módy.",
+                "Podpora subtierov.",
+                "Príkazy na reload, kontrolu stavu a vynútenú synchronizáciu."
+            ],
+            closing: "Prvý plugin, ktorý používa aj niekto iný než ja — čo znamenalo naučiť sa písať konfiguráciu a chybové hlášky pre cudzieho admina."
+        },
+        {
+            id: "shield-lite",
+            name: "AstralysShield-Lite",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "v prevádzke",
+            stack: ["Java", "Paper", "ProtocolLib"],
+            summary: "Odhaľuje podvrhnutého klienta bez toho, aby si hráč čokoľvek inštaloval.",
+            problem: "AstralysShield vyžaduje mód na klientovi. To na verejnom serveri nikto nespraví — potreboval som variant, ktorý funguje na hocikom.",
+            approach: "Namiesto jedného spoľahlivého signálu skladá viac slabších: čo klient tvrdí, že je, ako sa hlási na plugin kanáloch a ako sa správa v čase. Jeden signál sa dá podvrhnúť ľahko, všetky naraz podstatne ťažšie.",
+            points: [
+                "Funguje bez klientskej časti, stačí plugin na serveri.",
+                "Kombinuje viac nezávislých signálov do jedného výsledku.",
+                "História kontrol a prehľad zachytených klientov.",
+                "Príkazy na manuálnu kontrolu konkrétneho hráča."
+            ],
+            closing: ""
+        },
+        {
+            id: "chatshield",
+            name: "ChatShield",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "v prevádzke",
+            stack: ["Java", "Paper", "PlaceholderAPI"],
+            summary: "Ochrana chatu — filtre, kanály a tresty, ktoré sa stupňujú podľa opakovania.",
+            problem: "Filter, ktorý za prvý aj desiaty priestupok dá rovnaký trest, je zbytočne tvrdý na náhodu a zbytočne mäkký na toho, kto to robí naschvál.",
+            approach: "Priestupky sa pamätajú a trest sa stupňuje. Chat je rozdelený na kanály, takže sa dá moderovať oddelene podľa toho, kde sa píše.",
+            points: [
+                "Filtre na nadávky, reklamu a spam.",
+                "Stupňovanie trestov podľa histórie hráča.",
+                "Oddelené chat kanály.",
+                "Napojenie na AstralysShield, ak beží na serveri."
+            ],
+            closing: ""
+        },
+        {
+            id: "combatmanager",
+            name: "CombatManager",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "v prevádzke",
+            stack: ["Java", "Paper", "Vault"],
+            summary: "Combat tag s odpočtom, tresty za odpojenie v boji, štatistiky a bounty.",
+            problem: "Hráč, ktorý sa v prehratom súboji odpojí, si odnesie veci a súper nedostane nič. Bez postihu to robí každý.",
+            approach: "Po zásahu sa hráč označí ako v boji a nad hotbarom mu beží odpočet. Odpojenie počas neho má následok — od vyhodenia vecí až po smrť, podľa nastavenia servera.",
+            points: [
+                "Odpočet nad hotbarom, voliteľne aj boss bar.",
+                "Štyri režimy trestu za odpojenie v boji.",
+                "Zákaz letu, elytry a únikových príkazov počas boja.",
+                "Prepínač PvP, štatistiky, rebríček a bounty."
+            ],
+            closing: ""
+        },
+        {
+            id: "antigang",
+            name: "AstralysAntiGang",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "v prevádzke",
+            stack: ["Java", "Paper", "Discord webhook"],
+            summary: "Rozpozná, keď na jedného hráča útočí viacero naraz, a upozorní staff.",
+            problem: "Gang fighty sa na serveri riešia ťažko, lebo kým sa staff dozvie, že sa niečo deje, je po všetkom.",
+            approach: "Plugin sleduje PvP zásahy vrátane projektilov a pre každú obeť si drží prehľad útočníkov. Keď ich počet prekročí hranicu, situáciu označí a pošle upozornenie. Zásahy zrušené v safe zónach sa nepočítajú.",
+            points: [
+                "Detekcia priamych zásahov aj projektilov.",
+                "Nastaviteľná hranica počtu útočníkov a časový limit.",
+                "Upozornenie staffu priamo v hre aj cez Discord.",
+                "Vlastné príkazy spustené pri zachytení."
+            ],
+            closing: ""
         }
+    ],
+    stack: [
+        {
+            layer: "Reverzná proxy",
+            tech: "Caddy",
+            note: "Rozdeľuje prevádzku medzi služby podľa domény a sama si obnovuje certifikáty."
+        },
+        {
+            layer: "Aplikácie",
+            tech: "Spring Boot · Node.js",
+            note: "Každá služba vo vlastnom kontajneri, s vlastnou konfiguráciou a vlastným prístupom."
+        },
+        {
+            layer: "Databázy",
+            tech: "PostgreSQL",
+            note: "Oddelené databázy s vlastnými prihláseniami. Zmeny schémy len cez migrácie."
+        },
+        {
+            layer: "Server",
+            tech: "Ubuntu · Docker",
+            note: "Von počúva len to, čo počúvať musí. Prístup výhradne cez SSH kľúč, heslo je vypnuté."
+        }
+    ],
+
+    practices: [
+        "Von sú otvorené len porty, ktoré musia byť — zvyšok sa k službám dostane len zvnútra.",
+        "Prihlásenie na server je možné iba kľúčom. Heslá do SSH sú vypnuté.",
+        "Heslá sa nikde neukladajú v čitateľnej podobe, len ako odtlačok.",
+        "Certifikáty sa obnovujú automaticky, nie ručne pred vypršaním.",
+        "Nasadenie je jeden príkaz. Čo sa robí ručne, to sa raz spraví zle.",
+        "Ak niečo môže zlyhať potichu, uloží si dôvod — inak vyzerá rozbitý stav rovnako ako funkčný."
+    ],
+
+    network: [
+        "Adresovanie a rozdelenie sietí — masky, prefixy a návrh rozsahov.",
+        "Konfigurácia smerovačov a prepínačov v Cisco Packet Traceri.",
+        "Prístupové zoznamy a základné filtrovanie prevádzky.",
+        "DNS a smerovanie domén vrátane nasadenia za CDN.",
+        "Riešenie výpadkov konektivity od kábla po aplikačnú vrstvu."
+    ],
+
+    school: [
+        "Informačné a sieťové technológie, SPŠE Zochova Bratislava.",
+        "Siete a Cisco Networking Academy.",
+        "Programovanie — Python, Java, základy práce s Arduinom.",
+        "Elektrotechnika — obvody, Ohmov a Kirchhoffove zákony, polovodiče.",
+        "Operačné systémy a systémové volania."
     ]
 };
+
+/* ---------- pomocné ---------- */
+
+document.documentElement.classList.add("js");
+
+const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+}[char]));
 
 const elements = {
     enterScreen: document.getElementById("enterScreen"),
     bgMusic: document.getElementById("bgMusic"),
+    soundToggle: document.getElementById("soundToggle"),
     breadcrumb: document.getElementById("breadcrumb"),
     contentScroll: document.getElementById("contentScroll"),
+    statReadout: document.getElementById("statReadout"),
+    featuredList: document.getElementById("featuredList"),
     timelineList: document.getElementById("timelineList"),
     minecraftProjectList: document.getElementById("minecraftProjectList"),
-    javaProjectList: document.getElementById("javaProjectList"),
-    javaProjectDetail: document.getElementById("javaProjectDetail")
+    devProjectList: document.getElementById("devProjectList"),
+    devProjectDetail: document.getElementById("devProjectDetail"),
+    stackDiagram: document.getElementById("stackDiagram"),
+    practiceList: document.getElementById("practiceList"),
+    networkList: document.getElementById("networkList"),
+    schoolList: document.getElementById("schoolList"),
+    avatarDeco: document.querySelector(".avatar-deco")
 };
 
 const sectionLabels = {
-    home: "Home",
-    minecraft: "Minecraft Administrator",
-    java: "Java Developer",
-    security: "CyberSecurity",
-    cisco: "Cisco",
-    school: "IT School"
+    home: "Domov",
+    minecraft: "Minecraft",
+    dev: "Vývoj",
+    infra: "Infraštruktúra",
+    network: "Siete",
+    school: "Škola"
 };
 
-function renderTimeline() {
-    elements.timelineList.innerHTML = portfolioData.timeline.map((yearBlock) => `
-        <section class="timeline-year">
-            <h3 class="timeline-year-label">${yearBlock.year}</h3>
-            <div class="timeline-months">
-                ${yearBlock.months.map((monthBlock) => `
-                    <div class="timeline-month">
-                        <h4 class="timeline-month-label">${monthBlock.month}</h4>
-                        <div class="timeline-events">
-                            ${monthBlock.events.map((event) => `
-                                <article class="timeline-entry">
-                                    <h5 class="timeline-entry-title">${event.title}</h5>
-                                    <p class="note">${event.note}</p>
-                                </article>
-                            `).join("")}
-                        </div>
-                    </div>
-                `).join("")}
-            </div>
-        </section>
+/* ---------- vykreslenie ---------- */
+
+function renderStats() {
+    elements.statReadout.innerHTML = portfolioData.stats.map((stat, index) => `
+        <div class="stat reveal" style="--i:${index}">
+            <dt class="stat-value"><span class="stat-num" data-count="${esc(stat.value)}">0</span>${stat.unit ? `<span class="stat-unit">${esc(stat.unit)}</span>` : ""}</dt>
+            <dd class="stat-label">${esc(stat.label)}</dd>
+        </div>
     `).join("");
 }
 
-function renderMinecraftProjects() {
-    elements.minecraftProjectList.innerHTML = portfolioData.minecraftProjects.map((project) => `
-        <article class="minecraft-project">
-            <div class="project-topline">
-                <h3>${project.name}</h3>
-                <span>${project.status}</span>
-            </div>
-            <p class="project-intro">${project.intro}</p>
-        </article>
-    `).join("");
-}
-
-function renderJavaProjects() {
-    elements.javaProjectList.innerHTML = portfolioData.javaProjects.map((project) => `
-        <button class="java-project-card" type="button" data-project-id="${project.id}">
-            <span class="project-icon"><i class="${project.icon}"></i></span>
-            <span>
-                <strong>${project.name}</strong>
-                <small>${project.type} · ${project.summary}</small>
-            </span>
-            <i class="fa-solid fa-arrow-right"></i>
+function renderFeatured() {
+    elements.featuredList.innerHTML = portfolioData.featured.map((item, index) => `
+        <button class="row row-featured reveal" type="button" data-project-id="${esc(item.id)}" style="--i:${index}">
+            <span class="row-name">${esc(item.name)}</span>
+            <span class="row-text">${esc(item.line)}</span>
+            <span class="state state-${item.state === "vo vývoji" ? "wip" : "live"}">${esc(item.state)}</span>
+            <span class="row-arrow" aria-hidden="true"></span>
         </button>
     `).join("");
 }
 
-function renderJavaDetail(project) {
-    elements.javaProjectDetail.innerHTML = `
-        <span class="project-type">${project.type}</span>
-        <h2 class="detail-title">${project.name}</h2>
-        <p class="detail-description">${project.description}</p>
+function renderTimeline() {
+    elements.timelineList.innerHTML = portfolioData.timeline.map((block) => {
+        if (block.gap) {
+            return `
+                <section class="timeline-year timeline-gap">
+                    <h4 class="timeline-year-label">${esc(block.year)}</h4>
+                    <p class="timeline-gap-note">${esc(block.note)}</p>
+                </section>
+            `;
+        }
 
-        <div class="feature-list">
-            ${project.features.map((feature) => `
-                <div class="feature-item">
-                    <i class="fa-solid fa-check"></i>
-                    <p>${feature}</p>
+        return `
+            <section class="timeline-year">
+                <h4 class="timeline-year-label">${esc(block.year)}</h4>
+                <div class="timeline-months">
+                    ${block.months.map((monthBlock) => `
+                        <div class="timeline-month">
+                            <h5 class="timeline-month-label">${esc(monthBlock.month)}</h5>
+                            <div class="timeline-events">
+                                ${monthBlock.events.map((event, index) => `
+                                    <article class="timeline-entry reveal" style="--i:${index}">
+                                        <h6 class="timeline-entry-title">${esc(event.title)}</h6>
+                                        ${event.note ? `<p class="note">${esc(event.note)}</p>` : ""}
+                                    </article>
+                                `).join("")}
+                            </div>
+                        </div>
+                    `).join("")}
                 </div>
-            `).join("")}
-        </div>
+            </section>
+        `;
+    }).join("");
+}
 
-        <section class="detail-section">
-            <h3>Development story</h3>
-            <p>${project.process}</p>
-            <div class="tech-line">Core technologies: <strong>${project.stack}</strong></div>
-        </section>
+function renderServers() {
+    elements.minecraftProjectList.innerHTML = portfolioData.servers.map((server, index) => `
+        <article class="server reveal" style="--i:${index}">
+            <header class="server-head">
+                <h4>${esc(server.name)}</h4>
+                <span class="state state-${server.status === "aktívny" ? "live" : server.status === "pozastavený" ? "wip" : "past"}">${esc(server.status)}</span>
+            </header>
+            <p class="server-meta">${esc(server.role)} · ${esc(server.period)}</p>
+            <p class="note">${esc(server.intro)}</p>
+        </article>
+    `).join("");
+}
 
-        <div class="gallery-placeholder">
-            <div>
-                <i class="fa-regular fa-images"></i>
-                <strong>Gallery / Preview</strong>
-                <small>Screenshots, videos or interface previews can be added here.</small>
-            </div>
-        </div>
+function renderDevIndex() {
+    elements.devProjectList.innerHTML = portfolioData.devProjects.map((project, index) => `
+        <button class="row row-project reveal" type="button" role="listitem" data-project-id="${esc(project.id)}" style="--i:${index}">
+            <span class="row-name">${esc(project.name)}</span>
+            <span class="row-kind">${esc(project.kind)}</span>
+            <span class="row-text">${esc(project.summary)}</span>
+            <span class="row-year">${esc(project.year)}</span>
+            <span class="row-arrow" aria-hidden="true"></span>
+        </button>
+    `).join("");
+}
+
+function renderDevDetail(project) {
+    elements.devProjectDetail.innerHTML = `
+        <header class="detail-head">
+            <h2 class="detail-title">${esc(project.name)}</h2>
+            <p class="detail-meta">${esc(project.kind)} · ${esc(project.year)} · ${esc(project.state)}</p>
+        </header>
+
+        <p class="detail-summary">${esc(project.summary)}</p>
+
+        ${project.problem || project.approach ? `
+        <div class="detail-body">
+            <section class="detail-block">
+                <h3>Problém</h3>
+                <p>${esc(project.problem)}</p>
+            </section>
+
+            <section class="detail-block">
+                <h3>Riešenie</h3>
+                <p>${esc(project.approach)}</p>
+            </section>
+        </div>` : ""}
+
+        <ul class="point-list">
+            ${project.points.map((point) => `<li>${esc(point)}</li>`).join("")}
+        </ul>
+
+        ${project.closing ? `<p class="detail-closing">${esc(project.closing)}</p>` : ""}
+
+        <ul class="stack-tags">
+            ${project.stack.map((tech) => `<li>${esc(tech)}</li>`).join("")}
+        </ul>
     `;
 }
 
-renderTimeline();
-renderMinecraftProjects();
-renderJavaProjects();
-
-function enterWebsite() {
-    if (elements.enterScreen.classList.contains("hidden")) return;
-
-    elements.enterScreen.classList.add("hidden");
-    elements.bgMusic.volume = 0.25;
-    elements.bgMusic.play().catch(() => {});
-    startParticles();
+function renderStack() {
+    elements.stackDiagram.innerHTML = portfolioData.stack.map((row, index) => `
+        <div class="stack-row reveal" style="--i:${index}">
+            <span class="stack-layer">${esc(row.layer)}</span>
+            <span class="stack-tech">${esc(row.tech)}</span>
+            <span class="stack-note">${esc(row.note)}</span>
+        </div>
+    `).join("");
 }
 
-elements.enterScreen.addEventListener("click", enterWebsite, { passive: false });
-elements.enterScreen.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        enterWebsite();
-    }
-}, { passive: false });
+function fillList(node, items) {
+    node.innerHTML = items
+        .map((item, index) => `<li class="reveal" style="--i:${index}">${esc(item)}</li>`)
+        .join("");
+}
 
-const menuButtons = document.querySelectorAll(".menu-btn");
+renderStats();
+renderFeatured();
+renderTimeline();
+renderServers();
+renderDevIndex();
+renderStack();
+fillList(elements.practiceList, portfolioData.practices);
+fillList(elements.networkList, portfolioData.network);
+fillList(elements.schoolList, portfolioData.school);
+
+/* ---------- dekorácia avatara ---------- */
+/* Zobrazí sa, len ak assets/avatar-deco.png naozaj existuje. */
+if (elements.avatarDeco) {
+    const decoSrc = elements.avatarDeco.dataset.deco;
+    const probe = new Image();
+    probe.onload = () => {
+        elements.avatarDeco.src = decoSrc;
+        elements.avatarDeco.hidden = false;
+    };
+    probe.src = decoSrc;
+}
+
+/* ---------- navigácia ---------- */
+
+const menuButtons = document.querySelectorAll(".nav-item");
 const pages = document.querySelectorAll(".page");
-const javaViews = document.querySelectorAll(".java-view");
+const devViews = document.querySelectorAll(".dev-view");
+const sectionIds = Array.from(menuButtons).map((button) => button.dataset.section);
 
-function showSection(sectionId) {
+let currentSection = "home";
+
+function setBreadcrumb(text) {
+    if (elements.breadcrumb) elements.breadcrumb.textContent = text;
+    document.title = text === "Domov" ? "Leonardo | AstrakSK" : `${text} · AstrakSK`;
+}
+
+function showSection(sectionId, { updateHash = true } = {}) {
     const page = document.getElementById(sectionId);
     if (!page) return;
+
+    currentSection = sectionId;
 
     menuButtons.forEach((button) => {
         const isActive = button.dataset.section === sectionId;
@@ -374,55 +613,207 @@ function showSection(sectionId) {
     });
 
     pages.forEach((item) => item.classList.toggle("active", item.id === sectionId));
-    elements.breadcrumb.textContent = sectionLabels[sectionId];
-    elements.contentScroll.scrollTo({ top: 0, behavior: "auto" });
+    setBreadcrumb(sectionLabels[sectionId]);
+    window.scrollTo({ top: 0, behavior: "auto" });
+    replayReveals(page);
+    updateScrollHint();
 
-    if (sectionId === "java") showJavaView("overview");
+    if (sectionId === "dev") showDevView("index", null, { updateHash: false });
+    if (updateHash) location.hash = sectionId === "home" ? "" : sectionId;
+}
+
+function showDevView(viewName, project = null, { updateHash = true } = {}) {
+    if (project) renderDevDetail(project);
+
+    devViews.forEach((view) => {
+        const isActive = view.dataset.devView === viewName;
+        view.classList.toggle("active", isActive);
+        if (isActive) replayReveals(view);
+    });
+
+    setBreadcrumb(viewName === "detail" && project
+        ? `Vývoj / ${project.name}`
+        : sectionLabels.dev);
+
+    window.scrollTo({ top: 0, behavior: "auto" });
+
+    if (updateHash) {
+        location.hash = viewName === "detail" && project ? `dev/${project.id}` : "dev";
+    }
+}
+
+function openProject(projectId, options = {}) {
+    const project = portfolioData.devProjects.find((item) => item.id === projectId);
+    if (!project) return false;
+
+    if (currentSection !== "dev") showSection("dev", { updateHash: false });
+    showDevView("detail", project, options);
+    return true;
 }
 
 menuButtons.forEach((button) => {
-    button.addEventListener("click", () => showSection(button.dataset.section), { passive: false });
+    button.addEventListener("click", () => showSection(button.dataset.section));
 });
 
-document.querySelectorAll(".expandable-trigger").forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-        const content = document.getElementById(trigger.getAttribute("aria-controls"));
-        const willOpen = trigger.getAttribute("aria-expanded") !== "true";
+/* otvorenie projektu z ktoréhokoľvek zoznamu */
+document.addEventListener("click", (event) => {
+    const card = event.target.closest("[data-project-id]");
+    if (card) {
+        openProject(card.dataset.projectId);
+        return;
+    }
 
-        trigger.setAttribute("aria-expanded", String(willOpen));
-        content.hidden = !willOpen;
-        content.classList.toggle("open", willOpen);
-    }, { passive: false });
+    const route = event.target.closest("[data-dev-route]");
+    if (route) showDevView(route.dataset.devRoute);
 });
 
-function showJavaView(viewName, project = null) {
-    if (project) renderJavaDetail(project);
+/* rozbaľovacie bloky — plynulá výška namiesto skoku */
 
-    javaViews.forEach((view) => {
-        view.classList.toggle("active", view.dataset.javaView === viewName);
-    });
+function toggleFold(trigger) {
+    const body = document.getElementById(trigger.getAttribute("aria-controls"));
+    const willOpen = trigger.getAttribute("aria-expanded") !== "true";
 
-    const breadcrumbLabels = {
-        overview: "Java Developer",
-        projects: "Java / Projects",
-        detail: "Java / Project Detail"
+    trigger.setAttribute("aria-expanded", String(willOpen));
+
+    if (reducedMotion()) {
+        body.hidden = !willOpen;
+        if (willOpen) replayReveals(body);
+        return;
+    }
+
+    body.style.overflow = "hidden";
+
+    if (willOpen) {
+        body.hidden = false;
+        replayReveals(body);
+        const target = body.scrollHeight;
+        body.style.height = "0px";
+        requestAnimationFrame(() => {
+            body.style.height = `${target}px`;
+        });
+    } else {
+        body.style.height = `${body.scrollHeight}px`;
+        requestAnimationFrame(() => {
+            body.style.height = "0px";
+        });
+    }
+
+    const finish = (event) => {
+        if (event.propertyName !== "height") return;
+        body.removeEventListener("transitionend", finish);
+        body.style.height = "";
+        body.style.overflow = "";
+        if (!willOpen) body.hidden = true;
+        else updateScrollHint();
     };
 
-    elements.breadcrumb.textContent = breadcrumbLabels[viewName];
-    elements.contentScroll.scrollTo({ top: 0, behavior: "auto" });
+    body.addEventListener("transitionend", finish);
 }
 
-document.querySelectorAll("[data-java-route]").forEach((button) => {
-    button.addEventListener("click", () => showJavaView(button.dataset.javaRoute), { passive: false });
+document.querySelectorAll(".fold-trigger").forEach((trigger) => {
+    trigger.addEventListener("click", () => toggleFold(trigger));
 });
 
-elements.javaProjectList.addEventListener("click", (event) => {
-    const card = event.target.closest("[data-project-id]");
-    if (!card) return;
+/* odkazy na konkrétnu sekciu alebo projekt */
+function applyHash({ updateHash = false } = {}) {
+    const raw = location.hash.replace(/^#\/?/, "");
+    if (!raw) {
+        showSection("home", { updateHash });
+        return;
+    }
 
-    const project = portfolioData.javaProjects.find((item) => item.id === card.dataset.projectId);
-    if (project) showJavaView("detail", project);
-}, { passive: false });
+    const [section, projectId] = raw.split("/");
+
+    if (section === "dev" && projectId) {
+        if (openProject(projectId, { updateHash })) return;
+    }
+
+    if (sectionIds.includes(section)) {
+        showSection(section, { updateHash });
+        return;
+    }
+
+    showSection("home", { updateHash });
+}
+
+window.addEventListener("hashchange", () => applyHash());
+
+/* klávesnica: 1-6 prepína sekcie, Escape sa vracia zo detailu projektu */
+document.addEventListener("keydown", (event) => {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) return;
+    if (!elements.enterScreen.classList.contains("hidden")) return;
+
+    if (event.key === "Escape") {
+        const detailOpen = document.querySelector('.dev-view[data-dev-view="detail"].active');
+        if (detailOpen) showDevView("index");
+        return;
+    }
+
+    const index = Number(event.key) - 1;
+    if (Number.isInteger(index) && index >= 0 && index < sectionIds.length) {
+        showSection(sectionIds[index]);
+    }
+});
+
+/* ---------- hudba ---------- */
+
+const SOUND_KEY = "astraksk:sound";
+let soundOn = true;
+
+try {
+    soundOn = localStorage.getItem(SOUND_KEY) !== "off";
+} catch (error) {
+    soundOn = true;
+}
+
+function paintSoundButton() {
+    elements.soundToggle.querySelector("use")
+        .setAttribute("href", soundOn ? "#i-sound" : "#i-muted");
+    elements.soundToggle.setAttribute("aria-pressed", String(soundOn));
+    elements.soundToggle.setAttribute("aria-label", soundOn ? "Vypnúť hudbu" : "Zapnúť hudbu");
+}
+
+function applySound() {
+    if (soundOn) {
+        elements.bgMusic.volume = 0.22;
+        elements.bgMusic.play().catch(() => {});
+    } else {
+        elements.bgMusic.pause();
+    }
+    paintSoundButton();
+}
+
+elements.soundToggle.addEventListener("click", () => {
+    soundOn = !soundOn;
+    try {
+        localStorage.setItem(SOUND_KEY, soundOn ? "on" : "off");
+    } catch (error) {
+        /* súkromný režim — voľba platí len do zatvorenia karty */
+    }
+    applySound();
+});
+
+paintSoundButton();
+
+/* ---------- vstupná obrazovka ---------- */
+
+function enterWebsite() {
+    if (elements.enterScreen.classList.contains("hidden")) return;
+
+    elements.enterScreen.classList.add("hidden");
+    applySound();
+    startParticles();
+}
+
+elements.enterScreen.addEventListener("pointerdown", enterWebsite);
+elements.enterScreen.addEventListener("click", enterWebsite);
+elements.enterScreen.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        enterWebsite();
+    }
+});
 
 const canvas = document.getElementById("particles");
 const context = canvas.getContext("2d");
@@ -617,3 +1008,113 @@ motionQuery.addEventListener("change", () => {
     drawParticleFrame(false);
     if (!motionQuery.matches && elements.enterScreen.classList.contains("hidden")) startParticles();
 }, { passive: true });
+
+/* ================= animácie a šípky ================= */
+
+function reducedMotion() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/* --- postupné odkrývanie obsahu --- */
+
+const revealObserver = "IntersectionObserver" in window
+    ? new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("in");
+            revealObserver.unobserve(entry.target);
+            if (entry.target.classList.contains("stat")) countUp(entry.target);
+        });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: .08 })
+    : null;
+
+function watchReveals(scope = document) {
+    const items = scope.querySelectorAll(".reveal:not(.in)");
+
+    if (!revealObserver || reducedMotion()) {
+        items.forEach((item) => {
+            item.classList.add("in");
+            if (item.classList.contains("stat")) countUp(item);
+        });
+        return;
+    }
+
+    items.forEach((item) => revealObserver.observe(item));
+}
+
+/* Pri prepnutí sekcie alebo rozbalení bloku sa nábeh prehrá znova. */
+function replayReveals(scope) {
+    if (!scope) return;
+
+    scope.querySelectorAll(".reveal").forEach((item) => {
+        item.classList.remove("in");
+        const number = item.querySelector(".stat-num");
+        if (number) number.textContent = "0";
+    });
+
+    watchReveals(scope);
+}
+
+/* --- naratávanie čísel --- */
+
+function countUp(stat) {
+    const node = stat.querySelector(".stat-num");
+    if (!node) return;
+
+    const target = Number(node.dataset.count);
+    if (!Number.isFinite(target)) return;
+
+    if (reducedMotion()) {
+        node.textContent = String(target);
+        return;
+    }
+
+    const duration = 900;
+    const started = performance.now();
+
+    const step = (now) => {
+        const progress = Math.min((now - started) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        node.textContent = String(Math.round(target * eased));
+        if (progress < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+}
+
+/* --- šípka, keď je na stránke ešte obsah nižšie --- */
+
+const scrollHint = document.createElement("button");
+scrollHint.className = "scroll-hint";
+scrollHint.type = "button";
+scrollHint.setAttribute("aria-label", "Posunúť nižšie");
+scrollHint.innerHTML = '<span class="scroll-hint-arrow" aria-hidden="true"></span>';
+document.body.appendChild(scrollHint);
+
+scrollHint.addEventListener("click", () => {
+    window.scrollBy({
+        top: Math.round(window.innerHeight * .82),
+        behavior: reducedMotion() ? "auto" : "smooth"
+    });
+});
+
+function updateScrollHint() {
+    const remaining = document.documentElement.scrollHeight
+        - window.scrollY
+        - window.innerHeight;
+
+    scrollHint.classList.toggle("visible", remaining > 120);
+}
+
+window.addEventListener("scroll", updateScrollHint, { passive: true });
+window.addEventListener("resize", updateScrollHint, { passive: true });
+
+/* Výška stránky sa mení aj bez scrollu — rozbalením bloku, prepnutím sekcie,
+   doťahaním fontu. Bez tohto sa šípka objaví až pri prvom posunutí. */
+if ("ResizeObserver" in window) {
+    new ResizeObserver(() => updateScrollHint()).observe(document.body);
+}
+
+watchReveals();
+applyHash();
+updateScrollHint();

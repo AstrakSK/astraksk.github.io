@@ -4,297 +4,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfólio Leonarda / AstrakSK - Minecraft infraštruktúra, Java vývoj, siete a bezpečná prevádzka.">
+    <meta name="description" content="Leonardo / AstrakSK — Minecraft prevádzka, vývoj pluginov a módov v Jave a Kotline, self-hosted infraštruktúra.">
     <title>Leonardo | AstrakSK</title>
 
     <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
     <link rel="preload" href="assets/fonts/zen-dots-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Font Awesome loaded asynchronously so it does not block first paint -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" as="style"
-        onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    </noscript>
 </head>
 
 <body>
+    <svg class="sprite" aria-hidden="true" focusable="false">
+        <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M16 9.5a4 4 0 0 1 0 5"/></symbol>
+        <symbol id="i-muted" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="m16 10 4 4M20 10l-4 4"/></symbol>
+        <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+    </svg>
+
     <div id="enterScreen" role="button" tabindex="0" aria-label="Vstúpiť na stránku">
         <div class="enter-content">
             <h1>Leonardo</h1>
-            <p>Click anywhere to enter</p>
+            <p class="enter-hint">Klikni kamkoľvek</p>
         </div>
     </div>
 
     <div class="background" aria-hidden="true"></div>
     <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
 
-    <audio id="bgMusic" loop preload="metadata">
+    <audio id="bgMusic" loop preload="none">
         <source src="assets/music.mp3" type="audio/mpeg">
     </audio>
 
-    <main class="dashboard">
-        <aside class="sidebar">
-            <div class="identity">
-                <div class="avatar-frame">
-                    <span class="avatar-glow" aria-hidden="true"></span>
-                    <img src="assets/avatar.webp" alt="Leonardo avatar" class="avatar" width="112" height="112" decoding="async">
+    <div class="shell">
+        <aside class="rail">
+            <div class="rail-top">
+                <div class="identity">
+                    <div class="avatar-frame">
+                        <img src="assets/discord-avatar.png" alt="" class="avatar" width="104" height="104" decoding="async">
+                        <img alt="" class="avatar-deco" data-deco="assets/avatar-deco.png" width="130" height="130" decoding="async" hidden>
+                    </div>
+                    <div>
+                        <h1 class="name">Leonardo</h1>
+                        <p class="nickname">AstrakSK</p>
+                    </div>
                 </div>
-                <div class="identity-copy">
-                    <p class="eyebrow">Digital profile</p>
-                    <h1 class="name">Leonardo</h1>
-                    <p class="nickname">AstrakSK</p>
-                    <p class="subtitle">Minecraft Infrastructure · Java Development · Networks</p>
-                </div>
+
+                <p class="tagline">
+                    Prevádzka Minecraft serverov, vývoj pluginov a módov,
+                    vlastná infraštruktúra.
+                </p>
             </div>
 
-            <nav class="section-menu" aria-label="Sekcie portfólia">
-                <button class="menu-btn active" type="button" data-section="home" aria-selected="true">
-                    <i class="fa-solid fa-house"></i><span>Home</span>
-                </button>
-                <button class="menu-btn featured" type="button" data-section="minecraft" aria-selected="false">
-                    <i class="fa-solid fa-cube"></i><span>Minecraft Administrator</span>
-                </button>
-                <button class="menu-btn featured" type="button" data-section="java" aria-selected="false">
-                    <i class="fa-brands fa-java"></i><span>Java Developer</span>
-                </button>
-                <button class="menu-btn" type="button" data-section="security" aria-selected="false">
-                    <i class="fa-solid fa-shield-halved"></i><span>CyberSecurity</span>
-                </button>
-                <button class="menu-btn" type="button" data-section="cisco" aria-selected="false">
-                    <i class="fa-solid fa-network-wired"></i><span>Cisco</span>
-                </button>
-                <button class="menu-btn" type="button" data-section="school" aria-selected="false">
-                    <i class="fa-solid fa-graduation-cap"></i><span>IT School</span>
-                </button>
+            <nav class="nav" aria-label="Sekcie">
+                <button class="nav-item active" type="button" data-section="home" aria-selected="true">Domov</button>
+                <button class="nav-item" type="button" data-section="minecraft" aria-selected="false">Minecraft</button>
+                <button class="nav-item" type="button" data-section="dev" aria-selected="false">Vývoj</button>
+                <button class="nav-item" type="button" data-section="infra" aria-selected="false">Infraštruktúra</button>
+                <button class="nav-item" type="button" data-section="network" aria-selected="false">Siete</button>
+                <button class="nav-item" type="button" data-section="school" aria-selected="false">Škola</button>
             </nav>
 
-            <a class="discord-btn" id="discordButton" href="https://discord.com/users/700729479068385362"
-                target="_blank" rel="noopener noreferrer">
-                <i class="fa-brands fa-discord"></i>
-                <span class="discord-text">
-                    <small>Discord · otvoriť profil</small>
+            <div class="rail-foot">
+                <a class="discord-link" href="https://discord.com/users/700729479068385362" target="_blank" rel="noopener noreferrer">
+                    <span>Discord</span>
                     <strong>astraksk</strong>
-                </span>
-                <i class="fa-solid fa-arrow-up-right-from-square external-icon"></i>
-            </a>
+                </a>
+                <button class="sound-btn" id="soundToggle" type="button" aria-pressed="false" aria-label="Zapnúť hudbu">
+                    <svg class="ico"><use href="#i-muted"/></svg>
+                </button>
+            </div>
         </aside>
 
-        <section class="workspace" aria-live="polite">
-            <header class="workspace-header">
-                <p>Portfolio / <strong id="breadcrumb">Home</strong></p>
-                <p class="status"><i></i> Available online</p>
-            </header>
-
-            <div class="content-scroll" id="contentScroll">
-                <article class="page active" id="home">
-                    <header class="page-heading">
-                        <span class="section-icon"><i class="fa-solid fa-house"></i></span>
-                        <div>
-                            <p class="section-label">Profile overview</p>
-                            <h2>Leonardo <span>/ AstrakSK</span></h2>
-                        </div>
-                    </header>
-
-                    <p class="lead">
-                        Som študent informačných a sieťových technológií so zameraním na
-                        Minecraft infraštruktúru, Java vývoj a stabilnú prevádzku serverových riešení.
+        <main class="main" id="contentScroll">
+            <article class="page active" id="home">
+                <header class="hero">
+                    <h2 class="hero-title">Staviam veci,<br>ktoré musia bežať aj&nbsp;keď<br>sa nikto nepozerá.</h2>
+                    <p class="hero-lead">
+                        Šesť rokov spravujem Minecraft servery — od konfigurácie a výkonu až po
+                        vlastné pluginy tam, kde hotové riešenie nestačilo. Posledný rok k tomu
+                        pribudol Kotlin, backend a vlastný server, na ktorom to celé beží.
                     </p>
+                </header>
 
-                    <div class="profile-grid">
-                        <div class="info-card"><span>Name</span><strong>Leonardo</strong></div>
-                        <div class="info-card"><span>Age</span><strong>18</strong></div>
-                        <div class="info-card"><span>Location</span><strong>Slovakia</strong></div>
-                        <div class="info-card"><span>Education</span><strong>SPŠE Zochova</strong></div>
-                        <div class="info-card featured-info"><span>Primary focus</span><strong>Minecraft Infrastructure</strong></div>
-                        <div class="info-card featured-info"><span>Experience</span><strong>6+ years</strong></div>
-                    </div>
+                <dl class="readout" id="statReadout"></dl>
 
-                    <section class="statement">
-                        <div>
-                            <span>Strongest areas</span>
-                            <strong>Minecraft operations & Java development</strong>
-                        </div>
-                        <p>
-                            Navrhujem a prevádzkujem technické riešenia, ktoré musia zostať stabilné,
-                            udržiavateľné a pripravené na rast komunity. Najviac skúseností mám so
-                            serverovou/sieťovou infraštruktúrou, výkonom a trocha s vlastnými pluginmi.
-                        </p>
-                    </section>
+                <section class="section">
+                    <h3 class="section-label">Na čom teraz robím</h3>
+                    <div class="index-list" id="featuredList"></div>
+                </section>
+            </article>
 
-                    <section class="wip" aria-label="Stav stránky">
-                        <span class="wip-label">Loading</span>
-                        <div class="wip-bar" role="progressbar" aria-label="Stránka sa priebežne dopĺňa"></div>
-                        <p class="wip-note">Stránka ešte nie je kompletná — informácie priebežne dopĺňam a dorábam.</p>
-                    </section>
-                </article>
-
-                <article class="page" id="minecraft">
-                    <header class="page-heading">
-                        <span class="section-icon"><i class="fa-solid fa-cube"></i></span>
-                        <div>
-                            <p class="section-label">Primary expertise</p>
-                            <h2>Minecraft <span>Administrator</span></h2>
-                        </div>
-                    </header>
-
-                    <p class="lead">
-                        Viac ako šesť rokov spravujem Minecraft servery, ich technické zázemie
-                        a riešenia potrebné pre spoľahlivú prevádzku herných komunít.
+            <article class="page" id="minecraft">
+                <header class="section-head">
+                    <h2 class="section-title">Minecraft</h2>
+                    <p class="section-lead">
+                        Začalo to jedným serverom v roku 2020. Odvtedy prešlo cez pozície
+                        developera aj co-ownera, cez proxy siete, databázy a zálohovanie —
+                        a nakoniec cez vlastný projekt postavený od nuly.
                     </p>
+                </header>
 
-                    <div class="expertise-grid">
-                        <div class="expertise-card"><i class="fa-solid fa-server"></i><span><strong>Server operations</strong>Nasadzovanie, konfigurácia a každodenná prevádzka.</span></div>
-                        <div class="expertise-card"><i class="fa-solid fa-gauge-high"></i><span><strong>Performance</strong>Profilovanie, optimalizácia a riešenie stability.</span></div>
-                        <div class="expertise-card"><i class="fa-solid fa-database"></i><span><strong>Infrastructure</strong>Proxy siete, databázy, zálohy a interné nástroje.</span></div>
-                    </div>
+                <div class="mc-split">
+                    <figure class="skin-figure">
+                        <img src="assets/skin.webp" alt="Minecraft skin AstrakSK" width="256" height="512" decoding="async">
+                        <figcaption>AstrakSK</figcaption>
+                    </figure>
 
-                    <div class="expandable-list">
-                        <section class="expandable">
-                            <button class="expandable-trigger" type="button" aria-expanded="false" aria-controls="minecraftTimeline">
-                                <span><i class="fa-solid fa-timeline"></i><strong>Timeline</strong><small>Servery, obdobia a technické míľniky</small></span>
-                                <i class="fa-solid fa-chevron-down chevron"></i>
+                    <div class="mc-content">
+                        <section class="fold">
+                            <button class="fold-trigger" type="button" aria-expanded="false" aria-controls="minecraftTimeline">
+                                <span class="fold-copy">
+                                    <strong>Časová os</strong>
+                                    <small>Servery, pozície a technické míľniky</small>
+                                </span>
+                                <span class="chevron" aria-hidden="true"></span>
                             </button>
-                            <div class="expandable-content" id="minecraftTimeline" hidden>
-                                <div class="expandable-body">
-                                    <div class="section-intro">
-                                        <span>Experience timeline</span>
-                                        <p>Chronologický prehľad serverov, zodpovedností a dôležitých technických rozhodnutí.</p>
-                                    </div>
-                                    <div class="timeline" id="timelineList"></div>
-                                </div>
+                            <div class="fold-body" id="minecraftTimeline" hidden>
+                                <div class="timeline" id="timelineList"></div>
                             </div>
                         </section>
 
-                        <section class="expandable">
-                            <button class="expandable-trigger" type="button" aria-expanded="false" aria-controls="minecraftProjects">
-                                <span><i class="fa-solid fa-folder-open"></i><strong>Projects</strong><small>História, komunita, problémy a výsledky</small></span>
-                                <i class="fa-solid fa-chevron-down chevron"></i>
+                        <section class="fold">
+                            <button class="fold-trigger" type="button" aria-expanded="false" aria-controls="minecraftProjects">
+                                <span class="fold-copy">
+                                    <strong>Servery</strong>
+                                    <small>Projekty, na ktorých som robil</small>
+                                </span>
+                                <span class="chevron" aria-hidden="true"></span>
                             </button>
-                            <div class="expandable-content" id="minecraftProjects" hidden>
-                                <div class="expandable-body">
-                                    <div class="section-intro">
-                                        <span>Server projects</span>
-                                        <p>Rozšíriteľné prípadové štúdie projektov od prvého konceptu až po technickú prevádzku.</p>
-                                    </div>
-                                    <div class="minecraft-projects" id="minecraftProjectList"></div>
-                                </div>
+                            <div class="fold-body" id="minecraftProjects" hidden>
+                                <div class="server-list" id="minecraftProjectList"></div>
                             </div>
                         </section>
                     </div>
-                </article>
+                </div>
+            </article>
 
-                <article class="page" id="java">
-                    <section class="java-view active" data-java-view="overview">
-                        <header class="page-heading">
-                            <span class="section-icon"><i class="fa-brands fa-java"></i></span>
-                            <div>
-                                <p class="section-label">Technical portfolio</p>
-                                <h2>Java <span>Developer</span></h2>
-                            </div>
-                        </header>
-
-                        <p class="lead">
-                            Vyvíjam serverové pluginy, utility a backendové riešenia s dôrazom na
-                            čitateľnú architektúru, výkon a dlhodobú údržbu.
+            <article class="page" id="dev">
+                <section class="dev-view active" data-dev-view="index">
+                    <header class="section-head">
+                        <h2 class="section-title">Vývoj</h2>
+                        <p class="section-lead">
+                            Pluginy pre Paper, klientské módy pre Fabric, jedna Android aplikácia
+                            a backend k nej. Väčšina vznikla preto, že som na daný problém nenašiel
+                            riešenie, ktoré by robilo presne to, čo som potreboval.
                         </p>
-
-                        <div class="expertise-grid">
-                            <div class="expertise-card"><i class="fa-solid fa-puzzle-piece"></i><span><strong>Plugins & mods</strong>Funkcie pre Paper, Spigot a vlastné serverové systémy.</span></div>
-                            <div class="expertise-card"><i class="fa-solid fa-screwdriver-wrench"></i><span><strong>Utilities</strong>Interné nástroje, automatizácia a administračné workflow.</span></div>
-                            <div class="expertise-card"><i class="fa-solid fa-code-branch"></i><span><strong>Backend solutions</strong>API, databázy a komunikácia medzi službami.</span></div>
-                        </div>
-
-                        <button class="primary-action" type="button" data-java-route="projects">
-                            Explore Java Projects <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </section>
-
-                    <section class="java-view" data-java-view="projects">
-                        <button class="back-button" type="button" data-java-route="overview">
-                            <i class="fa-solid fa-arrow-left"></i> Back to overview
-                        </button>
-                        <p class="section-label">Java portfolio</p>
-                        <h2 class="view-title">Projects</h2>
-                        <p class="view-intro">Pluginy, módy, utility a backendové riešenia v jednom rozšíriteľnom zozname.</p>
-                        <div class="java-projects" id="javaProjectList"></div>
-                    </section>
-
-                    <section class="java-view" data-java-view="detail">
-                        <button class="back-button" type="button" data-java-route="projects">
-                            <i class="fa-solid fa-arrow-left"></i> Back to projects
-                        </button>
-
-                        <div id="javaProjectDetail"></div>
-                    </section>
-                </article>
-
-                <article class="page" id="security">
-                    <header class="page-heading">
-                        <span class="section-icon"><i class="fa-solid fa-shield-halved"></i></span>
-                        <div>
-                            <p class="section-label">Secure operations</p>
-                            <h2>Cyber<span>Security</span></h2>
-                        </div>
                     </header>
-                    <p class="lead">
-                        Zameriavam sa na ochranu serverov, služieb, prístupov a infraštruktúry
-                        v prostrediach, kde je bezpečnosť súčasťou každodennej prevádzky.
-                    </p>
-                    <div class="expertise-grid">
-                        <div class="expertise-card"><i class="fa-solid fa-lock"></i><span><strong>Access protection</strong>Prístupové práva, bezpečná konfigurácia a kontrola služieb.</span></div>
-                        <div class="expertise-card"><i class="fa-solid fa-eye"></i><span><strong>Monitoring</strong>Sledovanie udalostí, dostupnosti a prevádzkových rizík.</span></div>
-                        <div class="expertise-card"><i class="fa-solid fa-shield"></i><span><strong>Infrastructure security</strong>Odolná prevádzka serverov, sietí a interných systémov.</span></div>
-                    </div>
-                </article>
 
-                <article class="page" id="cisco">
-                    <header class="page-heading">
-                        <span class="section-icon"><i class="fa-solid fa-network-wired"></i></span>
-                        <div>
-                            <p class="section-label">Network infrastructure</p>
-                            <h2>Cisco <span>Networking</span></h2>
-                        </div>
-                    </header>
-                    <p class="lead">
-                        Budujem praktické skúsenosti s návrhom a správou sieťovej infraštruktúry,
-                        podporené vzdelávaním v Cisco Networking Academy.
-                    </p>
-                    <div class="expertise-grid">
-                        <div class="expertise-card"><i class="fa-solid fa-sitemap"></i><span><strong>Network design</strong>Návrh prehľadnej a spoľahlivej sieťovej komunikácie.</span></div>
-                        <div class="expertise-card"><i class="fa-solid fa-network-wired"></i><span><strong>Infrastructure</strong>Konfigurácia, prevádzka a riešenie problémov konektivity.</span></div>
-                        <div class="expertise-card"><i class="fa-solid fa-certificate"></i><span><strong>Cisco Academy</strong>Praktické laboratóriá a rozvoj profesionálnych sieťových základov.</span></div>
-                    </div>
-                </article>
+                    <div class="index-list" id="devProjectList" role="list"></div>
+                </section>
 
-                <article class="page" id="school">
-                    <header class="page-heading">
-                        <span class="section-icon"><i class="fa-solid fa-graduation-cap"></i></span>
-                        <div>
-                            <p class="section-label">Education</p>
-                            <h2>IT <span>School</span></h2>
-                        </div>
-                    </header>
-                    <p class="lead">
-                        Študujem Informačné a sieťové technológie na SPŠE Zochova. Školské základy
-                        dopĺňam vlastnými servermi, vývojom a praktickou správou infraštruktúry.
+                <section class="dev-view" data-dev-view="detail">
+                    <button class="back-btn" type="button" data-dev-route="index">
+                        <svg class="ico"><use href="#i-back"/></svg> Späť na zoznam
+                    </button>
+                    <div id="devProjectDetail"></div>
+                </section>
+            </article>
+
+            <article class="page" id="infra">
+                <header class="section-head">
+                    <h2 class="section-title">Infraštruktúra</h2>
+                    <p class="section-lead">
+                        Vlastný VPS s Ubuntu, na ňom Docker a reverzná proxy, ktorá rozdeľuje
+                        prevádzku medzi navzájom oddelené služby. Postavené a spravované celé mnou,
+                        vrátane certifikátov, záloh a prístupov.
                     </p>
-                    <section class="statement compact">
-                        <div><span>Role in portfolio</span><strong>Foundation for practical work</strong></div>
-                        <p>Vzdelanie vnímam ako technický základ; hlavnú časť skúseností budujem realizáciou vlastných projektov.</p>
-                    </section>
-                </article>
-            </div>
-        </section>
-    </main>
+                </header>
+
+                <div class="stack" id="stackDiagram"></div>
+
+                <section class="section">
+                    <h3 class="section-label">Ako to prevádzkujem</h3>
+                    <ul class="rule-list" id="practiceList"></ul>
+                </section>
+            </article>
+
+            <article class="page" id="network">
+                <header class="section-head">
+                    <h2 class="section-title">Siete</h2>
+                    <p class="section-lead">
+                        Sieťové základy zo školy a Cisco Networking Academy si overujem na vlastnej
+                        infraštruktúre — adresovanie, smerovanie a DNS nie sú teória, keď od nich
+                        závisí, či je server dostupný.
+                    </p>
+                </header>
+                <ul class="rule-list" id="networkList"></ul>
+            </article>
+
+            <article class="page" id="school">
+                <header class="section-head">
+                    <h2 class="section-title">Škola</h2>
+                    <p class="section-lead">
+                        Študujem Informačné a sieťové technológie na SPŠE Zochova v Bratislave.
+                        Škola dáva základ v elektrotechnike, sieťach a programovaní; zvyšok
+                        dopĺňam vlastnými projektmi.
+                    </p>
+                </header>
+                <ul class="rule-list" id="schoolList"></ul>
+            </article>
+        </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
