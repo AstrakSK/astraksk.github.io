@@ -14,7 +14,12 @@
     <link rel="preload" href="assets/fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" href="assets/fonts/fonts.css">
-    <link rel="stylesheet" href="style.css">
+
+    <!-- Pri každom vydaní zvýš ?v= tu aj pri script.js na konci súboru.
+         Bez toho môžu vracajúci sa návštevníci dostať nové HTML so starým
+         CSS a JS (Pages posiela Cache-Control: max-age=600) a stránka sa
+         im rozsype. Fonty verziu nemajú, tie sa nemenia. -->
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 
 <body>
@@ -210,7 +215,7 @@
         </main>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=3"></script>
 </body>
 
 </html>
