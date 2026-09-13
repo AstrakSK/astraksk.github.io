@@ -15,11 +15,11 @@
 
     <link rel="stylesheet" href="assets/fonts/fonts.css">
 
-    <!-- Pri každom vydaní zvýš ?v= tu aj pri script.js na konci súboru.
-         Bez toho môžu vracajúci sa návštevníci dostať nové HTML so starým
-         CSS a JS (Pages posiela Cache-Control: max-age=600) a stránka sa
-         im rozsype. Fonty verziu nemajú, tie sa nemenia. -->
-    <link rel="stylesheet" href="style.css?v=3">
+    <!-- Pri každom vydaní zvýš ?v= tu aj pri brain.js a script.js na konci
+         súboru. Bez toho môžu vracajúci sa návštevníci dostať nové HTML so
+         starým CSS a JS (Pages posiela Cache-Control: max-age=600) a stránka
+         sa im rozsype. Fonty verziu nemajú, tie sa nemenia. -->
+    <link rel="stylesheet" href="style.css?v=18">
 </head>
 
 <body>
@@ -27,6 +27,7 @@
         <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M16 9.5a4 4 0 0 1 0 5"/></symbol>
         <symbol id="i-muted" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="m16 10 4 4M20 10l-4 4"/></symbol>
         <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+        <symbol id="i-brain" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="6" r="1.4"/><circle cx="19" cy="7" r="1.4"/><circle cx="6" cy="18" r="1.4"/><circle cx="18" cy="17" r="1.4"/><path d="m6.2 7 4 3.6M17.8 8l-4 2.7M7 16.9l3.6-3M16.6 16l-3-2.4"/></symbol>
     </svg>
 
     <div id="enterScreen" role="button" tabindex="0" aria-label="Vstúpiť na stránku">
@@ -37,7 +38,9 @@
     </div>
 
     <div class="background" aria-hidden="true"></div>
-    <canvas id="particles" aria-hidden="true"></canvas>
+    <canvas id="brainNet" aria-hidden="true"></canvas>
+    <canvas id="brain" aria-hidden="true"></canvas>
+    <div id="brainHud"></div>
     <div class="grain" aria-hidden="true"></div>
 
     <audio id="bgMusic" loop preload="none">
@@ -71,6 +74,7 @@
                 <button class="nav-item" type="button" data-section="infra" aria-selected="false">Infraštruktúra</button>
                 <button class="nav-item" type="button" data-section="network" aria-selected="false">Siete</button>
                 <button class="nav-item" type="button" data-section="school" aria-selected="false">Škola</button>
+                <button class="nav-item" type="button" data-section="ai" aria-selected="false">AI spoločníci</button>
             </nav>
 
             <div class="rail-foot">
@@ -212,10 +216,23 @@
                 </header>
                 <ul class="rule-list" id="schoolList"></ul>
             </article>
+
+            <article class="page" id="ai">
+                <header class="section-head">
+                    <h2 class="section-title">AI spoločníci</h2>
+                    <p class="section-lead">
+                        Nerobím na tom sám. Tri modely mi kryjú tri rôzne časti práce —
+                        každý tam, kde mi reálne šetrí čas. Rozhodnutia a výsledná podoba
+                        zostávajú na mne.
+                    </p>
+                </header>
+                <div class="server-list" id="aiList"></div>
+            </article>
         </main>
     </div>
 
-    <script src="script.js?v=3"></script>
+    <script src="brain.js?v=18"></script>
+    <script src="script.js?v=18"></script>
 </body>
 
 </html>

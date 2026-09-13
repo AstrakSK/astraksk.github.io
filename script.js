@@ -388,6 +388,24 @@ const portfolioData = {
         "Riešenie výpadkov konektivity od kábla po aplikačnú vrstvu."
     ],
 
+    ai: [
+        {
+            name: "Claude",
+            role: "kód",
+            note: "Pomáha priamo pri tvorbe — písanie a úpravy kódu, refaktoring, hľadanie chýb aj prechádzanie cudzích projektov."
+        },
+        {
+            name: "ChatGPT",
+            role: "grafika",
+            note: "Obrázky, bannery a vizuály — od podkladov pre servery po grafiku na web."
+        },
+        {
+            name: "Gemini",
+            role: "research",
+            note: "Rešerš a overovanie — dohľadávanie podkladov, porovnávanie riešení a zbieranie zdrojov."
+        }
+    ],
+
     school: [
         "Informačné a sieťové technológie, SPŠE Zochova Bratislava.",
         "Siete a Cisco Networking Academy.",
@@ -421,6 +439,7 @@ const elements = {
     practiceList: document.getElementById("practiceList"),
     networkList: document.getElementById("networkList"),
     schoolList: document.getElementById("schoolList"),
+    aiList: document.getElementById("aiList"),
     avatarDeco: document.querySelector(".avatar-deco")
 };
 
@@ -430,7 +449,8 @@ const sectionLabels = {
     dev: "Vývoj",
     infra: "Infraštruktúra",
     network: "Siete",
-    school: "Škola"
+    school: "Škola",
+    ai: "AI spoločníci"
 };
 
 /* ---------- vykreslenie ---------- */
@@ -468,7 +488,9 @@ function renderTimeline() {
 
         return `
             <section class="timeline-year">
-                <h4 class="timeline-year-label">${esc(block.year)}</h4>
+                <h4 class="timeline-year-label">
+                    <button class="node-jump" type="button" data-brain-section="minecraft" data-brain-label="${esc(block.year)}">${esc(block.year)}</button>
+                </h4>
                 <div class="timeline-months">
                     ${block.months.map((monthBlock) => `
                         <div class="timeline-month">
@@ -493,7 +515,7 @@ function renderServers() {
     elements.minecraftProjectList.innerHTML = portfolioData.servers.map((server, index) => `
         <article class="server reveal" style="--i:${index}">
             <header class="server-head">
-                <h4>${esc(server.name)}</h4>
+                <h4><button class="node-jump" type="button" data-brain-section="minecraft" data-brain-label="${esc(server.name)}">${esc(server.name)}</button></h4>
                 <span class="state state-${server.status === "aktívny" ? "live" : server.status === "pozastavený" ? "wip" : "past"}">${esc(server.status)}</span>
             </header>
             <p class="server-meta">${esc(server.role)} · ${esc(server.period)}</p>
@@ -548,6 +570,18 @@ function renderDevDetail(project) {
     `;
 }
 
+function renderAi() {
+    elements.aiList.innerHTML = portfolioData.ai.map((tool, index) => `
+        <article class="server reveal" style="--i:${index}">
+            <header class="server-head">
+                <h4>${esc(tool.name)}</h4>
+                <span class="state state-live">${esc(tool.role)}</span>
+            </header>
+            <p class="note">${esc(tool.note)}</p>
+        </article>
+    `).join("");
+}
+
 function renderStack() {
     elements.stackDiagram.innerHTML = portfolioData.stack.map((row, index) => `
         <div class="stack-row reveal" style="--i:${index}">
@@ -573,6 +607,7 @@ renderStack();
 fillList(elements.practiceList, portfolioData.practices);
 fillList(elements.networkList, portfolioData.network);
 fillList(elements.schoolList, portfolioData.school);
+renderAi();
 
 /* ---------- dekorácia avatara ---------- */
 /* Zobrazí sa, len ak assets/avatar-deco.png naozaj existuje. */
@@ -614,6 +649,10 @@ function showSection(sectionId, { updateHash = true } = {}) {
 
     pages.forEach((item) => item.classList.toggle("active", item.id === sectionId));
     setBreadcrumb(sectionLabels[sectionId]);
+
+    /* pozadie odletí k uzlu tejto sekcie */
+    if (window.Brain) window.Brain.goToSection(sectionId);
+
     window.scrollTo({ top: 0, behavior: "auto" });
     replayReveals(page);
     updateScrollHint();
@@ -624,6 +663,7 @@ function showSection(sectionId, { updateHash = true } = {}) {
 
 function showDevView(viewName, project = null, { updateHash = true } = {}) {
     if (project) renderDevDetail(project);
+    if (viewName !== "detail" && window.Brain) window.Brain.clearNode();
 
     devViews.forEach((view) => {
         const isActive = view.dataset.devView === viewName;
@@ -648,7 +688,17 @@ function openProject(projectId, options = {}) {
 
     if (currentSection !== "dev") showSection("dev", { updateHash: false });
     showDevView("detail", project, options);
+
+    /* pozadie doletí po vlákne ku guličke tohto projektu */
+    if (window.Brain) window.Brain.goToNode("dev", { project: project.id });
     return true;
+}
+
+/* Preklik na položku, ktorá má svoj uzol v pozadí — rok časovej osi,
+   server. Kamera k nej odletí, obsah zostáva tam, kde je. */
+function jumpToNode(section, label) {
+    if (!window.Brain) return;
+    window.Brain.goToNode(section, { label });
 }
 
 menuButtons.forEach((button) => {
@@ -657,6 +707,12 @@ menuButtons.forEach((button) => {
 
 /* otvorenie projektu z ktoréhokoľvek zoznamu */
 document.addEventListener("click", (event) => {
+    const jump = event.target.closest("[data-brain-section]");
+    if (jump) {
+        jumpToNode(jump.dataset.brainSection, jump.dataset.brainLabel);
+        return;
+    }
+
     const card = event.target.closest("[data-project-id]");
     if (card) {
         openProject(card.dataset.projectId);
@@ -669,11 +725,47 @@ document.addEventListener("click", (event) => {
 
 /* rozbaľovacie bloky — plynulá výška namiesto skoku */
 
+/* Ktorá gulička patrí ktorému rozbaľovaciemu bloku. */
+function foldTarget(bodyId) {
+    if (bodyId === "minecraftTimeline") {
+        return { section: "minecraft", matcher: { caption: "časová os" } };
+    }
+
+    if (bodyId === "minecraftProjects") {
+        const first = portfolioData.servers[0];
+        return first ? { section: "minecraft", matcher: { label: first.name } } : null;
+    }
+
+    return null;
+}
+
+/* Otvorený blok zatvorí ten vedľa seba — dva rozvinuté zoznamy nad
+   sebou by znamenali, že po prelete kamery nevidno, kam sa priletelo. */
+function closeSiblingFolds(trigger) {
+    const fold = trigger.closest(".fold");
+    if (!fold || !fold.parentElement) return;
+
+    fold.parentElement.querySelectorAll(".fold > .fold-trigger").forEach((other) => {
+        if (other === trigger) return;
+        if (other.getAttribute("aria-expanded") !== "true") return;
+        toggleFold(other);
+    });
+}
+
 function toggleFold(trigger) {
     const body = document.getElementById(trigger.getAttribute("aria-controls"));
     const willOpen = trigger.getAttribute("aria-expanded") !== "true";
 
     trigger.setAttribute("aria-expanded", String(willOpen));
+
+    if (willOpen) {
+        closeSiblingFolds(trigger);
+
+        const target = foldTarget(body.id);
+        if (target && window.Brain) window.Brain.goToNode(target.section, target.matcher);
+    } else if (window.Brain) {
+        window.Brain.clearNode();
+    }
 
     if (reducedMotion()) {
         body.hidden = !willOpen;
@@ -803,7 +895,7 @@ function enterWebsite() {
 
     elements.enterScreen.classList.add("hidden");
     applySound();
-    startParticles();
+    if (window.Brain) window.Brain.start();
 }
 
 elements.enterScreen.addEventListener("pointerdown", enterWebsite);
@@ -815,199 +907,25 @@ elements.enterScreen.addEventListener("keydown", (event) => {
     }
 });
 
-const canvas = document.getElementById("particles");
-const context = canvas.getContext("2d");
-const particles = [];
-const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-const CONNECTION_DISTANCE = 100;
-const MAX_CONNECTIONS = 1;
-const CONNECTION_REFRESH_RATE = 10;
+/* ---------- digitálny mozog ---------- */
+/* Sieť uzlov na pozadí žije v brain.js. Tu sa len prepojí s obsahom:
+   pozná dáta, vie prepnúť sekciu a otvoriť projekt. */
 
-let cachedConnections = [];
-let animationFrame = 0;
-let animationRunning = false;
-let renderedFrames = 0;
-let previousFrameTime = 0;
-let resizeTimer;
+const brain = window.Brain || null;
 
-function particleLimit() {
-    if (window.innerWidth < 720) return 16;
-    if (window.innerWidth < 1440) return 40;
-    return 50;
-}
-
-function targetFrameInterval() {
-    if (window.innerWidth < 720) return 1000 / 30;
-    if (window.innerWidth < 1440) return 1000 / 40;
-    return 1000 / 50;
-}
-
-function createParticle() {
-    return {
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        radius: Math.random() * 1.5 + 0.55,
-        speedX: (Math.random() - 0.5) * 0.26,
-        speedY: (Math.random() - 0.5) * 0.26,
-        opacity: Math.random() * 0.38 + 0.14
-    };
-}
-
-function resizeCanvas() {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.35);
-    canvas.width = Math.floor(window.innerWidth * pixelRatio);
-    canvas.height = Math.floor(window.innerHeight * pixelRatio);
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
-    const desiredCount = particleLimit();
-    while (particles.length < desiredCount) particles.push(createParticle());
-    particles.length = desiredCount;
-    cachedConnections = buildConnections();
-}
-
-function buildConnections() {
-    const grid = new Map();
-    const connections = [];
-    const usedPairs = new Set();
-
-    particles.forEach((particle, index) => {
-        const key = `${Math.floor(particle.x / CONNECTION_DISTANCE)},${Math.floor(particle.y / CONNECTION_DISTANCE)}`;
-        if (!grid.has(key)) grid.set(key, []);
-        grid.get(key).push(index);
-    });
-
-    particles.forEach((particle, firstIndex) => {
-        const column = Math.floor(particle.x / CONNECTION_DISTANCE);
-        const row = Math.floor(particle.y / CONNECTION_DISTANCE);
-        const nearby = [];
-
-        for (let xOffset = -1; xOffset <= 1; xOffset += 1) {
-            for (let yOffset = -1; yOffset <= 1; yOffset += 1) {
-                const cell = grid.get(`${column + xOffset},${row + yOffset}`);
-                if (!cell) continue;
-
-                cell.forEach((secondIndex) => {
-                    if (secondIndex === firstIndex) return;
-                    const second = particles[secondIndex];
-                    const dx = particle.x - second.x;
-                    const dy = particle.y - second.y;
-                    const distanceSquared = dx * dx + dy * dy;
-
-                    if (distanceSquared < CONNECTION_DISTANCE * CONNECTION_DISTANCE) {
-                        nearby.push({ secondIndex, distanceSquared });
-                    }
-                });
+if (brain) {
+    brain.build(portfolioData, {
+        sectionLabels,
+        onNavigate(target) {
+            if (!target) return;
+            if (target.type === "project") {
+                openProject(target.id);
+                return;
             }
+            showSection(target.id);
         }
-
-        nearby.sort((a, b) => a.distanceSquared - b.distanceSquared);
-
-        nearby.slice(0, MAX_CONNECTIONS).forEach(({ secondIndex, distanceSquared }) => {
-            const pair = firstIndex < secondIndex
-                ? `${firstIndex}:${secondIndex}`
-                : `${secondIndex}:${firstIndex}`;
-
-            if (usedPairs.has(pair)) return;
-            usedPairs.add(pair);
-            connections.push({ firstIndex, secondIndex, distanceSquared });
-        });
-    });
-
-    return connections;
-}
-
-function drawParticleFrame(updatePositions) {
-    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-    particles.forEach((particle) => {
-        if (updatePositions) {
-            particle.x += particle.speedX;
-            particle.y += particle.speedY;
-
-            if (particle.x < 0) particle.x = window.innerWidth;
-            if (particle.x > window.innerWidth) particle.x = 0;
-            if (particle.y < 0) particle.y = window.innerHeight;
-            if (particle.y > window.innerHeight) particle.y = 0;
-        }
-
-        context.beginPath();
-        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        context.fillStyle = `rgba(153, 112, 255, ${particle.opacity})`;
-        context.fill();
-    });
-
-    if (renderedFrames % CONNECTION_REFRESH_RATE === 0) {
-        cachedConnections = buildConnections();
-    }
-
-    cachedConnections.forEach(({ firstIndex, secondIndex, distanceSquared }) => {
-        const distance = Math.sqrt(distanceSquared);
-        if (distance >= CONNECTION_DISTANCE) return;
-
-        const first = particles[firstIndex];
-        const second = particles[secondIndex];
-        const opacity = 0.08 * (1 - distance / CONNECTION_DISTANCE);
-        
-        context.beginPath();
-        context.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
-        context.lineWidth = 0.6;
-        context.moveTo(first.x, first.y);
-        context.lineTo(second.x, second.y);
-        context.stroke();
     });
 }
-
-function animateParticles(timestamp) {
-    if (!animationRunning) return;
-
-    if (timestamp - previousFrameTime >= targetFrameInterval()) {
-        previousFrameTime = timestamp;
-        renderedFrames += 1;
-        drawParticleFrame(true);
-    }
-
-    animationFrame = requestAnimationFrame(animateParticles);
-}
-
-function startParticles() {
-    if (animationRunning || document.hidden || motionQuery.matches) return;
-    animationRunning = true;
-    animationFrame = requestAnimationFrame(animateParticles);
-}
-
-function stopParticles() {
-    animationRunning = false;
-    cancelAnimationFrame(animationFrame);
-}
-
-resizeCanvas();
-drawParticleFrame(false);
-
-window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-        stopParticles();
-        resizeCanvas();
-        drawParticleFrame(false);
-        if (elements.enterScreen.classList.contains("hidden")) startParticles();
-    }, 150);
-}, { passive: true });
-
-document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-        stopParticles();
-    } else if (elements.enterScreen.classList.contains("hidden")) {
-        startParticles();
-    }
-}, { passive: true });
-
-motionQuery.addEventListener("change", () => {
-    stopParticles();
-    drawParticleFrame(false);
-    if (!motionQuery.matches && elements.enterScreen.classList.contains("hidden")) startParticles();
-}, { passive: true });
 
 /* ================= animácie a šípky ================= */
 

@@ -86,7 +86,9 @@ button {
     inset: 0;
     z-index: -3;
     background: url("assets/background.webp") center / cover no-repeat;
-    opacity: .5;
+    /* Sieť uzlov potrebuje takmer čierny podklad, inak sa tenké spoje
+       stratia v textúre. Fotka zostáva len ako jemná nerovnomernosť. */
+    opacity: .09;
 }
 
 body::before {
@@ -95,16 +97,51 @@ body::before {
     inset: 0;
     z-index: -2;
     background:
-        radial-gradient(ellipse 70% 50% at 82% 0%, rgba(124, 58, 227, .2), transparent 70%),
-        radial-gradient(ellipse 60% 45% at 5% 100%, rgba(80, 40, 180, .13), transparent 70%),
-        rgba(5, 4, 11, .82);
+        radial-gradient(ellipse 70% 50% at 82% 0%, rgba(124, 58, 227, .11), transparent 70%),
+        radial-gradient(ellipse 60% 45% at 5% 100%, rgba(80, 40, 180, .08), transparent 70%),
+        rgba(4, 3, 9, .93);
 }
 
-#particles {
+#brain {
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
+    transition: opacity .6s ease;
+}
+
+/* Internet má vlastné plátno. Kreslí sa na zlomku rozlíšenia a sem
+   sa roztiahne — to roztiahnutie je rozmazanie zadarmo. CSS blur
+   vyzeral rovnako, ale bez GPU stál 26 snímkov za sekundu. */
+#brainNet {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    opacity: .92;
+}
+
+/* Vinetácia — okraje siete musia zhasínať, inak vyzerá orezane.
+   Priveľa jej ale zhasne aj vzdialenú sieť internetu, ktorá je
+   rozprestretá práve pri okrajoch. */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    /* Dve vrstvy naraz:
+       1. závoj nad rozmazaným internetom v mieste, kde leží text —
+          sieť tam nesmie súperiť s čítaním. Nad pásmom mozgu je
+          priehľadný, aby grafika naľavo zostala živá;
+       2. vineta, ktorá zháša okraje, nech sieť nepôsobí orezane. */
+    background:
+        linear-gradient(to right,
+            transparent 0,
+            transparent calc(var(--brain-band) - 40px),
+            rgba(5, 4, 11, .2) calc(var(--brain-band) + 80px),
+            rgba(5, 4, 11, .2) 100%),
+        radial-gradient(ellipse 88% 82% at 50% 50%, transparent 46%, rgba(5, 4, 11, .69) 100%);
 }
 
 /* jemná zrnitosť — bráni tomu, aby veľké plochy pôsobili plocho */
@@ -166,11 +203,25 @@ body::before {
 
 /* ---------- kostra ---------- */
 
+/* Pásmo, v ktorom žije mozog. Pod 1180 px je nulové — vtedy je mozog
+   len pozadie a naviguje sa menu. brain.js si tú istú hodnotu číta,
+   aby sa scéna a layout nerozišli. */
+:root {
+    --brain-band: 0px;
+}
+
+@media (min-width: 1180px) {
+    :root {
+        --brain-band: clamp(300px, 27vw, 460px);
+    }
+}
+
 .shell {
     position: relative;
     z-index: 1;
-    width: min(1200px, 100%);
-    margin-inline: auto;
+    width: min(1200px, calc(100% - var(--brain-band)));
+    margin-left: var(--brain-band);
+    margin-right: auto;
     display: grid;
     grid-template-columns: 236px minmax(0, 1fr);
     gap: clamp(34px, 5vw, 78px);
@@ -751,6 +802,56 @@ body::before {
     font-size: .78rem;
 }
 
+/* ---------- skok na uzol v pozadí ---------- */
+
+/* Názov, ktorý má v sieti svoju guličku. Vyzerá ako text, ale klik
+   naň tam odletí kamerou — preto len jemný náznak, nie tlačidlo. */
+
+.node-jump {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    position: relative;
+    transition: color .22s ease;
+}
+
+.node-jump::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0;
+    transform: scaleX(.4);
+    transform-origin: left;
+    transition: opacity .22s ease, transform .22s ease;
+}
+
+.node-jump:hover,
+.node-jump:focus-visible {
+    color: var(--violet-hi);
+}
+
+.node-jump:hover::after,
+.node-jump:focus-visible::after {
+    opacity: .5;
+    transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .node-jump,
+    .node-jump::after {
+        transition: none;
+    }
+}
+
 /* ---------- detail projektu ---------- */
 
 .dev-view {
@@ -1287,4 +1388,162 @@ body::before {
     .fold-body {
         transition: none;
     }
+}
+
+/* =============== digitálny mozog =============== */
+
+/* prepínač v ráme */
+
+/* vrstva nad plátnom */
+
+/* Mozog nie je samostatný režim — je stále na mieste, vedľa obsahu.
+   Vrstva prekrýva celé okno, ale klikať sa dá len do uzlov. */
+#brainHud {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.shell {
+    transition: opacity .45s ease, filter .45s ease;
+}
+
+.brain-layer {
+    position: absolute;
+    inset: 0;
+}
+
+/* uzol ako tlačidlo */
+
+/* Grafika je dekorácia — uzly nechytajú myš ani fokus. */
+/* Bod uzla kreslí canvas. Tento prvok je iba popisok, ktorý sa naň
+   zavesí — vlastná bodka v DOM by robila dva body nad sebou. */
+.brain-node {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-left: 17px;
+    display: none;
+    align-items: center;
+    border: 0;
+    background: none;
+    color: var(--paper);
+    cursor: default;
+    pointer-events: none;
+    opacity: var(--depth, 1);
+    will-change: transform;
+}
+
+.brain-node.shown {
+    display: flex;
+}
+.brain-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    text-align: left;
+    white-space: nowrap;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, .9);
+}
+
+.brain-text strong {
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .02em;
+    color: rgba(242, 238, 255, .92);
+}
+
+.brain-text small {
+    font-family: var(--mono);
+    font-size: .56rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--dim);
+}
+
+.brain-node.is-hub .brain-text strong {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--violet-hi);
+}
+
+/* karta s informáciou */
+
+/* horná lišta */
+
+.brain-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--brain-band);
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    padding: var(--s4) var(--s4);
+    pointer-events: none;
+}
+
+.brain-path {
+    font-family: var(--mono);
+    font-size: .62rem;
+    letter-spacing: .24em;
+    color: var(--dim);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- mozog: krok späť, priblíženie ---------- */
+
+/* Stred úrovne je väčší a pokojnejší — nie je to cieľ kliknutia,
+   je to miesto, kde práve stojíš. */
+.brain-node.is-center .brain-text strong {
+    font-family: "Zen Dots", system-ui, sans-serif;
+    font-size: .86rem;
+    color: var(--paper);
+}
+
+/* Bez pásma sa mozog neovláda — popisky aj pomôcky sú zbytočné. */
+@media (max-width: 1179px) {
+    .brain-bar {
+        display: none;
+    }
+}
+
+
+
+@media (max-width: 680px) {
+    .brain-text small {
+        display: none;
+    }
+
+    .brain-text strong {
+        font-size: .72rem;
+    }
+
+    .brain-bar {
+        padding: var(--s3) var(--s3);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #brainHud,
+    .shell {
+        transition: none;
+    }
+}
+
+/* Štítok pri pravom okraji sa preklopí na druhú stranu bodu. */
+
+.brain-node.flip {
+    padding-left: 0;
+    padding-right: 17px;
+}
+
+.brain-node.flip .brain-text {
+    align-items: flex-end;
+    text-align: right;
 }

@@ -1,0 +1,4 @@
+# Lokálne nastavenia nástrojov — obsahujú cesty k tomuto stroju,
+# do repa nepatria.
+.claude/
+.serena/
