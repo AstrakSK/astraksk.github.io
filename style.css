@@ -1026,32 +1026,57 @@ body::after {
         gap: 0;
     }
 
+    /* Rám sa rozpustí do mriežky, aby sa menu mohlo prilepiť k hornému
+       okraju celej stránky — sticky vnútri krátkeho rámu by nedržal. */
     .rail {
-        position: static;
-        height: auto;
-        border-right: 0;
-        border-bottom: 1px solid var(--hair);
-        margin-right: 0;
-        padding: var(--s5) 0 var(--s4);
-        overflow: visible;
+        display: contents;
+    }
+
+    .rail-top {
+        padding-top: var(--s5);
     }
 
     .tagline {
         max-width: 46ch;
+        margin-top: var(--s3);
     }
 
+    /* Jeden riadok, posúva sa do strany. Tri riadky tlačidiel tlačili
+       obsah do polovice obrazovky. */
     .nav {
-        margin-top: var(--s4);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        order: 1;
+        margin: 0 calc(var(--pad) * -1);
+        padding: var(--s2) var(--pad);
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         gap: var(--s1);
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        background: rgba(6, 5, 12, .86);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--hair);
+    }
+
+    .nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .main {
+        order: 2;
     }
 
     .nav-item {
+        flex: none;
         padding: 7px 13px;
         border: 1px solid var(--hair);
         border-radius: 100px;
         font-size: .88rem;
+        white-space: nowrap;
     }
 
     .nav-item::before {
@@ -1068,13 +1093,17 @@ body::after {
     }
 
     .rail-foot {
-        margin-top: var(--s4);
-        padding-top: var(--s4);
-        border-top: 1px solid var(--hair);
+        margin-top: 0;
+        padding: var(--s3) 0 var(--s4);
     }
 
     .main {
         padding: var(--s5) 0 var(--s6);
+    }
+
+    /* Mozog je tu len pozadie a leží priamo pod textom. */
+    #brain {
+        opacity: .55;
     }
 
     .row-project {
@@ -1084,6 +1113,18 @@ body::after {
 
     .row-text {
         grid-column: 1 / -1;
+    }
+
+    /* Rok padol do úzkej ľavej bunky a zarovnaný doprava plával
+       v inej výške pri každom riadku. */
+    .row-year {
+        grid-column: 1 / -1;
+        text-align: left;
+    }
+
+    /* Priamy odkaz (#dev) by nadpis schoval pod prilepené menu. */
+    .page {
+        scroll-margin-top: 64px;
     }
 
     .stack-row {
@@ -1111,18 +1152,19 @@ body::after {
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        gap: var(--s4);
-        padding-bottom: var(--s4);
-        border-bottom: 1px solid var(--hair);
+        gap: var(--s2);
     }
 
+    /* Obrázok je štvorec a postava v ňom zaberá len stredný pás —
+       pri 88 px bola sotva na palec. Čiaru pod ňou kreslí prvý fold. */
     .skin-figure img {
-        width: 88px;
+        width: 132px;
+        margin: -12px -34px -12px -28px;
     }
 
     .skin-figure::before {
         top: 0;
-        left: 44px;
+        left: 38px;
         width: 110px;
         height: 100%;
     }
@@ -1130,6 +1172,11 @@ body::after {
     .row-featured {
         grid-template-columns: minmax(0, 1fr) auto;
         row-gap: var(--s1);
+    }
+
+    .row-featured .state {
+        grid-row: 1;
+        grid-column: 2;
     }
 
     .timeline-year {

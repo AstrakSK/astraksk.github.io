@@ -1136,8 +1136,10 @@
 
     function drawLabels(strength) {
         /* V pásme nesú popisky DOM prvky — kreslený štítok by sa
-           s nimi zdvojil. Kreslí sa len vtedy, keď pásmo nie je. */
-        if (interactive()) return;
+           s nimi zdvojil. Kreslí sa len vtedy, keď pásmo nie je.
+           Na úzkej obrazovke leží text obsahu priamo nad scénou —
+           štítok by sa s ním bil. */
+        if (interactive() || width <= 940) return;
 
         const node = selected || center;
         if (!node || !node.vis || node.fade < 0.2 || node.ps < 0.12) return;

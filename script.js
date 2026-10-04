@@ -31,15 +31,6 @@ const portfolioData = {
             year: "2026",
             months: [
                 {
-                    month: "Október",
-                    events: [
-                        {
-                            title: "Flip skončil",
-                            note: "Koniec najdlhšej etapy v pozícii co-ownera."
-                        }
-                    ]
-                },
-                {
                     month: "September",
                     events: [
                         {
@@ -101,6 +92,15 @@ const portfolioData = {
                         {
                             title: "Developer na Fishcraft.cz, v tom istom mesiaci odchod",
                             note: "Vývoj, konfigurácia a technický rozvoj menšieho servera. Približne dva týždne po mojom odchode server postihol raid, ktorý výrazne ovplyvnil jeho ďalší vývoj."
+                        }
+                    ]
+                },
+                {
+                    month: "Február",
+                    events: [
+                        {
+                            title: "Flip skončil",
+                            note: "Koniec najdlhšej etapy v pozícii co-ownera."
                         }
                     ]
                 }
@@ -190,7 +190,7 @@ const portfolioData = {
             name: "Flip",
             status: "ukončené",
             role: "Co-owner",
-            period: "jún 2025 — október 2026",
+            period: "jún 2025 — február 2026",
             intro: "Predtým FLIPSMP. Zodpovednosť za technickú stránku servera a podiel na jeho smerovaní. Najdlhšie obdobie v pozícii co-ownera."
         },
         {
@@ -635,6 +635,16 @@ function setBreadcrumb(text) {
     document.title = text === "Domov" ? "Leonardo | AstrakSK" : `${text} · AstrakSK`;
 }
 
+/* Na mobile je nad obsahom hlavička a menu je prilepené hore. Skok na
+   úplný vrch by po každom prepnutí ukázal znova hlavičku — skočí sa preto
+   len na začiatok obsahu, a to iba vtedy, keď je stránka pod ním. */
+function scrollToContent() {
+    const nav = document.querySelector(".nav");
+    const stuck = getComputedStyle(nav).position === "sticky" ? nav.offsetHeight : 0;
+    const top = elements.contentScroll.getBoundingClientRect().top + window.scrollY - stuck;
+    window.scrollTo({ top: Math.max(0, Math.min(window.scrollY, top)), behavior: "auto" });
+}
+
 function showSection(sectionId, { updateHash = true } = {}) {
     const page = document.getElementById(sectionId);
     if (!page) return;
@@ -645,6 +655,8 @@ function showSection(sectionId, { updateHash = true } = {}) {
         const isActive = button.dataset.section === sectionId;
         button.classList.toggle("active", isActive);
         button.setAttribute("aria-selected", String(isActive));
+        /* v posuvnom menu na mobile nech je aktívna položka vidno */
+        if (isActive) button.scrollIntoView({ block: "nearest", inline: "nearest" });
     });
 
     pages.forEach((item) => item.classList.toggle("active", item.id === sectionId));
@@ -653,7 +665,7 @@ function showSection(sectionId, { updateHash = true } = {}) {
     /* pozadie odletí k uzlu tejto sekcie */
     if (window.Brain) window.Brain.goToSection(sectionId);
 
-    window.scrollTo({ top: 0, behavior: "auto" });
+    scrollToContent();
     replayReveals(page);
     updateScrollHint();
 
@@ -675,7 +687,7 @@ function showDevView(viewName, project = null, { updateHash = true } = {}) {
         ? `Vývoj / ${project.name}`
         : sectionLabels.dev);
 
-    window.scrollTo({ top: 0, behavior: "auto" });
+    scrollToContent();
 
     if (updateHash) {
         location.hash = viewName === "detail" && project ? `dev/${project.id}` : "dev";
@@ -898,7 +910,8 @@ function enterWebsite() {
     if (window.Brain) window.Brain.start();
 }
 
-elements.enterScreen.addEventListener("pointerdown", enterWebsite);
+/* Nie pointerdown: Chromium udelí oprávnenie prehrávať až pri mousedown, ktorý
+   príde po ňom — play() by sa zamietol a click by už našiel obrazovku skrytú. */
 elements.enterScreen.addEventListener("click", enterWebsite);
 elements.enterScreen.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {

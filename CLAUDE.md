@@ -29,7 +29,7 @@ GitHub Pages posiela `Cache-Control: max-age=600`. Pri **každom** vydaní zvý�
 v `index.html` naraz pre `style.css`, `brain.js` **aj** `script.js`. Bez toho dostane
 vracajúci sa návštevník nové HTML so starým CSS/JS a stránka sa rozsype.
 
-Aktuálne `v=18`. Fonty verziu nemajú — tie sa nemenia.
+Aktuálne `v=19`. Fonty verziu nemajú — tie sa nemenia.
 
 ### 2. Sekcie musia sedieť na troch miestach naraz
 
