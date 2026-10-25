@@ -4,235 +4,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Leonardo / AstrakSK — Minecraft prevádzka, vývoj pluginov a módov v Jave a Kotline, self-hosted infraštruktúra.">
-    <title>Leonardo | AstrakSK</title>
+    <title>Leonardo (AstrakSK) — Minecraft servery, pluginy a infraštruktúra</title>
+    <meta name="description" content="Leonardo / AstrakSK — šesť rokov prevádzky Minecraft serverov, vlastné pluginy a módy v Jave a Kotline, self-hosted infraštruktúra na vlastnom VPS.">
+    <meta name="theme-color" content="#05080c">
+    <meta name="color-scheme" content="dark">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://astraksk.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="sk_SK">
+    <meta property="og:site_name" content="Leonardo | AstrakSK">
+    <meta property="og:url" content="https://astraksk.com/">
+    <meta property="og:title" content="Leonardo (AstrakSK) — Minecraft servery, pluginy a infraštruktúra">
+    <meta property="og:description" content="Šesť rokov prevádzky Minecraft serverov, vlastné pluginy a módy, Kotlin, backend a vlastný server, na ktorom to celé beží.">
+    <meta property="og:image" content="https://astraksk.com/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Leonardo (AstrakSK) — Minecraft servery, pluginy a infraštruktúra">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Leonardo (AstrakSK) — Minecraft servery, pluginy a infraštruktúra">
+    <meta name="twitter:description" content="Šesť rokov prevádzky Minecraft serverov, vlastné pluginy a módy, Kotlin, backend a vlastný server, na ktorom to celé beží.">
+    <meta name="twitter:image" content="https://astraksk.com/assets/og-image.jpg">
 
     <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
 
-    <link rel="preload" href="assets/fonts/zen-dots-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="assets/fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    
+    <!-- Triedu js dostane stránka hneď, aby sa reveal stavy neblikali. Bez JS
+         zostane všetok statický obsah viditeľný. -->
+    <script>document.documentElement.classList.add("js");</script>
 
-    <!-- Pri každom vydaní zvýš ?v= tu aj pri brain.js a script.js na konci
-         súboru. Bez toho môžu vracajúci sa návštevníci dostať nové HTML so
-         starým CSS a JS (Pages posiela Cache-Control: max-age=600) a stránka
-         sa im rozsype. Fonty verziu nemajú, tie sa nemenia. -->
-    <link rel="stylesheet" href="style.css?v=19">
+    <!-- Pri každom vydaní zvýš ?v= naraz pri style.css, bg.js a script.js.
+         Bez toho môžu vracajúci sa návštevníci dostať nové HTML so starým CSS
+         a JS (Pages posiela Cache-Control: max-age=600). Fonty verziu nemajú. -->
+    <link rel="stylesheet" href="style.css?v=23">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": "https://astraksk.com/#person",
+                "name": "Leonardo",
+                "alternateName": "AstrakSK",
+                "url": "https://astraksk.com/",
+                "image": "https://astraksk.com/assets/discord-avatar.png",
+                "jobTitle": "Vývojár a správca Minecraft serverov",
+                "sameAs": ["https://discord.com/users/700729479068385362"]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://astraksk.com/#website",
+                "url": "https://astraksk.com/",
+                "name": "Leonardo | AstrakSK",
+                "inLanguage": "sk",
+                "publisher": { "@id": "https://astraksk.com/#person" }
+            }
+        ]
+    }
+    </script>
 </head>
 
 <body>
     <svg class="sprite" aria-hidden="true" focusable="false">
-        <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M16 9.5a4 4 0 0 1 0 5"/></symbol>
+        <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M16 9.5a4 4 0 0 1 0 5"/><path d="M18.5 7a7.5 7.5 0 0 1 0 10"/></symbol>
         <symbol id="i-muted" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="m16 10 4 4M20 10l-4 4"/></symbol>
-        <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
-        <symbol id="i-brain" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="6" r="1.4"/><circle cx="19" cy="7" r="1.4"/><circle cx="6" cy="18" r="1.4"/><circle cx="18" cy="17" r="1.4"/><path d="m6.2 7 4 3.6M17.8 8l-4 2.7M7 16.9l3.6-3M16.6 16l-3-2.4"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A1.5 1.5 0 0 1 6.5 5H15"/></symbol>
+        <symbol id="i-discord" viewBox="0 0 24 24"><path d="M8.5 7.2c1-.3 2.2-.5 3.5-.5s2.5.2 3.5.5l.9-1.3c1.4.4 2.6 1 3.6 1.8 1.5 2.5 2.3 5.2 2.4 8.3-1.1.9-2.4 1.5-3.8 1.9l-.9-1.5c.5-.2 1-.4 1.4-.7-.2-.2-.5-.3-.7-.4-2.5 1.1-5.5 1.1-8 0-.3.1-.5.3-.7.4.4.3.9.5 1.4.7l-.9 1.5c-1.4-.4-2.7-1-3.8-1.9.1-3.1.9-5.8 2.4-8.3 1-.8 2.200-1.400 3.600-1.800z"/><circle cx="9.5" cy="12.5" r="1.1"/><circle cx="14.5" cy="12.5" r="1.1"/></symbol>
     </svg>
 
-    <div id="enterScreen" role="button" tabindex="0" aria-label="Vstúpiť na stránku">
-        <div class="enter-content">
-            <h1>Leonardo</h1>
-            <p class="enter-hint">Klikni kamkoľvek</p>
-        </div>
-    </div>
-
-    <div class="background" aria-hidden="true"></div>
-    <canvas id="brainNet" aria-hidden="true"></canvas>
-    <canvas id="brain" aria-hidden="true"></canvas>
-    <div id="brainHud"></div>
+    <a class="skip-link" href="#obsah">Preskočiť na obsah</a>
+    <div class="read-progress" id="readProgress" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div>
 
-    <audio id="bgMusic" loop preload="none">
-        <source src="assets/music.mp3" type="audio/mpeg">
-    </audio>
+    <header class="site-header" id="siteHeader">
+        <div class="header-inner">
+            <a class="brand" href="#top" aria-label="Leonardo, AstrakSK — späť hore">
+                <img class="brand-avatar" src="assets/avatar-72.webp" alt="" width="36" height="36" decoding="async">
+                <span class="brand-text">
+                    <strong>Leonardo</strong>
+                    <small>AstrakSK</small>
+                </span>
+            </a>
 
-    <div class="shell">
-        <aside class="rail">
-            <div class="rail-top">
-                <div class="identity">
-                    <div class="avatar-frame">
-                        <img src="assets/discord-avatar.png" alt="" class="avatar" width="104" height="104" decoding="async">
-                        <img alt="" class="avatar-deco" data-deco="assets/avatar-deco.png" width="130" height="130" decoding="async" hidden>
+            <nav class="site-nav" id="siteNav" aria-label="Hlavná navigácia">
+                <a href="#o-mne" data-nav="o-mne">O mne</a>
+                <a href="#projekty" data-nav="projekty">Projekty</a>
+                <a href="#minecraft" data-nav="minecraft">Minecraft</a>
+                <a href="#infrastruktura" data-nav="infrastruktura">Infraštruktúra</a>
+                <a href="#kontakt" data-nav="kontakt">Kontakt</a>
+                <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+            </nav>
+
+            <div class="header-actions">
+                <a class="btn btn-ghost btn-sm header-discord" href="https://discord.com/users/700729479068385362" target="_blank" rel="noopener noreferrer">
+                    <svg class="ico" aria-hidden="true"><use href="#i-discord"/></svg>
+                    Discord
+                </a>
+                <button class="burger" id="burger" type="button" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <nav class="mobile-nav" aria-label="Mobilná navigácia">
+            <a href="#o-mne" data-nav="o-mne" style="--i:0"><small>01</small>O mne</a>
+            <a href="#projekty" data-nav="projekty" style="--i:1"><small>02</small>Projekty</a>
+            <a href="#minecraft" data-nav="minecraft" style="--i:2"><small>03</small>Minecraft</a>
+            <a href="#infrastruktura" data-nav="infrastruktura" style="--i:3"><small>04</small>Infraštruktúra</a>
+            <a href="#kontakt" data-nav="kontakt" style="--i:4"><small>05</small>Kontakt</a>
+        </nav>
+        <a class="btn btn-primary mobile-discord" style="--i:5" href="https://discord.com/users/700729479068385362" target="_blank" rel="noopener noreferrer">
+            <svg class="ico" aria-hidden="true"><use href="#i-discord"/></svg>
+            Discord
+        </a>
+    </div>
+
+    <main id="obsah" tabindex="-1">
+
+        <!-- ============ HERO ============ -->
+        <section class="hero" id="top" aria-labelledby="heroTitle">
+            <canvas class="hero-canvas" id="heroBg" aria-hidden="true"></canvas>
+
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <div class="hero-meta hero-fade" style="--d:0">
+                        <p class="eyebrow">Leonardo · AstrakSK</p>
+                        <span class="chip"><i aria-hidden="true"></i>Bratislava · študent ISIT</span>
                     </div>
-                    <div>
-                        <h1 class="name">Leonardo</h1>
-                        <p class="nickname">AstrakSK</p>
+
+                    <h1 class="hero-title" id="heroTitle" aria-label="Staviam veci, ktoré musia bežať aj keď sa nikto nepozerá."><span class="w" aria-hidden="true"><span class="wi" style="--k:0">Staviam</span></span> <span class="w" aria-hidden="true"><span class="wi" style="--k:1">veci,</span></span> <span class="w" aria-hidden="true"><span class="wi" style="--k:2">ktoré</span></span> <span class="w" aria-hidden="true"><span class="wi" style="--k:3">musia</span></span> <span class="w" aria-hidden="true"><span class="wi grad" style="--k:4">bežať</span></span> <span class="w" aria-hidden="true"><span class="wi" style="--k:5">aj&nbsp;keď</span></span> <span class="w" aria-hidden="true"><span class="wi" style="--k:6">sa&nbsp;nikto</span></span> <span class="w" aria-hidden="true"><span class="wi grad" style="--k:7">nepozerá.</span></span></h1>
+
+                    <p class="hero-lead hero-fade" style="--d:6">
+                        Prevádzka Minecraft serverov, vývoj pluginov a módov,
+                        vlastná infraštruktúra.
+                    </p>
+
+                    <div class="hero-cta hero-fade" style="--d:7">
+                        <a class="btn btn-primary magnetic" href="#projekty">
+                            <span>Pozrieť projekty</span>
+                            <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg>
+                        </a>
+                        <a class="btn btn-ghost magnetic" href="https://discord.com/users/700729479068385362" target="_blank" rel="noopener noreferrer">
+                            <svg class="ico" aria-hidden="true"><use href="#i-discord"/></svg>
+                            <span>Napísať na Discord</span>
+                        </a>
                     </div>
                 </div>
 
-                <p class="tagline">
-                    Prevádzka Minecraft serverov, vývoj pluginov a módov,
-                    vlastná infraštruktúra.
-                </p>
+                <div class="hero-visual hero-fade" style="--d:4">
+                    <div class="avatar-stage">
+                        <div class="avatar-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                        <div class="avatar-orbit" aria-hidden="true"><i></i></div>
+                        <img class="avatar-img" src="assets/avatar-256.webp" srcset="assets/avatar-128.webp 128w, assets/avatar-256.webp 256w" sizes="(max-width: 899px) 112px, 320px" alt="Avatar Leonarda (AstrakSK)" width="256" height="256" fetchpriority="high">
+                    </div>
+                </div>
             </div>
 
-            <nav class="nav" aria-label="Sekcie">
-                <button class="nav-item active" type="button" data-section="home" aria-selected="true">Domov</button>
-                <button class="nav-item" type="button" data-section="minecraft" aria-selected="false">Minecraft</button>
-                <button class="nav-item" type="button" data-section="dev" aria-selected="false">Vývoj</button>
-                <button class="nav-item" type="button" data-section="infra" aria-selected="false">Infraštruktúra</button>
-                <button class="nav-item" type="button" data-section="network" aria-selected="false">Siete</button>
-                <button class="nav-item" type="button" data-section="school" aria-selected="false">Škola</button>
-                <button class="nav-item" type="button" data-section="ai" aria-selected="false">AI spoločníci</button>
-            </nav>
+            <a class="scroll-hint" href="#o-mne" aria-label="Scroll na ďalšiu sekciu">
+                <span>scroll</span>
+                <i aria-hidden="true"></i>
+            </a>
+        </section>
 
-            <div class="rail-foot">
-                <a class="discord-link" href="https://discord.com/users/700729479068385362" target="_blank" rel="noopener noreferrer">
-                    <span>Discord</span>
-                    <strong>astraksk</strong>
-                </a>
-                <button class="sound-btn" id="soundToggle" type="button" aria-pressed="false" aria-label="Zapnúť hudbu">
-                    <svg class="ico"><use href="#i-muted"/></svg>
-                </button>
+        <!-- ============ O MNE ============ -->
+        <section class="section" id="o-mne" aria-labelledby="aboutTitle">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-copy">
+                        <p class="eyebrow reveal">01 — O mne</p>
+                        <h2 class="section-title reveal" id="aboutTitle" style="--i:1">O mne</h2>
+                        <p class="about-lead reveal" style="--i:2">
+                            Šesť rokov spravujem Minecraft servery — od konfigurácie a výkonu až po
+                            vlastné pluginy tam, kde hotové riešenie nestačilo. Posledný rok k tomu
+                            pribudol Kotlin, backend a vlastný server, na ktorom to celé beží.
+                        </p>
+                    </div>
+                    <dl class="stats" id="statList"></dl>
+                </div>
             </div>
-        </aside>
+        </section>
 
-        <main class="main" id="contentScroll">
-            <article class="page active" id="home">
-                <header class="hero">
-                    <h2 class="hero-title">Staviam veci,<br>ktoré musia bežať aj&nbsp;keď<br>sa nikto nepozerá.</h2>
-                    <p class="hero-lead">
-                        Šesť rokov spravujem Minecraft servery — od konfigurácie a výkonu až po
-                        vlastné pluginy tam, kde hotové riešenie nestačilo. Posledný rok k tomu
-                        pribudol Kotlin, backend a vlastný server, na ktorom to celé beží.
+        <!-- ============ PROJEKTY ============ -->
+        <section class="section" id="projekty" aria-labelledby="projectsTitle">
+            <div class="container">
+                <header class="section-head">
+                    <p class="eyebrow reveal">02 — Projekty</p>
+                    <h2 class="section-title reveal" id="projectsTitle" style="--i:1">Projekty</h2>
+                    <p class="section-lead reveal" style="--i:2">
+                        Pluginy pre Paper, klientské módy pre Fabric, jedna Android aplikácia
+                        a backend k nej. Väčšina vznikla preto, že som na daný problém nenašiel
+                        riešenie, ktoré by robilo presne to, čo som potreboval.
                     </p>
                 </header>
 
-                <dl class="readout" id="statReadout"></dl>
+                <div class="bento" id="projectGrid">
+                    <noscript><p class="muted">Zoznam projektov sa načíta cez JavaScript.</p></noscript>
+                </div>
+            </div>
+        </section>
 
-                <section class="section">
-                    <h3 class="section-label">Na čom teraz robím</h3>
-                    <div class="index-list" id="featuredList"></div>
-                </section>
-            </article>
-
-            <article class="page" id="minecraft">
+        <!-- ============ MINECRAFT ============ -->
+        <section class="section" id="minecraft" aria-labelledby="mcTitle">
+            <div class="container">
                 <header class="section-head">
-                    <h2 class="section-title">Minecraft</h2>
-                    <p class="section-lead">
+                    <p class="eyebrow reveal">03 — Minecraft</p>
+                    <h2 class="section-title reveal" id="mcTitle" style="--i:1">Minecraft</h2>
+                    <p class="section-lead reveal" style="--i:2">
                         Začalo to jedným serverom v roku 2020. Odvtedy prešlo cez pozície
                         developera aj co-ownera, cez proxy siete, databázy a zálohovanie —
                         a nakoniec cez vlastný projekt postavený od nuly.
                     </p>
                 </header>
 
-                <div class="mc-split">
-                    <figure class="skin-figure">
-                        <img src="assets/skin.webp" alt="Minecraft skin AstrakSK" width="256" height="512" decoding="async">
-                        <figcaption>AstrakSK</figcaption>
-                    </figure>
+                <div class="mc-grid">
+                    <aside class="mc-side">
+                        <figure class="skin-figure">
+                            <img class="skin-img" src="assets/skin.webp" alt="Minecraft skin AstrakSK" width="512" height="512" decoding="async" loading="lazy">
+                            <div class="skin-podium" aria-hidden="true"><div class="skin-shadow"></div></div>
+                            <figcaption>AstrakSK</figcaption>
+                        </figure>
+                    </aside>
 
-                    <div class="mc-content">
-                        <section class="fold">
-                            <button class="fold-trigger" type="button" aria-expanded="false" aria-controls="minecraftTimeline">
-                                <span class="fold-copy">
-                                    <strong>Časová os</strong>
-                                    <small>Servery, pozície a technické míľniky</small>
-                                </span>
-                                <span class="chevron" aria-hidden="true"></span>
-                            </button>
-                            <div class="fold-body" id="minecraftTimeline" hidden>
-                                <div class="timeline" id="timelineList"></div>
-                            </div>
-                        </section>
+                    <div class="mc-main">
+                        <h3 class="subhead reveal">Servery</h3>
+                        <div class="server-grid" id="serverList"></div>
 
-                        <section class="fold">
-                            <button class="fold-trigger" type="button" aria-expanded="false" aria-controls="minecraftProjects">
-                                <span class="fold-copy">
-                                    <strong>Servery</strong>
-                                    <small>Projekty, na ktorých som robil</small>
-                                </span>
-                                <span class="chevron" aria-hidden="true"></span>
-                            </button>
-                            <div class="fold-body" id="minecraftProjects" hidden>
-                                <div class="server-list" id="minecraftProjectList"></div>
-                            </div>
-                        </section>
+                        <h3 class="subhead reveal">Časová os</h3>
+                        <div class="timeline" id="timeline">
+                            <div class="timeline-line" aria-hidden="true"><i id="timelineFill"></i></div>
+                        </div>
                     </div>
                 </div>
-            </article>
+            </div>
+        </section>
 
-            <article class="page" id="dev">
-                <section class="dev-view active" data-dev-view="index">
-                    <header class="section-head">
-                        <h2 class="section-title">Vývoj</h2>
-                        <p class="section-lead">
-                            Pluginy pre Paper, klientské módy pre Fabric, jedna Android aplikácia
-                            a backend k nej. Väčšina vznikla preto, že som na daný problém nenašiel
-                            riešenie, ktoré by robilo presne to, čo som potreboval.
-                        </p>
-                    </header>
-
-                    <div class="index-list" id="devProjectList" role="list"></div>
-                </section>
-
-                <section class="dev-view" data-dev-view="detail">
-                    <button class="back-btn" type="button" data-dev-route="index">
-                        <svg class="ico"><use href="#i-back"/></svg> Späť na zoznam
-                    </button>
-                    <div id="devProjectDetail"></div>
-                </section>
-            </article>
-
-            <article class="page" id="infra">
+        <!-- ============ INFRAŠTRUKTÚRA ============ -->
+        <section class="section" id="infrastruktura" aria-labelledby="infraTitle">
+            <div class="container">
                 <header class="section-head">
-                    <h2 class="section-title">Infraštruktúra</h2>
-                    <p class="section-lead">
+                    <p class="eyebrow reveal">04 — Infraštruktúra</p>
+                    <h2 class="section-title reveal" id="infraTitle" style="--i:1">Infraštruktúra</h2>
+                    <p class="section-lead reveal" style="--i:2">
                         Vlastný VPS s Ubuntu, na ňom Docker a reverzná proxy, ktorá rozdeľuje
                         prevádzku medzi navzájom oddelené služby. Postavené a spravované celé mnou,
                         vrátane certifikátov, záloh a prístupov.
                     </p>
                 </header>
 
-                <div class="stack" id="stackDiagram"></div>
+                <ol class="layers" id="layers" aria-label="Vrstvy infraštruktúry zhora nadol"></ol>
 
-                <section class="section">
-                    <h3 class="section-label">Ako to prevádzkujem</h3>
-                    <ul class="rule-list" id="practiceList"></ul>
-                </section>
-            </article>
+                <h3 class="subhead reveal">Ako to prevádzkujem</h3>
+                <ul class="practice-grid" id="practiceList"></ul>
+            </div>
+        </section>
 
-            <article class="page" id="network">
+        <!-- ============ SIETE A ŠKOLA ============ -->
+        <section class="section" id="siete-skola" aria-labelledby="netTitle">
+            <div class="container">
                 <header class="section-head">
-                    <h2 class="section-title">Siete</h2>
-                    <p class="section-lead">
-                        Sieťové základy zo školy a Cisco Networking Academy si overujem na vlastnej
-                        infraštruktúre — adresovanie, smerovanie a DNS nie sú teória, keď od nich
-                        závisí, či je server dostupný.
-                    </p>
+                    <p class="eyebrow reveal">05 — Siete a Škola</p>
+                    <h2 class="section-title reveal" id="netTitle" style="--i:1">Siete a Škola</h2>
                 </header>
-                <ul class="rule-list" id="networkList"></ul>
-            </article>
 
-            <article class="page" id="school">
-                <header class="section-head">
-                    <h2 class="section-title">Škola</h2>
-                    <p class="section-lead">
-                        Študujem Informačné a sieťové technológie na SPŠE Zochova v Bratislave.
-                        Škola dáva základ v elektrotechnike, sieťach a programovaní; zvyšok
-                        dopĺňam vlastnými projektmi.
-                    </p>
-                </header>
-                <ul class="rule-list" id="schoolList"></ul>
-            </article>
+                <div class="duo">
+                    <article class="panel-card reveal">
+                        <h3>Siete</h3>
+                        <p class="panel-lead">
+                            Sieťové základy zo školy a Cisco Networking Academy si overujem na vlastnej
+                            infraštruktúre — adresovanie, smerovanie a DNS nie sú teória, keď od nich
+                            závisí, či je server dostupný.
+                        </p>
+                        <ul class="dash-list" id="networkList"></ul>
+                    </article>
+                    <article class="panel-card reveal" style="--i:1">
+                        <h3>Škola</h3>
+                        <p class="panel-lead">
+                            Študujem Informačné a sieťové technológie na SPŠE Zochova v Bratislave.
+                            Škola dáva základ v elektrotechnike, sieťach a programovaní; zvyšok
+                            dopĺňam vlastnými projektmi.
+                        </p>
+                        <ul class="dash-list" id="schoolList"></ul>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-            <article class="page" id="ai">
+        <!-- ============ AI ============ -->
+        <section class="section" id="ai" aria-labelledby="aiTitle">
+            <div class="container">
                 <header class="section-head">
-                    <h2 class="section-title">AI spoločníci</h2>
-                    <p class="section-lead">
+                    <p class="eyebrow reveal">06 — AI spoločníci</p>
+                    <h2 class="section-title reveal" id="aiTitle" style="--i:1">AI spoločníci</h2>
+                    <p class="section-lead reveal" style="--i:2">
                         Nerobím na tom sám. Tri modely mi kryjú tri rôzne časti práce —
                         každý tam, kde mi reálne šetrí čas. Rozhodnutia a výsledná podoba
                         zostávajú na mne.
                     </p>
                 </header>
-                <div class="server-list" id="aiList"></div>
-            </article>
-        </main>
-    </div>
+                <div class="ai-grid" id="aiList"></div>
+            </div>
+        </section>
 
-    <script src="brain.js?v=19"></script>
-    <script src="script.js?v=19"></script>
+        <!-- ============ KONTAKT ============ -->
+        <section class="section section-contact" id="kontakt" aria-labelledby="contactTitle">
+            <div class="container">
+                <div class="contact-band reveal">
+                    <p class="eyebrow">07 — Kontakt</p>
+                    <h2 class="contact-title" id="contactTitle">Máš projekt alebo otázku?</h2>
+                    <div class="contact-actions">
+                        <a class="btn btn-primary btn-lg magnetic" href="https://discord.com/users/700729479068385362" target="_blank" rel="noopener noreferrer">
+                            <svg class="ico" aria-hidden="true"><use href="#i-discord"/></svg>
+                            <span>Napísať na Discord</span>
+                        </a>
+                        <button class="btn btn-ghost btn-lg magnetic" id="copyName" type="button">
+                            <svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg>
+                            <span>Skopírovať meno</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span id="year">2026</span> Leonardo / AstrakSK</p>
+            <a class="to-top" href="#top">Hore <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+    </footer>
+
+    <dialog class="detail" id="projectDialog" aria-labelledby="projectTitle">
+        <div class="detail-inner">
+            <button class="detail-close" id="projectClose" type="button" aria-label="Zavrieť detail projektu">
+                <svg class="ico" aria-hidden="true"><use href="#i-close"/></svg>
+            </button>
+            <div class="detail-body" id="projectBody"></div>
+        </div>
+    </dialog>
+
+    <button class="sound-fab" id="soundToggle" type="button" aria-pressed="false" aria-label="Zapnúť hudbu" title="Hudba">
+        <svg class="ico" aria-hidden="true"><use href="#i-muted"/></svg>
+    </button>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <audio id="bgMusic" loop preload="none">
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="bg.js?v=23"></script>
+    <script src="script.js?v=23"></script>
 </body>
 
 </html>

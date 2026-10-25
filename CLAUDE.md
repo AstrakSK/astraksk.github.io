@@ -8,197 +8,112 @@ vlastná doména `astraksk.com` (viď `CNAME`). Repo `AstrakSK/astraksk.github.i
 Obsah aj UI sú **po slovensky** (`<html lang="sk">`). Commit správy píš tiež po slovensky —
 zodpovedá to doterajšej histórii ("V3 — redizajn, aktuálny obsah a animácie").
 
+Jedna rolovacia stránka s kotvami v štýle firemného webu: tmavý, technický dizajn,
+studené pozadie (`#05080c`), akcent tyrkysová → azúrová (`#2dd4bf` → `#38bdf8`, limetková `#a3e635`
+len ako drobný doplnok), písma Space Grotesk (text, nadpisy) a JetBrains Mono (štítky, čísla),
+menšie zaoblenia (karty 12 px, tlačidlá 10 px), animácie len cez `transform`/`opacity`.
+
 ## Stack
 
-Čisté HTML/CSS/JS. **Žiadny build, žiadny bundler, žiadne dependencies.** Súbory sa
-servírujú presne tak, ako ležia v repo — čo zmeníš, to ide von.
+Čisté HTML/CSS/JS. **Žiadny build, žiadny bundler, žiadne dependencies, žiadne CDN.**
+Súbory sa servírujú presne tak, ako ležia v repo — čo zmeníš, to ide von.
 
 | Súbor | Úloha |
 |---|---|
-| `index.html` | kostra, SVG sprite, nav, `<article class="page">` sekcie |
-| `style.css` | všetky štýly |
-| `script.js` | `portfolioData` + render do DOM |
-| `brain.js` | canvas pozadie — 3D sieť uzlov, `window.Brain` |
-| `assets/` | fonty (woff2), `music.mp3`, obrázky |
+| `index.html` | kostra, SVG sprite, hlavička, mobilné menu, statické sekcie a texty, `<dialog>` detailu, SEO (meta, OG, JSON-LD) |
+| `style.css` | všetky štýly: tokeny v `:root`, komponenty, responzivita, `prefers-reduced-motion` na konci |
+| `bg.js` | canvas perspektívna mriežka bodov v hero, pod kurzorom sa jemne zvlní (pauza mimo viewportu a na skrytej záložke, DPR max 2, pri reduced-motion jeden statický snímok) |
+| `script.js` | `portfolioData` + render do DOM + všetka logika stránky |
+| `assets/` | fonty (`fonts/`, Space Grotesk + JetBrains Mono, variabilné woff2, latin + latin-ext), `discord-avatar.png` (originál, len pre JSON-LD), `avatar-72/128/256.webp` (na stránke), `og-image.jpg` (1200×630, náhľad pre OG/Twitter), `skin.webp` (512×512, postava zaberá len stred), `favicon.png`, `music.mp3` |
+| `robots.txt`, `sitemap.xml` | Allow all + odkaz na sitemap; sitemap má jednu URL, pri väčšej zmene obsahu zvýš `lastmod` |
+| `404.html` | vlastná chybová stránka pre GitHub Pages (`noindex`, absolútne cesty k fontom cez `assets/fonts/fonts.css`; `index` má `@font-face` priamo na začiatku `style.css`, pri zmene fontov uprav oboje) |
 
 ## Dve pravidlá, na ktorých to najčastejšie padne
 
 ### 1. Cache busting `?v=`
 
 GitHub Pages posiela `Cache-Control: max-age=600`. Pri **každom** vydaní zvýš `?v=`
-v `index.html` naraz pre `style.css`, `brain.js` **aj** `script.js`. Bez toho dostane
-vracajúci sa návštevník nové HTML so starým CSS/JS a stránka sa rozsype.
+v `index.html` naraz pre `style.css`, `bg.js` **aj** `script.js` (tri súbory). Bez toho
+dostane vracajúci sa návštevník nové HTML so starým CSS/JS a stránka sa rozsype.
 
-Aktuálne `v=19`. Fonty verziu nemajú — tie sa nemenia.
+Aktuálne `v=23`. Fonty verziu nemajú — tie sa nemenia.
 
-### 2. Sekcie musia sedieť na troch miestach naraz
-
-`home`, `minecraft`, `dev`, `infra`, `network`, `school`, `ai`
-
-- `data-section="…"` na `.nav-item` v `index.html`
-- `id="…"` na `<article class="page">` v `index.html`
-- `HUB_LAYOUT` v `brain.js`
-
-Pridanie sekcie bez zápisu do `HUB_LAYOUT` znamená, že `Brain.goToSection(id)` ju
-**ticho ignoruje** (`if (!hubById.has(id)) return;`) — kliknutie v menu nič neurobí.
-
-## Dátový tok
+### 2. Obsah je v `portfolioData`, nie v HTML
 
 `portfolioData` na vrchu `script.js` je jediný zdroj pravdy. Kľúče:
 `stats`, `featured`, `timeline`, `servers`, `devProjects`, `stack`, `practices`,
-`network`, `school`, `ai`.
+`network`, `school`, `ai`. Nevymýšľaj projekty, klientov ani čísla.
 
-Renderuje sa z neho DOM **a zároveň** z neho `brain.js` stavia uzly siete. Obsah teda
-meň v `portfolioData`, nie natvrdo v HTML — inak sa rozíde stránka s pozadím.
+Počet projektov aj počet jazykov v `stats` sa počíta v kóde (`resolveStats()` z dĺžky
+`devProjects` a zo stackov; zoznam hľadaných jazykov je `LANGUAGES`), nepíš ich ručne.
+`featured` (teraz 2 položky) určuje veľké karty v hornom rade bento mriežky; featured karty
+ukážu všetky `points`, `closing` a ilustráciu (`FEATURE_ART`: `SHIELD_ART`, `LENS_ART`).
+Malé karty sa dorovnávajú v JS (`cell-half`), aby v mriežke nevznikla diera. Pill stavu mapuje `pill()` v `script.js`
+(`v prevádzke`, `vo vývoji`, `v príprave`, `pozastavený`, `ukončené`).
 
-## brain.js
+**Súkromie:** Together má verejne len stack a technickú stránku, účel a funkcie sa
+nezverejňujú. Do `portfolioData` nepatria IP adresy, cesty na disku, tokeny, ceny,
+interné poznámky, chyby z auditov ani mená tretích osôb (okrem názvov serverov).
+Zdrojom faktov sú poznámky v trezore `SecondBrain/Projekty/` (len čítať).
 
-Mozog je **čistá dekorácia**. Žije v pásme naľavo od obsahu, nedá sa doň klikať, nemá
-zoom ani posun. Zrušené je celoobrazovkové zobrazenie, tlačidlo *Mozog*, klávesa `B`,
-tlačidlo *späť*, karta detailu aj koliesko/ťahanie.
+V HTML ostávajú len statické texty: hero nadpis a lead, leady sekcií, text „O mne“.
 
-Scéna mozgu je **úplne statická**: uzly nemajú vlastný drift a myš scénou nehýbe
-(parallax je zrušený). Popisok visí na bode, takže každé chvenie je na texte vidieť.
-Hýbe sa len nábeh úrovne a sklz po vlákne; žiara dýcha cez `pulse`, čo je jas, nie pohyb.
-Vzdialená sieť internetu si vlastný drift ponechala — popisky na nej nevisia.
+## Štruktúra stránky a kde sa čo renderuje
 
-Uzly sú `<div class="brain-node">` s `pointer-events: none` — nie tlačidlá. **Bod uzla
-kreslí canvas**, DOM nesie iba popisok; vlastná bodka v DOM (`.brain-mark`) robila dva
-body nad sebou, preto je zrušená. Popisok sa na bod zavesí cez `translateY(-50%)`
-a `padding-left`. Naviguje sa
-**menu a obsahom**; mozog len ukazuje, kde stojíš. Vlákno k rodičovi sa stráca v tme a
-nevedie k ničomu klikateľnému.
+Kotvy: `#top` (hero), `#o-mne`, `#projekty`, `#minecraft`, `#infrastruktura`,
+`#siete-skola`, `#ai`, `#kontakt`. Navigácia (`data-nav` na odkazoch) pozná len
+`o-mne`, `projekty`, `minecraft`, `infrastruktura`, `kontakt`; `siete-skola` a `ai`
+zdieľajú zvýraznenie s Infraštruktúrou (mapa `navKey` v `script.js`). Pridanie sekcie do scrollspy = zápis do
+poľa `spySections` v `script.js`.
 
-Kreslí sa do dvoch plátien, interaktívne body sú DOM tlačidlá v `#brainHud` (kvôli
-ostrému textu, hoveru a klávesnici).
-
-| plátno | čo nesie | rozlíšenie |
+| Sekcia | Statické v `index.html` | Renderuje `script.js` (kontajner) |
 |---|---|---|
-| `#brainNet` | internet v diaľke | `NET_SCALE` = 0,3 → roztiahne sa 3,3× |
-| `#brain` | samotný mozog | plné |
+| Hero | nadpis, lead, CTA, avatar | — (nadpis je rozdelený na slová `.w > .wi` priamo v HTML s `--k`, odhalenie zdola cez masku je čisté CSS, aby LCP nečakal na JS) |
+| O mne | nadpis, odsek | `#statList` — `stats`, count-up pri zobrazení |
+| Projekty | nadpis, lead | `#projectGrid` — bento: 2 `featured` veľké vedľa seba, ostatné malé |
+| Minecraft | nadpis, lead, skin | `#serverList`, `#timeline` (čiara sa plní podľa scrollu, body `.tl-dot.is-lit`) |
+| Infraštruktúra | nadpis, lead | `#layers` (4 poschodia + animovaný packet), `#practiceList` |
+| Siete a Škola | dve karty s leadmi | `#networkList`, `#schoolList` |
+| AI spoločníci | nadpis, lead | `#aiList` |
+| Kontakt | celý pás | — (tlačidlo „Skopírovať meno“ + toast v `script.js`) |
 
-### Pásmo
+### Detail projektu
 
-Šírku drží CSS `--brain-band` (`clamp(300px, 27vw, 460px)`, pod 1180 px nula). `brain.js`
-ju **nečíta z premennej** — `getComputedStyle` vracia pre custom property surový
-`clamp(...)`, nie pixely. Meria sa `shell.getBoundingClientRect().left`, čo je tá istá
-hodnota a navyše vždy sedí s tým, čo layout naozaj spravil.
+`<dialog id="projectDialog">` ako bočný panel. Karta je odkaz `#projekt-<id>`; jediná cesta
+otvorenia je hash (`hashchange` → `syncFromHash`), takže funguje aj priamy odkaz a tlačidlo
+späť. Zatvorenie (Esc, klik mimo, krížik) ide cez `requestClose()` — ak sa hash pridal
+klikom, urobí `history.back()`, inak `replaceState`. Focus sa vráti na kartu.
 
-Pod prahom (`BAND_MIN`) `interactive()` vráti false: mozog je len pozadie, naviguje menu,
-lišta aj tlačidlo späť sú skryté.
+### Animácie a prístupnosť
 
-### Vejár, nie prstenec
+- Reveal pri scrolle: `.reveal` + `--i` (stagger); aktivuje sa až keď `<head>` pridá `html.js`
+  (inline skript), takže bez JS je statický obsah viditeľný.
+- Hero vstup je čisté CSS (`.hero-fade`, `.wi`), nezávisí od načítania `script.js`.
+- `@media (prefers-reduced-motion: reduce)` na konci `style.css` vypína všetky animácie
+  a transitions a zobrazí obsah hneď; `bg.js` a `script.js` ho čítajú tiež.
+- Scrollspy: aktívna je posledná sekcia, ktorej vrch je nad čiarou v 38 % výšky (null len v hero). Klik na
+  odkaz nastaví cieľ hneď a spy pozastaví do `scrollend` (fallback 150 ms ticha, max 1,5 s). Indikátor sa
+  z neaktívneho stavu umiestni bez transition a len vybledne dnu.
+- Mobilné menu (<900 px): `aria-hidden`, `inert` na `main`/`footer`, focus trap, Esc.
+- Hudba sa **nespúšťa automaticky** — len plávajúce tlačidlo zvuku; stav je v
+  `localStorage` (`astraksk:sound`), pri predošlom „zapnuté“ tlačidlo len jemne pulzuje.
+- Zamknutie scrollu (`html.is-locked`) kompenzuje šírku scrollbaru cez `--sb`.
 
-V pásme deti **nesedia na kruhu**. Kruh sa do 380-pixelového pásu nezmestí: vodorovný
-štítok má cez 150 px a dva uzly v rovnakej výške si ho položili cez seba — merané
-prekryvy boli na každej úrovni (`Minecraft × Časová os`, `ChatShield × CombatManager`, …).
-Relaxácia polôh to nevyriešila.
+## SEO
 
-`childOffset()` preto v pásme rozsádza deti do **zvislého vejára**: rozostup v osi y je
-daný konštrukciou (`rowGap`), x sa vyduje po oblúku. Pri **nepárnom** počte detí sa vejár
-posunie o pol riadka (`skew`) — inak prostredné dieťa sadne presne na výšku stredu a
-štítky sa prekryjú. Štítky idú vždy doprava — striedanie
-strán ich v úzkom páse zrážalo. Mimo pásma zostáva pôvodný prstenec (`ringSlot`,
-`ringBase`). Overené: 0 prekryvov na všetkých úrovniach vrátane Vývoja s ôsmimi deťmi.
+Prejdený `SecondBrain/Znalosti/Web SEO checklist.md`. Hotové: canonical bez `?v=`, jeden
+`h1`, hierarchia h1 → h2 → h3 → h4–h6, `robots` meta bez noindex, robots.txt + sitemap.xml,
+JSON-LD `@graph` (Person + WebSite), OG/Twitter s `og-image.jpg` 1200×630, alt texty,
+`width`/`height` na obrázkoch, `loading="lazy"` pod prvou obrazovkou, dotykové ciele ≥ 48 px,
+CLS 0. Limity: title má 65 znakov (formulácia je zadaná používateľom, odporúčaných ~60);
+HTTPS a HSTS rieši GitHub Pages (Enforce HTTPS v nastaveniach repa, hlavičky sa z repa
+nastaviť nedajú); obsah projektov, serverov a časovej osi sa renderuje JS-kou, takže
+v statickom HTML ho crawler bez JS neuvidí (hero, leady a „O mne“ statické sú).
 
-### Cesta medzi úrovňami má dve fázy
+## Lokálne overenie
 
-`rebuild(anchorItem, direction)` zavesí scénu na uzol, ktorý má zostať na mieste, a odtiaľ
-ju zvezie po vlákne (`shift`). Kamera sa nehýbe.
-
-1. **Vlákno** (`journey.hold`, 1,25 s) — vidno len stred a spoj. Prstenec je schovaný
-   (`unfold = 0`), kamera pritiahnutá (`ride`), scéna sa zvezie pomalšie.
-2. **Rozvinutie** — `unfold` nabehne na 1. Overené: 0 uzlov do 1,25 s, potom opacity
-   0,2 → 0,97 za ~1,5 s.
-
-Premenná sa volá `unfold`, nie `reveal` — `reveal(item)` je už funkcia.
-
-Dve pasce, na ktorých sklz už raz padol: `born` škáluje polomer, takže **musí byť
-nastavené skôr** než `shift`; a obe musia dobiehať **rovnakým tempom** (3,4), inak sa
-dráha zakriví. Prah viditeľnosti je `born < 0.1` — pri vyššom sa uzol zjaví až v polovici
-letu.
-
-### Internet
-
-Ďaleko za mozgom je hustejšia sieť (`buildNet`, ~2400 uzlov) bez popiskov a interakcie.
-Uzly sa sypú **do kužeľa pohľadu**, nie do kvádra, inak sieť pri krajoch riedne. Susedia
-sa hľadajú cez mriežku, nie každý s každým.
-
-**Rozmazanie nerob cez CSS `filter: blur()`.** Vyzeralo rovnako, ale bez GPU stálo 26
-snímkov za sekundu (59 → 33). Namiesto toho sa kreslí na `NET_SCALE` rozlíšení a plátno
-sa roztiahne na celé okno — to roztiahnutie je rozmazanie zadarmo. Silu rozmazania teda
-ladíš cez `NET_SCALE`: menšia hodnota = väčšie roztiahnutie = silnejší blur
-(0,27 dáva 3,7×).
-
-Pri meraní na tomto plátne pozor — zmena `NET_SCALE` mení aj počet pixelov, takže
-absolútne počty medzi verziami neporovnávaj, len podiely.
-
-Vzruchy (`drawPulseTrail`) sú **stopy po vlákne, nie letiace bodky** — hlava sa úmyselne
-nekreslí. Sú krátke a rýchle: stopa `tail` 0,11 (sieť) a 0,10 (mozog), rýchlosti 2,08–5,6
-resp. 1,7–3,2. Sila: `alphaScale` 0,45 (sieť) a 0,52 (mozog).
-
-Pozor pri ladení mozgových vzruchov: pri `MIND_PULSE_SPAWN` 0,16 a rýchlostiach 1,7–3,2
-beží naraz len **asi tri** (`tempo × životnosť` ≈ 6,25 × 0,45). Zmena ich sily sa preto
-na celkovom jase plátna neprejaví — prehluší ju statická žiara uzlov a stredu. Ak majú
-byť naozaj nápadnejšie, treba zdvihnúť aj počet, nie len `alphaScale`.
-
-Sieťové vzruchy musia byť cez rozmazanie zreteľné. Tri veci, ktoré to reálne rozhodli —
-v tomto poradí dôležitosti:
-
-1. **Hrúbka čiary.** Sieťové plátno má zlomkové rozlíšenie, takže projekčná mierka
-   vychádza okolo 0,2 a spoločný vzorec dával **0,51 pixela** — antialiasing čiaru
-   rozmazal do stratena. `drawPulseTrail` má preto pre `netCtx` vlastné minimum
-   (`clamp(stroke * 6, 1.4, 2.8)`). Samotná táto zmena strojnásobila počet jasných
-   pixelov (169 → 500).
-2. **Počet.** Jeden vzruch má pár pixelov, takže viditeľné ich robí množstvo.
-   Strop `NET_PULSE_LIMIT` sa pritom nedosahuje — koľko ich beží naraz určuje
-   `tempo × životnosť`, a životnosť je prevrátená rýchlosť.
-
-   **Z toho plynie väzba, ktorá už raz zmiatla meranie:** spomalenie vzruchov samo osebe
-   zahustí sieť. Pri spomalení o 20 % vzrastie počet o 25 % a stlmenie sa vyruší — vtedy
-   treba stiahnuť aj `NET_PULSE_SPAWN` v rovnakom pomere.
-3. **Obálka jasu.** `life` nejde do nuly (`0.5 + 0.5 * sin`) — s čistým sínusom bol
-   vzruch jasný len v strede dráhy. Stopy sa zbierajú do pásiem a každé ide jedným ťahom; tristo samostatných
-`stroke()` stálo ~10 fps. Funkcia berie cieľové plátno prvým parametrom.
-
-### Výkon
-
-61 fps. Žiara aj oba prechody `drawMindWash` sú **sprity** — `createRadialGradient` na
-snímok stál ~15 fps. `updateHud` si drží referencie na `strong`/`small` a posledný stav
-tried v `element._flags`; `querySelector` pre každý uzol v každom snímku bol drahší než
-celé kreslenie siete. Pri poklese sa `quality` stiahne sama.
-
-### API
-
-`window.Brain`: `build`, `goToSection`, `goToNode`, `clearNode`, `start`, `stop`.
-
-Pozor pri úpravách `brain.js`: vykresľovanie (`drawSpokes` … `drawLabels`), slučka
-(`render`, `step`, `start`, `stop`, `staticFrame`) a stavba HUD ležia **medzi**
-`drawParentThread` a `updateHud`. Pri hromadnom mazaní blokov je to ľahké odrezať.
-
-`goToNode(section, matcher)` otvorí úroveň, na ktorej položka leží, a označí ju —
-`{ project: id }`, `{ label }`, `{ caption }`. Volá sa z obsahu: otvorenie projektu, klik
-na rok časovej osi, klik na server, rozbalenie foldu.
-
-Mozog aj obsah sa prepínajú navzájom, preto je tu poistka `syncing` — bez nej by si
-preklik v mozgu sám prepísal úroveň späť na sekciu.
-
-Rešpektuje `prefers-reduced-motion` — pri `reduce` sa kreslí statický snímok, navigácia
-funguje ďalej, len bez sklzu.
-
-**Testovanie:** Brave dedí vypnuté animácie z Windows, takže tam mozog stojí. Na overenie
-animácií používaj **Mullvad Browser** — ten `prefers-reduced-motion` kvôli ochrane proti
-fingerprintingu hlási ako `no-preference`. Pri ladení cez CDP maž cache (`ignoreCache`),
-inak testuješ starý súbor.
-
-## Stav k 12. 9. 2026 — rozrobené, necommitnuté
-
-Posledný commit: `5ae1537`.
-
-- `brain.js` — **nový, netrackovaný** súbor (~39 KB)
-- `script.js` — −207 riadkov, logika zjavne presunutá do `brain.js`
-- `style.css` — +418 riadkov
-- `index.html` — upravený
+`python -m http.server 8765` v koreni repa. Screenshoty cez playwright-core
+(headless chromium), kontrola `scrollWidth === clientWidth` pri 1440 a 390 px.
 
 ## Prostredie — `ANTHROPIC_BASE_URL` a headroom proxy
 

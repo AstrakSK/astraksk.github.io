@@ -1,8 +1,8 @@
 const portfolioData = {
     stats: [
         { value: "6", unit: "rokov", label: "prevádzky Minecraft serverov" },
-        { value: "8", unit: "", label: "vlastných projektov v registri" },
-        { value: "4", unit: "jazyky", label: "v produkcii — Java, Kotlin, JavaScript, TypeScript" }
+        { source: "projects", unit: "", label: "vlastných projektov v registri" },
+        { source: "languages", unit: "", label: "" }
     ],
 
     featured: [
@@ -13,16 +13,10 @@ const portfolioData = {
             state: "vo vývoji"
         },
         {
-            id: "together",
-            name: "Together",
-            line: "Súkromná Android aplikácia s vlastným backendom.",
-            state: "v prevádzke"
-        },
-        {
-            id: "tiertagger",
-            name: "TierTagger",
-            line: "Tiery z tierlistu priamo v hre — nad hlavou, v TABe aj v chate.",
-            state: "v prevádzke"
+            id: "astralys-lens",
+            name: "AstralysLens",
+            line: "Klip z podozrivého momentu, ktorý si staff prehrá v 3D.",
+            state: "vo vývoji"
         }
     ],
 
@@ -30,6 +24,15 @@ const portfolioData = {
         {
             year: "2026",
             months: [
+                {
+                    month: "Október",
+                    events: [
+                        {
+                            title: "Spoluzakladateľ Rifted",
+                            note: "Nový CZ/SK survival SMP. Staviam jeho technologický základ; server ešte nebeží."
+                        }
+                    ]
+                },
                 {
                     month: "September",
                     events: [
@@ -72,10 +75,6 @@ const portfolioData = {
                 {
                     month: "Máj",
                     events: [
-                        {
-                            title: "CZ/SK Tiers — plugin pre PvP tierlist",
-                            note: "Prvý plugin, ktorý používa aj niekto iný než ja. Načítava tiery z externého API, drží ich v pamäti a vystavuje cez PlaceholderAPI do TABu, hologramov a rebríčkov."
-                        },
                         {
                             title: "AntiGhostTotem",
                             note: "Rieši smrť ghost totemom — situáciu, keď hráč totem má, ale server ho kvôli latencii nezapočíta."
@@ -173,6 +172,13 @@ const portfolioData = {
     ],
     servers: [
         {
+            name: "Rifted",
+            status: "v príprave",
+            role: "Spoluzakladateľ",
+            period: "október 2026 —",
+            intro: "Český a slovenský survival SMP, ktorý stavám s kamarátmi. Mám na starosti technologický základ projektu, na ktorom stavia aj technológia z Astralys. Server ešte nebeží."
+        },
+        {
             name: "Astralys.cz",
             status: "pozastavený",
             role: "Zakladateľ",
@@ -221,6 +227,43 @@ const portfolioData = {
             closing: "Aktívne sa vyvíja. Väčšina času nejde na detekciu, ale na obmedzovanie falošných poplachov — nesprávny ban stojí server viac než jeden neodhalený cheater."
         },
         {
+            id: "astralys-lens",
+            name: "AstralysLens",
+            kind: "Plugin + webové rozhranie",
+            year: "2026",
+            state: "vo vývoji",
+            stack: ["Java", "Paper", "PacketEvents", "Javalin", "SQLite", "React", "TypeScript", "three.js"],
+            summary: "Nástroj pre staff: pri podozrení uloží klip okolia hráča a prehrá ho v 3D vo webovom rozhraní, ktoré servíruje samotný plugin.",
+            problem: "Alert anti-cheatu povie, že niečo vyzerá zle, ale nie čo sa naozaj stalo. Staff potom rozhoduje naslepo alebo hľadá moment v nahrávke.",
+            approach: "Plugin priebežne drží v pamäti krátky záznam okolia sledovaných hráčov a na disk ho uloží až pri spúšťači z anti-cheatu. Klip sa potom prehrá v prehliadači s dosahom, smerom pohľadu a grafmi. Webové rozhranie beží v tom istom jari, nepotrebuje samostatný server.",
+            points: [
+                "Záznam z paketov, nie z ticku, takže sa zachytia aj viaceré rotácie za jeden tick.",
+                "Dosah sa vyhodnocuje ako interval podľa pingu a verdikt sa opiera o dolnú hranicu — o najpriaznivejšie vysvetlenie pre hráča.",
+                "3D prehrávač s lúčom pohľadu, trajektóriou, časovou osou a krokovaním po ticku.",
+                "Prihlásenie cez jednorazový odkaz z hry, bez hesiel.",
+                "Lens Score slúži len na triedenie fronty, nikdy ako dôvod na ban."
+            ],
+            closing: "Najviac práce nie je zachytiť dáta, ale nepovedať o hráčovi viac, než z nich naozaj vyplýva."
+        },
+        {
+            id: "astralys-antiesp",
+            name: "AstralysAntiESP",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "vo vývoji",
+            stack: ["Kotlin", "Gradle", "Paper", "PacketEvents"],
+            summary: "Skrýva pred klientom to, čo hráč zo svojho oka nevidí — entity za stenou, truhly v podzemí — takže ESP a freecam nemajú čo ukázať.",
+            problem: "ESP a freecam klienty nepotrebujú nič hackovať: stačí im, že server pošle klientovi všetko, aj to, čo je za stenou.",
+            approach: "Plugin počíta viditeľnosť raytracom a cez filter paketov entity pred klientom skryje; keď prídu do dohľadu, server ich znova normálne vytvorí. Nepoužíva hideEntity, ktoré rozbíja tab, podpísaný chat a iné pluginy. Pri neistote radšej ukáže, než skryje.",
+            points: [
+                "Štyri úrovne od ľahkej po maximálnu určujú, čo sa skrýva a ako často.",
+                "Skrývanie block entít a cenných blokov a maskovanie podzemia.",
+                "Adaptívny governor natiahne interval, keď je server preťažený.",
+                "Zvuky, častice a zdravie sa spoofujú tiež, pridaná je podpora Bedrocku."
+            ],
+            closing: "Všetky fázy som otestoval s reálnym klientom."
+        },
+        {
             id: "together",
             name: "Together",
             kind: "Android aplikácia + backend",
@@ -245,35 +288,19 @@ const portfolioData = {
             kind: "Klientský mód",
             year: "2026",
             state: "v prevádzke",
-            stack: ["Java", "Fabric", "Mod Menu"],
+            stack: ["Java", "Fabric", "Stonecutter", "Mixin", "Mod Menu"],
             summary: "Zobrazuje PvP tiery priamo v hre — nad hlavou, v TABe, v chate aj na karte hráča.",
             problem: "Tiery boli len na webe. Kto ich chcel vidieť počas hry, musel prepínať do prehliadača — čiže presne vo chvíli, keď je tá informácia najužitočnejšia, nebola po ruke.",
-            approach: "Mód beží výhradne na klientovi — na server neposiela nič, len dokresľuje to, čo hráč aj tak vidí. Dáta si sťahuje sám a drží ich v pamäti, takže tier je nad hlavou hneď, nie po sekunde čakania.",
+            approach: "Mód beží výhradne na klientovi — na server neposiela nič, len dokresľuje to, čo hráč aj tak vidí. Dáta si sťahuje sám a drží ich v pamäti, takže tier je nad hlavou hneď, nie po sekunde čakania. Zdrojom sú statické JSON snímky tierlistu, ktoré sa obnovujú zhruba každé dve minúty.",
             points: [
                 "Tier za nickom nad hlavou, v TABe a v chate.",
                 "Karta hráča so všetkými deviatimi kitmi a bodmi.",
                 "Obľúbení hráči — hlásenie, kto z nich je práve na serveri.",
-                "Nastavenia cez Mod Menu, dáta sa cachujú a obnovujú na povel."
+                "Nastavenia cez Mod Menu, dáta sa cachujú a obnovujú na povel.",
+                "Jeden zdroják pre dvanásť verzií Minecraftu (1.21 – 1.21.11) cez Stonecutter, port pre Minecraft 26.x je samostatný projekt.",
+                "Ikony kitov idú vlastným fontom, nie textúrami z cudzích módov."
             ],
             closing: ""
-        },
-        {
-            id: "czsktiers",
-            name: "CZSKTiers",
-            kind: "Serverový plugin",
-            year: "2026",
-            state: "v prevádzke",
-            stack: ["Java", "Paper API", "PlaceholderAPI", "JSON API"],
-            summary: "Načíta PvP tiery z externého API a sprístupní ich celému serveru cez PlaceholderAPI.",
-            problem: "Tiery boli v externej databáze. Aby sa dali použiť v TABe, na hologramoch alebo v NPC, musel by ich niekto ručne prepisovať.",
-            approach: "Plugin si dáta stiahne, drží ich v pamäti a pravidelne obnovuje. Server sa tak pýta pamäte, nie siete — placeholder v TABe nesmie čakať na HTTP odpoveď.",
-            points: [
-                "Placeholdery pre TAB, hologramy, NPC a rebríčky.",
-                "Rebríčky celkovo aj pre jednotlivé PvP módy.",
-                "Podpora subtierov.",
-                "Príkazy na reload, kontrolu stavu a vynútenú synchronizáciu."
-            ],
-            closing: "Prvý plugin, ktorý používa aj niekto iný než ja — čo znamenalo naučiť sa písať konfiguráciu a chybové hlášky pre cudzieho admina."
         },
         {
             id: "shield-lite",
@@ -312,20 +339,18 @@ const portfolioData = {
             closing: ""
         },
         {
-            id: "combatmanager",
-            name: "CombatManager",
+            id: "deluxecombat",
+            name: "DeluxeCombat",
             kind: "Serverový plugin",
             year: "2026",
-            state: "v prevádzke",
-            stack: ["Java", "Paper", "Vault"],
-            summary: "Combat tag s odpočtom, tresty za odpojenie v boji, štatistiky a bounty.",
-            problem: "Hráč, ktorý sa v prehratom súboji odpojí, si odnesie veci a súper nedostane nič. Bez postihu to robí každý.",
-            approach: "Po zásahu sa hráč označí ako v boji a nad hotbarom mu beží odpočet. Odpojenie počas neho má následok — od vyhodenia vecí až po smrť, podľa nastavenia servera.",
+            state: "vo vývoji",
+            stack: ["Java", "Paper"],
+            summary: "Fork pluginu DeluxeCombat upravený na vlastné potreby — combat tag a ochrana pred odpojením počas boja.",
+            problem: "",
+            approach: "",
             points: [
-                "Odpočet nad hotbarom, voliteľne aj boss bar.",
-                "Štyri režimy trestu za odpojenie v boji.",
-                "Zákaz letu, elytry a únikových príkazov počas boja.",
-                "Prepínač PvP, štatistiky, rebríček a bounty."
+                "Combat tag: hráč je po zásahu označený ako v boji.",
+                "Ochrana pred odpojením počas boja."
             ],
             closing: ""
         },
@@ -335,17 +360,73 @@ const portfolioData = {
             kind: "Serverový plugin",
             year: "2026",
             state: "v prevádzke",
-            stack: ["Java", "Paper", "Discord webhook"],
+            stack: ["Kotlin", "Gradle", "Paper", "SQLite", "Discord webhook"],
             summary: "Rozpozná, keď na jedného hráča útočí viacero naraz, a upozorní staff.",
             problem: "Gang fighty sa na serveri riešia ťažko, lebo kým sa staff dozvie, že sa niečo deje, je po všetkom.",
-            approach: "Plugin sleduje PvP zásahy vrátane projektilov a pre každú obeť si drží prehľad útočníkov. Keď ich počet prekročí hranicu, situáciu označí a pošle upozornenie. Zásahy zrušené v safe zónach sa nepočítajú.",
+            approach: "Plugin sleduje PvP zásahy vrátane projektilov a pre každú obeť si drží okno útočníkov. Keď ich počet prekročí hranicu, súboj označí a pošle upozornenie. Detekčný engine je čistý Kotlin bez Bukkit typov, takže sa dá testovať bez servera.",
             points: [
-                "Detekcia priamych zásahov aj projektilov.",
-                "Nastaviteľná hranica počtu útočníkov a časový limit.",
-                "Upozornenie staffu priamo v hre aj cez Discord.",
-                "Vlastné príkazy spustené pri zachytení."
+                "Dve úrovne závažnosti — upozornenie a kritické — s eskaláciou a vlastnými akciami.",
+                "Filter proti bitkám všetci proti všetkým a tímovým súbojom, aby nevznikali falošné poplachy.",
+                "Keď sa gang rozpadne a zloží znova, ide o nový súboj; zásahy v zakázaných regiónoch sa nepočítajú.",
+                "História a štatistiky v SQLite, príkazy na info, teleport a vyhľadanie.",
+                "Upozornenie staffu priamo v hre aj ako Discord embed."
+            ],
+            closing: "Prepísané z Javy na Kotlin a pokryté 195 unit testami. Na ostrom serveri zatiaľ neoverené."
+        },
+        {
+            id: "astralys-auth",
+            name: "AstralysAuth",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "vo vývoji",
+            stack: ["Java", "Kotlin", "Gradle", "Paper", "Velocity", "PlaceholderAPI"],
+            summary: "Fork pluginu AuthMe (AuthMeReloaded) upravený pre Astralys — prihlasovanie a registrácia na offline serveri s limbo svetom, captchou a postupnými banmi.",
+            problem: "Na offline serveri hráča nič neoveruje, preto potrebuje prihlásenie. Upstream plugin pokrýva základ, mne chýbala izolácia neprihlásených hráčov a prísnejšia ochrana účtov.",
+            approach: "Držím vlastnú vetvu nad upstreamom. Pri aktualizácii robím merge, nie prepis súborov, aby zostala čitateľná história vlastných úprav.",
+            points: [
+                "Limbo svet: neprihlásení hráči sú izolovaní od zvyšku servera.",
+                "Captcha v inventári a kontrola sily hesla pri registrácii.",
+                "Postupne dlhšie bany za zlé heslo.",
+                "Ochrana prémiových mien a admin príkazy na históriu pripojení.",
+                "PlaceholderAPI hook, napríklad animovaný stav prihlásenia."
             ],
             closing: ""
+        },
+        {
+            id: "astralys-client",
+            name: "Astralys Client",
+            kind: "Klient + launcher",
+            year: "2026",
+            state: "vo vývoji",
+            stack: ["Java", "Fabric", "Gradle", "Electron", "TypeScript", "Preact"],
+            summary: "Vlastný Minecraft klient pre 1.21.11 — Fabric mód s modulmi a HUD editorom a k nemu launcher s inštanciami.",
+            problem: "Hotové klienty sú väčšinou balík cudzích módov. Chcel som vlastný základ, ktorému rozumiem a ktorý môžem ďalej rozvíjať.",
+            approach: "Vlastný core mód od nuly a okolo neho modpack z open-source módov. Launcher je samostatná Electron aplikácia, ktorá spravuje inštancie, skiny a nastavenia.",
+            points: [
+                "Modulový systém s HUD widgetmi — FPS, CPS, klávesy, súradnice, brnenie, efekty — a editor HUD.",
+                "Vlastná úvodná obrazovka a mod menu.",
+                "Launcher s inštanciami, knižnicou skinov a synchronizáciou nastavení medzi inštanciami rovnakej verzie.",
+                "Všetky texty cez prekladové kľúče."
+            ],
+            closing: "Cheat funkcie sa v ňom zámerne nerobia."
+        },
+        {
+            id: "zsr-mapa",
+            name: "ŽSR Mapa",
+            kind: "Web + Android aplikácia",
+            year: "2026",
+            state: "vo vývoji",
+            stack: ["Kotlin", "Gradle", "WebView", "Node.js", "Leaflet", "OpenStreetMap"],
+            summary: "Osobná mapa vlakov ŽSR vo vlastnom prevedení — ako web a ako Android aplikácia. Nie je verejná.",
+            problem: "Pôvodná mapa funguje, ale chcel som ju prehľadnejšiu, s trasou po skutočných koľajach a upozorneniami na vlak, ktorý sledujem.",
+            approach: "Koľaje pochádzajú z OpenStreetMap a trasa vlaku aj pohyb značky sa vedú po tom istom grafe. Aplikácia volá zdroj priamo z telefónu, takže nepotrebuje vlastný server.",
+            points: [
+                "Trasa vlaku po koľajach, nie po priamke, a odhad polohy medzi stanicami.",
+                "Graf koľají sa počíta priamo v telefóne, vyhľadávanie trasy ide algoritmom A*.",
+                "Sledovanie vlaku a upozornenia cez službu na popredí a presné budíky.",
+                "Vzhľad v štýle dopravcu, meškanie farbami návestidiel."
+            ],
+            closing: "Web beží len lokálne."
         }
     ],
     stack: [
@@ -415,637 +496,799 @@ const portfolioData = {
     ]
 };
 
-/* ---------- pomocné ---------- */
+/* ==========================================================================
+   Logika stránky. Obsah sa renderuje z portfolioData vyššie.
+   ========================================================================== */
 
-document.documentElement.classList.add("js");
+(function () {
+    "use strict";
 
-const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-}[char]));
+    const root = document.documentElement;
+    const $ = (selector, scope = document) => scope.querySelector(selector);
+    const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-const elements = {
-    enterScreen: document.getElementById("enterScreen"),
-    bgMusic: document.getElementById("bgMusic"),
-    soundToggle: document.getElementById("soundToggle"),
-    breadcrumb: document.getElementById("breadcrumb"),
-    contentScroll: document.getElementById("contentScroll"),
-    statReadout: document.getElementById("statReadout"),
-    featuredList: document.getElementById("featuredList"),
-    timelineList: document.getElementById("timelineList"),
-    minecraftProjectList: document.getElementById("minecraftProjectList"),
-    devProjectList: document.getElementById("devProjectList"),
-    devProjectDetail: document.getElementById("devProjectDetail"),
-    stackDiagram: document.getElementById("stackDiagram"),
-    practiceList: document.getElementById("practiceList"),
-    networkList: document.getElementById("networkList"),
-    schoolList: document.getElementById("schoolList"),
-    aiList: document.getElementById("aiList"),
-    avatarDeco: document.querySelector(".avatar-deco")
-};
+    const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[char]));
 
-const sectionLabels = {
-    home: "Domov",
-    minecraft: "Minecraft",
-    dev: "Vývoj",
-    infra: "Infraštruktúra",
-    network: "Siete",
-    school: "Škola",
-    ai: "AI spoločníci"
-};
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const pointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const reduced = () => motionQuery.matches;
 
-/* ---------- vykreslenie ---------- */
+    const el = {
+        header: $("#siteHeader"),
+        nav: $("#siteNav"),
+        indicator: $("#navIndicator"),
+        progress: $("#readProgress"),
+        burger: $("#burger"),
+        menu: $("#mobileMenu"),
+        main: $("#obsah"),
+        footer: $(".site-footer"),
+        stats: $("#statList"),
+        grid: $("#projectGrid"),
+        servers: $("#serverList"),
+        timeline: $("#timeline"),
+        timelineFill: $("#timelineFill"),
+        layers: $("#layers"),
+        practices: $("#practiceList"),
+        network: $("#networkList"),
+        school: $("#schoolList"),
+        ai: $("#aiList"),
+        dialog: $("#projectDialog"),
+        dialogBody: $("#projectBody"),
+        dialogClose: $("#projectClose"),
+        sound: $("#soundToggle"),
+        music: $("#bgMusic"),
+        toast: $("#toast"),
+        copy: $("#copyName"),
+        year: $("#year")
+    };
 
-function renderStats() {
-    elements.statReadout.innerHTML = portfolioData.stats.map((stat, index) => `
-        <div class="stat reveal" style="--i:${index}">
-            <dt class="stat-value"><span class="stat-num" data-count="${esc(stat.value)}">0</span>${stat.unit ? `<span class="stat-unit">${esc(stat.unit)}</span>` : ""}</dt>
-            <dd class="stat-label">${esc(stat.label)}</dd>
-        </div>
-    `).join("");
-}
+    const icon = (name) => `<svg class="ico" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 
-function renderFeatured() {
-    elements.featuredList.innerHTML = portfolioData.featured.map((item, index) => `
-        <button class="row row-featured reveal" type="button" data-project-id="${esc(item.id)}" style="--i:${index}">
-            <span class="row-name">${esc(item.name)}</span>
-            <span class="row-text">${esc(item.line)}</span>
-            <span class="state state-${item.state === "vo vývoji" ? "wip" : "live"}">${esc(item.state)}</span>
-            <span class="row-arrow" aria-hidden="true"></span>
-        </button>
-    `).join("");
-}
+    /* ---------- vykreslenie ---------- */
 
-function renderTimeline() {
-    elements.timelineList.innerHTML = portfolioData.timeline.map((block) => {
-        if (block.gap) {
+    function pill(state) {
+        const kind = {
+            "v prevádzke": "live",
+            "vo vývoji": "wip",
+            "pozastavený": "paused",
+            "ukončené": "past",
+            "v príprave": "wip",
+            "aktívny": "live"
+        }[state] || "wip";
+        return `<span class="pill pill-${kind}"><i aria-hidden="true"></i>${esc(state)}</span>`;
+    }
+
+    /* Jazyky, ktoré sa hľadajú v stackoch projektov (Node.js počítam ako JavaScript). */
+    const LANGUAGES = [
+        { name: "Java", match: ["java"] },
+        { name: "Kotlin", match: ["kotlin"] },
+        { name: "JavaScript", match: ["javascript", "node.js"] },
+        { name: "TypeScript", match: ["typescript"] }
+    ];
+
+    function resolveStats() {
+        const projects = portfolioData.devProjects;
+        const used = LANGUAGES.filter((lang) => projects.some((project) =>
+            project.stack.some((tech) => lang.match.includes(tech.trim().toLowerCase()))));
+        return portfolioData.stats.map((stat) => {
+            if (stat.source === "projects") return { ...stat, value: String(projects.length) };
+            if (stat.source === "languages") {
+                const count = used.length;
+                return {
+                    ...stat,
+                    value: String(count),
+                    unit: count === 1 ? "jazyk" : count < 5 ? "jazyky" : "jazykov",
+                    label: `v mojich projektoch — ${used.map((lang) => lang.name).join(", ")}`
+                };
+            }
+            return stat;
+        });
+    }
+
+    function renderStats() {
+        el.stats.innerHTML = resolveStats().map((stat, index) => `
+            <div class="stat reveal" style="--i:${index + 2}">
+                <dt>${esc(stat.label)}</dt>
+                <dd><span class="stat-num" data-count="${esc(stat.value)}">${esc(stat.value)}</span>${stat.unit ? `<span class="stat-unit">${esc(stat.unit)}</span>` : ""}</dd>
+            </div>
+        `).join("");
+    }
+
+    const SHIELD_ART = `<div class="card-art" aria-hidden="true"><svg viewBox="0 0 400 140" preserveAspectRatio="xMidYMid meet">
+        <defs><linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+        <g fill="none" stroke="url(#shieldGrad)" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M200 10 252 28v38c0 31-21 53-52 64-31-11-52-33-52-64V28z" stroke-width="2.4"/>
+            <path d="M200 30 234 41v25c0 20-13 35-34 43-21-8-34-23-34-43V41z" stroke-width="1.4" opacity=".55"/>
+            <path d="m182 68 13 13 25-27" stroke-width="3.4"/>
+            <path d="M20 70h110M270 70h110" stroke-width="1.2" opacity=".35"/>
+            <path d="M60 50h70M270 90h70" stroke-width="1.2" opacity=".2"/>
+        </g>
+        <g fill="url(#shieldGrad)" opacity=".7"><circle cx="20" cy="70" r="3"/><circle cx="380" cy="70" r="3"/><circle cx="60" cy="50" r="2"/><circle cx="340" cy="90" r="2"/></g>
+    </svg></div>`;
+
+    const LENS_ART = `<div class="card-art" aria-hidden="true"><svg viewBox="0 0 400 140" preserveAspectRatio="xMidYMid meet">
+        <defs><linearGradient id="lensGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+        <g fill="none" stroke="url(#lensGrad)" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M138 34v-14h14M262 34v-14h-14M138 98v14h14M262 98v14h-14" stroke-width="2.4"/>
+            <circle cx="200" cy="66" r="26" stroke-width="1.6"/>
+            <circle cx="200" cy="66" r="9" stroke-width="1.6"/>
+            <path d="M200 30v12M200 90v12M164 66h12M224 66h12" stroke-width="1.2" opacity=".55"/>
+            <path d="M40 124h320" stroke-width="1.2" opacity=".3"/>
+            <path d="M40 124h176" stroke-width="2.2"/>
+        </g>
+        <g fill="url(#lensGrad)"><circle cx="216" cy="124" r="4"/></g>
+    </svg></div>`;
+    const FEATURE_ART = { "astralys-shield": SHIELD_ART, "astralys-lens": LENS_ART };
+
+    function renderProjects() {
+        const featuredIds = portfolioData.featured.map((item) => item.id);
+        const featuredById = new Map(portfolioData.featured.map((item) => [item.id, item]));
+        const projects = portfolioData.devProjects;
+        const ordered = [
+            ...featuredIds.map((id) => projects.find((project) => project.id === id)).filter(Boolean),
+            ...projects.filter((project) => !featuredIds.includes(project.id))
+        ];
+
+        /* Malé karty tvoria trojice; zvyšok (1 alebo 2 karty) sa dorovná tak, aby v mriežke
+           neostala diera: pri zvyšku 1 sa posledné štyri roztiahnu na polovicu, pri 2 posledné dve. */
+        const smallCount = ordered.filter((project) => !featuredById.has(project.id)).length;
+        const halfCount = Math.min(smallCount, [0, 4, 2][smallCount % 3]);
+        let smallIndex = 0;
+
+        el.grid.insertAdjacentHTML("beforeend", ordered.map((project, index) => {
+            const featured = featuredById.get(project.id);
+            let size;
+            if (featured) {
+                size = `cell-feature cell-f${featuredIds.indexOf(project.id) + 1}`;
+            } else {
+                size = smallIndex >= smallCount - halfCount ? "cell-small cell-half" : "cell-small";
+                smallIndex += 1;
+            }
             return `
-                <section class="timeline-year timeline-gap">
-                    <h4 class="timeline-year-label">${esc(block.year)}</h4>
-                    <p class="timeline-gap-note">${esc(block.note)}</p>
-                </section>
-            `;
+            <div class="cell ${size} reveal" style="--i:${index % 3}">
+                <article class="card">
+                    <div class="card-top">
+                        <span class="card-kind">${esc(project.kind)}</span>
+                        <span class="card-year">${esc(project.year)}</span>
+                    </div>
+                    <div class="card-main">
+                        ${pill(project.state)}
+                        <h3 class="card-title"><a class="card-link" href="#projekt-${esc(project.id)}" data-project="${esc(project.id)}">${esc(project.name)}</a></h3>
+                        ${featured ? `<p class="card-line">${esc(featured.line)}</p>` : ""}
+                        <p class="card-summary">${esc(project.summary)}</p>
+                        ${featured && project.points && project.points.length ? `<ul class="card-points">${project.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>` : ""}
+                        ${featured && project.closing ? `<p class="card-closing">${esc(project.closing)}</p>` : ""}
+                        ${featured ? FEATURE_ART[project.id] || "" : ""}
+                    </div>
+                    <ul class="chips">${project.stack.map((tech) => `<li>${esc(tech)}</li>`).join("")}</ul>
+                    <span class="card-go" aria-hidden="true">${icon("arrow")}</span>
+                </article>
+            </div>`;
+        }).join(""));
+    }
+
+    function renderServers() {
+        el.servers.innerHTML = portfolioData.servers.map((server, index) => `
+            <article class="server-card reveal" style="--i:${index % 2}">
+                <header>
+                    <h4>${esc(server.name)}</h4>
+                    ${pill(server.status)}
+                </header>
+                <p class="server-meta">${esc(server.role)} · ${esc(server.period)}</p>
+                <p class="server-intro">${esc(server.intro)}</p>
+            </article>
+        `).join("");
+    }
+
+    function renderTimeline() {
+        const html = portfolioData.timeline.map((block) => {
+            if (block.gap) {
+                return `
+                <section class="tl-year tl-gap">
+                    <h4 class="tl-year-label reveal"><i class="tl-dot" aria-hidden="true"></i>${esc(block.year)}</h4>
+                    <p class="tl-gap-note reveal">${esc(block.note)}</p>
+                </section>`;
+            }
+            return `
+                <section class="tl-year">
+                    <h4 class="tl-year-label reveal"><i class="tl-dot tl-dot-year" aria-hidden="true"></i>${esc(block.year)}</h4>
+                    ${block.months.map((monthBlock) => `
+                    <div class="tl-month">
+                        <h5 class="tl-month-label reveal">${esc(monthBlock.month)}</h5>
+                        ${monthBlock.events.map((event, index) => `
+                        <article class="tl-event reveal" style="--i:${index}">
+                            <i class="tl-dot" aria-hidden="true"></i>
+                            <h6>${esc(event.title)}</h6>
+                            ${event.note ? `<p>${esc(event.note)}</p>` : ""}
+                        </article>`).join("")}
+                    </div>`).join("")}
+                </section>`;
+        }).join("");
+        el.timeline.insertAdjacentHTML("beforeend", html);
+    }
+
+    function renderLayers() {
+        el.layers.innerHTML = portfolioData.stack.map((layer, index) => `
+            <li class="layer reveal" style="--i:${index}">
+                <span class="layer-node"><b>${String(index + 1).padStart(2, "0")}</b></span>
+                <div class="layer-card">
+                    <span class="layer-name">${esc(layer.layer)}</span>
+                    <strong class="layer-tech">${esc(layer.tech)}</strong>
+                    <p class="layer-note">${esc(layer.note)}</p>
+                </div>
+            </li>
+        `).join("") + '<li class="packet" aria-hidden="true" role="presentation"><i></i></li>';
+    }
+
+    function renderLists() {
+        el.practices.innerHTML = portfolioData.practices.map((text, index) => `
+            <li class="practice reveal" style="--i:${index % 3}">
+                <span class="practice-ico">${icon("check")}</span>
+                <p>${esc(text)}</p>
+            </li>
+        `).join("");
+
+        const dash = (items) => items
+            .map((text, index) => `<li class="reveal" style="--i:${index}">${esc(text)}</li>`)
+            .join("");
+        el.network.innerHTML = dash(portfolioData.network);
+        el.school.innerHTML = dash(portfolioData.school);
+
+        el.ai.innerHTML = portfolioData.ai.map((tool, index) => `
+            <article class="ai-card reveal" style="--i:${index}">
+                <header>
+                    <span class="ai-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+                    <span class="pill pill-wip pill-plain">${esc(tool.role)}</span>
+                </header>
+                <h3>${esc(tool.name)}</h3>
+                <p>${esc(tool.note)}</p>
+            </article>
+        `).join("");
+    }
+
+    renderStats();
+    renderProjects();
+    renderServers();
+    renderTimeline();
+    renderLayers();
+    renderLists();
+    if (el.year) el.year.textContent = String(new Date().getFullYear());
+
+    /* ---------- reveal pri scrolle ---------- */
+
+    const revealObserver = "IntersectionObserver" in window && !reduced()
+        ? new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-in");
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" })
+        : null;
+
+    $$(".reveal").forEach((node) => {
+        if (revealObserver) revealObserver.observe(node);
+        else node.classList.add("is-in");
+    });
+
+    /* ---------- count-up ---------- */
+
+    function countUp(node) {
+        const target = Number(node.dataset.count);
+        if (!Number.isFinite(target) || reduced()) {
+            node.textContent = node.dataset.count;
+            return;
+        }
+        const duration = 1300;
+        const startedAt = performance.now();
+        const tick = (now) => {
+            const t = clamp((now - startedAt) / duration, 0, 1);
+            const eased = 1 - Math.pow(1 - t, 3);
+            node.textContent = String(Math.round(target * eased));
+            if (t < 1) requestAnimationFrame(tick);
+        };
+        node.textContent = "0";
+        requestAnimationFrame(tick);
+    }
+
+    if ("IntersectionObserver" in window) {
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                countObserver.unobserve(entry.target);
+                countUp(entry.target);
+            });
+        }, { threshold: 0.6 });
+        $$(".stat-num").forEach((node) => {
+            if (!reduced()) node.textContent = "0";
+            countObserver.observe(node);
+        });
+    }
+
+    /* ---------- infraštruktúra: packet ---------- */
+
+    function layoutLayers() {
+        const nodes = $$(".layer-node", el.layers);
+        if (nodes.length < 2) return;
+        const centerOf = (node) => node.offsetTop + node.offsetHeight / 2;
+        const top = centerOf(nodes[0]);
+        const height = centerOf(nodes[nodes.length - 1]) - top;
+        const travel = 2.8; /* s — musí sedieť s --packet-travel v CSS */
+        el.layers.style.setProperty("--rail-top", top + "px");
+        el.layers.style.setProperty("--rail-h", height + "px");
+        nodes.forEach((node) => {
+            node.style.setProperty("--hit", ((centerOf(node) - top) / height * travel).toFixed(2) + "s");
+        });
+    }
+
+    if ("IntersectionObserver" in window) {
+        new IntersectionObserver((entries) => {
+            entries.forEach((entry) => el.layers.classList.toggle("is-live", entry.isIntersecting));
+        }, { threshold: 0.2 }).observe(el.layers);
+    }
+
+    /* ---------- hlavička, progress, scrollspy, časová os ---------- */
+
+    const spySections = ["o-mne", "projekty", "minecraft", "infrastruktura", "siete-skola", "ai", "kontakt"]
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+    const navKey = { "siete-skola": "infrastruktura", ai: "infrastruktura" };
+    const navLinks = $$("a[data-nav]");
+    let activeKey = null;
+    let tlDots = [];
+    let tlDotY = [];
+    let ticking = false;
+
+    /* Indikátor leží v tom istom (škálovanom) kontajneri ako odkazy, takže offsetLeft
+       a offsetWidth sedia aj pri scale(.95) hlavičky. Z neaktívneho stavu sa umiestni
+       okamžite bez transition a len vybledne dnu; medzi dvoma odkazmi sa plynulo posunie. */
+    function placeIndicator(instant) {
+        const link = activeKey ? el.nav.querySelector(`a[data-nav="${activeKey}"]`) : null;
+        if (!link) {
+            el.indicator.classList.remove("is-on");
+            return;
+        }
+        const pad = 14;
+        const transform = `translateX(${link.offsetLeft + pad}px) scaleX(${link.offsetWidth - pad * 2})`;
+        if (instant || !el.indicator.classList.contains("is-on")) {
+            el.indicator.style.transition = "none";
+            el.indicator.style.transform = transform;
+            el.indicator.getBoundingClientRect();
+            el.indicator.style.transition = "";
+        } else {
+            el.indicator.style.transform = transform;
+        }
+        el.indicator.classList.add("is-on");
+    }
+
+    function setActive(key) {
+        if (key === activeKey) return;
+        activeKey = key;
+        navLinks.forEach((link) => {
+            if (link.dataset.nav === key) link.setAttribute("aria-current", "location");
+            else link.removeAttribute("aria-current");
+        });
+        placeIndicator(false);
+    }
+
+    /* Po kliknutí na odkaz sa cieľ nastaví hneď a scrollspy čaká, kým plynulý scroll
+       neskončí (scrollend, fallback ~150 ms po poslednom scroll evente, najviac 1,5 s),
+       inak by indikátor cestou poskakoval po sekciách, ktoré sa len míňajú. */
+    let spyLocked = false;
+    let spyIdleTimer = 0;
+    let spyMaxTimer = 0;
+
+    function unlockSpy() {
+        if (!spyLocked) return;
+        spyLocked = false;
+        clearTimeout(spyIdleTimer);
+        clearTimeout(spyMaxTimer);
+        schedule();
+    }
+
+    function armSpyIdle() {
+        clearTimeout(spyIdleTimer);
+        spyIdleTimer = setTimeout(unlockSpy, 150);
+    }
+
+    function lockSpy() {
+        spyLocked = true;
+        clearTimeout(spyMaxTimer);
+        spyMaxTimer = setTimeout(unlockSpy, 1500);
+        armSpyIdle();
+    }
+
+    document.addEventListener("click", (event) => {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const link = event.target.closest('a[href^="#"]');
+        if (!link) return;
+        const id = link.getAttribute("href").slice(1);
+        if (id === "top") {
+            setActive(null);
+        } else if (spySections.some((section) => section.id === id)) {
+            setActive(id in navKey ? navKey[id] : id);
+        } else {
+            return;
+        }
+        lockSpy();
+    });
+    if ("onscrollend" in window) window.addEventListener("scrollend", unlockSpy);
+
+    function measureTimeline() {
+        tlDots = $$(".tl-dot", el.timeline);
+        tlDotY = tlDots.map((dot) => {
+            let y = dot.offsetHeight / 2;
+            let node = dot;
+            while (node && node !== el.timeline) {
+                y += node.offsetTop;
+                node = node.offsetParent;
+            }
+            return y;
+        });
+    }
+
+    function updateTimeline() {
+        if (!tlDots.length) return;
+        const rect = el.timeline.getBoundingClientRect();
+        const full = reduced();
+        const px = full ? rect.height : clamp(window.innerHeight * 0.62 - rect.top, 0, rect.height);
+        el.timelineFill.style.transform = `scaleY(${rect.height ? (px / rect.height).toFixed(4) : 0})`;
+        for (let i = 0; i < tlDots.length; i++) {
+            tlDots[i].classList.toggle("is-lit", tlDotY[i] <= px);
+        }
+    }
+
+    function update() {
+        ticking = false;
+        const y = window.scrollY;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        el.header.classList.toggle("is-scrolled", y > 24);
+        el.progress.style.transform = `scaleX(${max > 0 ? clamp(y / max, 0, 1).toFixed(4) : 0})`;
+
+        if (!spyLocked) {
+            /* Aktívna je posledná sekcia, ktorej vrch je nad čiarou, takže medzi
+               sekciami nikdy nevzniká null; null je len nad prvou sekciou (hero). */
+            const line = window.innerHeight * 0.38;
+            let current = null;
+            for (const section of spySections) {
+                if (section.getBoundingClientRect().top <= line) current = section.id;
+                else break;
+            }
+            if (max > 0 && y >= max - 6) current = "kontakt";
+            setActive(current === null ? null : (current in navKey ? navKey[current] : current));
         }
 
-        return `
-            <section class="timeline-year">
-                <h4 class="timeline-year-label">
-                    <button class="node-jump" type="button" data-brain-section="minecraft" data-brain-label="${esc(block.year)}">${esc(block.year)}</button>
-                </h4>
-                <div class="timeline-months">
-                    ${block.months.map((monthBlock) => `
-                        <div class="timeline-month">
-                            <h5 class="timeline-month-label">${esc(monthBlock.month)}</h5>
-                            <div class="timeline-events">
-                                ${monthBlock.events.map((event, index) => `
-                                    <article class="timeline-entry reveal" style="--i:${index}">
-                                        <h6 class="timeline-entry-title">${esc(event.title)}</h6>
-                                        ${event.note ? `<p class="note">${esc(event.note)}</p>` : ""}
-                                    </article>
-                                `).join("")}
-                            </div>
-                        </div>
-                    `).join("")}
-                </div>
+        updateTimeline();
+    }
+
+    function schedule() {
+        if (spyLocked) armSpyIdle();
+        if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+    }
+
+    function relayout() {
+        measureTimeline();
+        layoutLayers();
+        placeIndicator(true);
+        update();
+    }
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", () => {
+        relayout();
+        if (window.innerWidth >= 900 && menuOpen) closeMenu(false);
+    });
+    if ("ResizeObserver" in window) new ResizeObserver(relayout).observe(el.timeline);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+
+    /* ---------- zamknutie scrollu ---------- */
+
+    let menuOpen = false;
+    function syncLock() {
+        const lock = menuOpen || el.dialog.open;
+        if (lock && !root.classList.contains("is-locked")) {
+            root.style.setProperty("--sb", Math.max(0, window.innerWidth - root.clientWidth) + "px");
+        }
+        root.classList.toggle("is-locked", lock);
+    }
+
+    /* ---------- mobilné menu ---------- */
+
+    function openMenu() {
+        if (menuOpen) return;
+        menuOpen = true;
+        el.menu.classList.add("is-open");
+        el.menu.setAttribute("aria-hidden", "false");
+        el.header.classList.add("menu-open");
+        el.burger.setAttribute("aria-expanded", "true");
+        el.burger.setAttribute("aria-label", "Zavrieť menu");
+        el.main.inert = true;
+        el.footer.inert = true;
+        syncLock();
+        setTimeout(() => {
+            const first = el.menu.querySelector("a");
+            if (first && menuOpen) first.focus({ preventScroll: true });
+        }, reduced() ? 0 : 120);
+    }
+
+    function closeMenu(restoreFocus = true) {
+        if (!menuOpen) return;
+        menuOpen = false;
+        el.menu.classList.remove("is-open");
+        el.menu.setAttribute("aria-hidden", "true");
+        el.header.classList.remove("menu-open");
+        el.burger.setAttribute("aria-expanded", "false");
+        el.burger.setAttribute("aria-label", "Otvoriť menu");
+        el.main.inert = false;
+        el.footer.inert = false;
+        syncLock();
+        if (restoreFocus) el.burger.focus({ preventScroll: true });
+    }
+
+    el.burger.addEventListener("click", () => (menuOpen ? closeMenu() : openMenu()));
+    el.menu.addEventListener("click", (event) => {
+        if (event.target.closest("a")) closeMenu(false);
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (!menuOpen) return;
+        if (event.key === "Escape") {
+            event.preventDefault();
+            closeMenu();
+            return;
+        }
+        if (event.key !== "Tab") return;
+        const items = [el.burger, ...$$("a[href]", el.menu)];
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        } else if (!items.includes(document.activeElement)) {
+            event.preventDefault();
+            first.focus();
+        }
+    });
+
+    /* ---------- detail projektu (dialog + hash) ---------- */
+
+    const HASH_PREFIX = "#projekt-";
+    let lastTrigger = null;
+    let pushedByClick = false;
+    let closeTimer = 0;
+
+    const projectIdFromHash = () => {
+        if (!location.hash.startsWith(HASH_PREFIX)) return null;
+        try {
+            return decodeURIComponent(location.hash.slice(HASH_PREFIX.length));
+        } catch (error) {
+            return null;
+        }
+    };
+
+    function renderDetail(project) {
+        const block = (label, text) => text
+            ? `<section class="detail-block"><h3>${label}</h3><p>${esc(text)}</p></section>`
+            : "";
+        el.dialogBody.innerHTML = `
+            <p class="detail-meta"><span>${esc(project.kind)}</span><span>${esc(project.year)}</span>${pill(project.state)}</p>
+            <h2 class="detail-title" id="projectTitle">${esc(project.name)}</h2>
+            <p class="detail-summary">${esc(project.summary)}</p>
+            ${block("Problém", project.problem)}
+            ${block("Riešenie", project.approach)}
+            ${project.points && project.points.length ? `
+            <section class="detail-block">
+                <h3>Kľúčové body</h3>
+                <ul class="detail-points">${project.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>
+            </section>` : ""}
+            ${project.closing ? `<p class="detail-closing">${esc(project.closing)}</p>` : ""}
+            <section class="detail-block">
+                <h3>Stack</h3>
+                <ul class="chips">${project.stack.map((tech) => `<li>${esc(tech)}</li>`).join("")}</ul>
             </section>
         `;
-    }).join("");
-}
-
-function renderServers() {
-    elements.minecraftProjectList.innerHTML = portfolioData.servers.map((server, index) => `
-        <article class="server reveal" style="--i:${index}">
-            <header class="server-head">
-                <h4><button class="node-jump" type="button" data-brain-section="minecraft" data-brain-label="${esc(server.name)}">${esc(server.name)}</button></h4>
-                <span class="state state-${server.status === "aktívny" ? "live" : server.status === "pozastavený" ? "wip" : "past"}">${esc(server.status)}</span>
-            </header>
-            <p class="server-meta">${esc(server.role)} · ${esc(server.period)}</p>
-            <p class="note">${esc(server.intro)}</p>
-        </article>
-    `).join("");
-}
-
-function renderDevIndex() {
-    elements.devProjectList.innerHTML = portfolioData.devProjects.map((project, index) => `
-        <button class="row row-project reveal" type="button" role="listitem" data-project-id="${esc(project.id)}" style="--i:${index}">
-            <span class="row-name">${esc(project.name)}</span>
-            <span class="row-kind">${esc(project.kind)}</span>
-            <span class="row-text">${esc(project.summary)}</span>
-            <span class="row-year">${esc(project.year)}</span>
-            <span class="row-arrow" aria-hidden="true"></span>
-        </button>
-    `).join("");
-}
-
-function renderDevDetail(project) {
-    elements.devProjectDetail.innerHTML = `
-        <header class="detail-head">
-            <h2 class="detail-title">${esc(project.name)}</h2>
-            <p class="detail-meta">${esc(project.kind)} · ${esc(project.year)} · ${esc(project.state)}</p>
-        </header>
-
-        <p class="detail-summary">${esc(project.summary)}</p>
-
-        ${project.problem || project.approach ? `
-        <div class="detail-body">
-            <section class="detail-block">
-                <h3>Problém</h3>
-                <p>${esc(project.problem)}</p>
-            </section>
-
-            <section class="detail-block">
-                <h3>Riešenie</h3>
-                <p>${esc(project.approach)}</p>
-            </section>
-        </div>` : ""}
-
-        <ul class="point-list">
-            ${project.points.map((point) => `<li>${esc(point)}</li>`).join("")}
-        </ul>
-
-        ${project.closing ? `<p class="detail-closing">${esc(project.closing)}</p>` : ""}
-
-        <ul class="stack-tags">
-            ${project.stack.map((tech) => `<li>${esc(tech)}</li>`).join("")}
-        </ul>
-    `;
-}
-
-function renderAi() {
-    elements.aiList.innerHTML = portfolioData.ai.map((tool, index) => `
-        <article class="server reveal" style="--i:${index}">
-            <header class="server-head">
-                <h4>${esc(tool.name)}</h4>
-                <span class="state state-live">${esc(tool.role)}</span>
-            </header>
-            <p class="note">${esc(tool.note)}</p>
-        </article>
-    `).join("");
-}
-
-function renderStack() {
-    elements.stackDiagram.innerHTML = portfolioData.stack.map((row, index) => `
-        <div class="stack-row reveal" style="--i:${index}">
-            <span class="stack-layer">${esc(row.layer)}</span>
-            <span class="stack-tech">${esc(row.tech)}</span>
-            <span class="stack-note">${esc(row.note)}</span>
-        </div>
-    `).join("");
-}
-
-function fillList(node, items) {
-    node.innerHTML = items
-        .map((item, index) => `<li class="reveal" style="--i:${index}">${esc(item)}</li>`)
-        .join("");
-}
-
-renderStats();
-renderFeatured();
-renderTimeline();
-renderServers();
-renderDevIndex();
-renderStack();
-fillList(elements.practiceList, portfolioData.practices);
-fillList(elements.networkList, portfolioData.network);
-fillList(elements.schoolList, portfolioData.school);
-renderAi();
-
-/* ---------- dekorácia avatara ---------- */
-/* Zobrazí sa, len ak assets/avatar-deco.png naozaj existuje. */
-if (elements.avatarDeco) {
-    const decoSrc = elements.avatarDeco.dataset.deco;
-    const probe = new Image();
-    probe.onload = () => {
-        elements.avatarDeco.src = decoSrc;
-        elements.avatarDeco.hidden = false;
-    };
-    probe.src = decoSrc;
-}
-
-/* ---------- navigácia ---------- */
-
-const menuButtons = document.querySelectorAll(".nav-item");
-const pages = document.querySelectorAll(".page");
-const devViews = document.querySelectorAll(".dev-view");
-const sectionIds = Array.from(menuButtons).map((button) => button.dataset.section);
-
-let currentSection = "home";
-
-function setBreadcrumb(text) {
-    if (elements.breadcrumb) elements.breadcrumb.textContent = text;
-    document.title = text === "Domov" ? "Leonardo | AstrakSK" : `${text} · AstrakSK`;
-}
-
-/* Na mobile je nad obsahom hlavička a menu je prilepené hore. Skok na
-   úplný vrch by po každom prepnutí ukázal znova hlavičku — skočí sa preto
-   len na začiatok obsahu, a to iba vtedy, keď je stránka pod ním. */
-function scrollToContent() {
-    const nav = document.querySelector(".nav");
-    const stuck = getComputedStyle(nav).position === "sticky" ? nav.offsetHeight : 0;
-    const top = elements.contentScroll.getBoundingClientRect().top + window.scrollY - stuck;
-    window.scrollTo({ top: Math.max(0, Math.min(window.scrollY, top)), behavior: "auto" });
-}
-
-function showSection(sectionId, { updateHash = true } = {}) {
-    const page = document.getElementById(sectionId);
-    if (!page) return;
-
-    currentSection = sectionId;
-
-    menuButtons.forEach((button) => {
-        const isActive = button.dataset.section === sectionId;
-        button.classList.toggle("active", isActive);
-        button.setAttribute("aria-selected", String(isActive));
-        /* v posuvnom menu na mobile nech je aktívna položka vidno */
-        if (isActive) button.scrollIntoView({ block: "nearest", inline: "nearest" });
-    });
-
-    pages.forEach((item) => item.classList.toggle("active", item.id === sectionId));
-    setBreadcrumb(sectionLabels[sectionId]);
-
-    /* pozadie odletí k uzlu tejto sekcie */
-    if (window.Brain) window.Brain.goToSection(sectionId);
-
-    scrollToContent();
-    replayReveals(page);
-    updateScrollHint();
-
-    if (sectionId === "dev") showDevView("index", null, { updateHash: false });
-    if (updateHash) location.hash = sectionId === "home" ? "" : sectionId;
-}
-
-function showDevView(viewName, project = null, { updateHash = true } = {}) {
-    if (project) renderDevDetail(project);
-    if (viewName !== "detail" && window.Brain) window.Brain.clearNode();
-
-    devViews.forEach((view) => {
-        const isActive = view.dataset.devView === viewName;
-        view.classList.toggle("active", isActive);
-        if (isActive) replayReveals(view);
-    });
-
-    setBreadcrumb(viewName === "detail" && project
-        ? `Vývoj / ${project.name}`
-        : sectionLabels.dev);
-
-    scrollToContent();
-
-    if (updateHash) {
-        location.hash = viewName === "detail" && project ? `dev/${project.id}` : "dev";
-    }
-}
-
-function openProject(projectId, options = {}) {
-    const project = portfolioData.devProjects.find((item) => item.id === projectId);
-    if (!project) return false;
-
-    if (currentSection !== "dev") showSection("dev", { updateHash: false });
-    showDevView("detail", project, options);
-
-    /* pozadie doletí po vlákne ku guličke tohto projektu */
-    if (window.Brain) window.Brain.goToNode("dev", { project: project.id });
-    return true;
-}
-
-/* Preklik na položku, ktorá má svoj uzol v pozadí — rok časovej osi,
-   server. Kamera k nej odletí, obsah zostáva tam, kde je. */
-function jumpToNode(section, label) {
-    if (!window.Brain) return;
-    window.Brain.goToNode(section, { label });
-}
-
-menuButtons.forEach((button) => {
-    button.addEventListener("click", () => showSection(button.dataset.section));
-});
-
-/* otvorenie projektu z ktoréhokoľvek zoznamu */
-document.addEventListener("click", (event) => {
-    const jump = event.target.closest("[data-brain-section]");
-    if (jump) {
-        jumpToNode(jump.dataset.brainSection, jump.dataset.brainLabel);
-        return;
+        el.dialog.scrollTop = 0;
+        $(".detail-inner", el.dialog).scrollTop = 0;
     }
 
-    const card = event.target.closest("[data-project-id]");
-    if (card) {
-        openProject(card.dataset.projectId);
-        return;
+    function openPanel(id) {
+        const project = portfolioData.devProjects.find((item) => item.id === id);
+        if (!project) return;
+        clearTimeout(closeTimer);
+        el.dialog.classList.remove("is-closing");
+        renderDetail(project);
+        if (!el.dialog.open) el.dialog.showModal();
+        syncLock();
     }
 
-    const route = event.target.closest("[data-dev-route]");
-    if (route) showDevView(route.dataset.devRoute);
-});
-
-/* rozbaľovacie bloky — plynulá výška namiesto skoku */
-
-/* Ktorá gulička patrí ktorému rozbaľovaciemu bloku. */
-function foldTarget(bodyId) {
-    if (bodyId === "minecraftTimeline") {
-        return { section: "minecraft", matcher: { caption: "časová os" } };
+    function closePanel() {
+        if (!el.dialog.open || el.dialog.classList.contains("is-closing")) return;
+        const finish = () => {
+            el.dialog.classList.remove("is-closing");
+            if (el.dialog.open) el.dialog.close();
+            syncLock();
+            if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus({ preventScroll: true });
+            lastTrigger = null;
+        };
+        if (reduced()) {
+            finish();
+        } else {
+            el.dialog.classList.add("is-closing");
+            closeTimer = setTimeout(finish, 240);
+        }
     }
 
-    if (bodyId === "minecraftProjects") {
-        const first = portfolioData.servers[0];
-        return first ? { section: "minecraft", matcher: { label: first.name } } : null;
-    }
-
-    return null;
-}
-
-/* Otvorený blok zatvorí ten vedľa seba — dva rozvinuté zoznamy nad
-   sebou by znamenali, že po prelete kamery nevidno, kam sa priletelo. */
-function closeSiblingFolds(trigger) {
-    const fold = trigger.closest(".fold");
-    if (!fold || !fold.parentElement) return;
-
-    fold.parentElement.querySelectorAll(".fold > .fold-trigger").forEach((other) => {
-        if (other === trigger) return;
-        if (other.getAttribute("aria-expanded") !== "true") return;
-        toggleFold(other);
-    });
-}
-
-function toggleFold(trigger) {
-    const body = document.getElementById(trigger.getAttribute("aria-controls"));
-    const willOpen = trigger.getAttribute("aria-expanded") !== "true";
-
-    trigger.setAttribute("aria-expanded", String(willOpen));
-
-    if (willOpen) {
-        closeSiblingFolds(trigger);
-
-        const target = foldTarget(body.id);
-        if (target && window.Brain) window.Brain.goToNode(target.section, target.matcher);
-    } else if (window.Brain) {
-        window.Brain.clearNode();
-    }
-
-    if (reducedMotion()) {
-        body.hidden = !willOpen;
-        if (willOpen) replayReveals(body);
-        return;
-    }
-
-    body.style.overflow = "hidden";
-
-    if (willOpen) {
-        body.hidden = false;
-        replayReveals(body);
-        const target = body.scrollHeight;
-        body.style.height = "0px";
-        requestAnimationFrame(() => {
-            body.style.height = `${target}px`;
-        });
-    } else {
-        body.style.height = `${body.scrollHeight}px`;
-        requestAnimationFrame(() => {
-            body.style.height = "0px";
-        });
-    }
-
-    const finish = (event) => {
-        if (event.propertyName !== "height") return;
-        body.removeEventListener("transitionend", finish);
-        body.style.height = "";
-        body.style.overflow = "";
-        if (!willOpen) body.hidden = true;
-        else updateScrollHint();
-    };
-
-    body.addEventListener("transitionend", finish);
-}
-
-document.querySelectorAll(".fold-trigger").forEach((trigger) => {
-    trigger.addEventListener("click", () => toggleFold(trigger));
-});
-
-/* odkazy na konkrétnu sekciu alebo projekt */
-function applyHash({ updateHash = false } = {}) {
-    const raw = location.hash.replace(/^#\/?/, "");
-    if (!raw) {
-        showSection("home", { updateHash });
-        return;
-    }
-
-    const [section, projectId] = raw.split("/");
-
-    if (section === "dev" && projectId) {
-        if (openProject(projectId, { updateHash })) return;
-    }
-
-    if (sectionIds.includes(section)) {
-        showSection(section, { updateHash });
-        return;
-    }
-
-    showSection("home", { updateHash });
-}
-
-window.addEventListener("hashchange", () => applyHash());
-
-/* klávesnica: 1-6 prepína sekcie, Escape sa vracia zo detailu projektu */
-document.addEventListener("keydown", (event) => {
-    if (event.metaKey || event.ctrlKey || event.altKey) return;
-    if (/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) return;
-    if (!elements.enterScreen.classList.contains("hidden")) return;
-
-    if (event.key === "Escape") {
-        const detailOpen = document.querySelector('.dev-view[data-dev-view="detail"].active');
-        if (detailOpen) showDevView("index");
-        return;
-    }
-
-    const index = Number(event.key) - 1;
-    if (Number.isInteger(index) && index >= 0 && index < sectionIds.length) {
-        showSection(sectionIds[index]);
-    }
-});
-
-/* ---------- hudba ---------- */
-
-const SOUND_KEY = "astraksk:sound";
-let soundOn = true;
-
-try {
-    soundOn = localStorage.getItem(SOUND_KEY) !== "off";
-} catch (error) {
-    soundOn = true;
-}
-
-function paintSoundButton() {
-    elements.soundToggle.querySelector("use")
-        .setAttribute("href", soundOn ? "#i-sound" : "#i-muted");
-    elements.soundToggle.setAttribute("aria-pressed", String(soundOn));
-    elements.soundToggle.setAttribute("aria-label", soundOn ? "Vypnúť hudbu" : "Zapnúť hudbu");
-}
-
-function applySound() {
-    if (soundOn) {
-        elements.bgMusic.volume = 0.22;
-        elements.bgMusic.play().catch(() => {});
-    } else {
-        elements.bgMusic.pause();
-    }
-    paintSoundButton();
-}
-
-elements.soundToggle.addEventListener("click", () => {
-    soundOn = !soundOn;
-    try {
-        localStorage.setItem(SOUND_KEY, soundOn ? "on" : "off");
-    } catch (error) {
-        /* súkromný režim — voľba platí len do zatvorenia karty */
-    }
-    applySound();
-});
-
-paintSoundButton();
-
-/* ---------- vstupná obrazovka ---------- */
-
-function enterWebsite() {
-    if (elements.enterScreen.classList.contains("hidden")) return;
-
-    elements.enterScreen.classList.add("hidden");
-    applySound();
-    if (window.Brain) window.Brain.start();
-}
-
-/* Nie pointerdown: Chromium udelí oprávnenie prehrávať až pri mousedown, ktorý
-   príde po ňom — play() by sa zamietol a click by už našiel obrazovku skrytú. */
-elements.enterScreen.addEventListener("click", enterWebsite);
-elements.enterScreen.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        enterWebsite();
-    }
-});
-
-/* ---------- digitálny mozog ---------- */
-/* Sieť uzlov na pozadí žije v brain.js. Tu sa len prepojí s obsahom:
-   pozná dáta, vie prepnúť sekciu a otvoriť projekt. */
-
-const brain = window.Brain || null;
-
-if (brain) {
-    brain.build(portfolioData, {
-        sectionLabels,
-        onNavigate(target) {
-            if (!target) return;
-            if (target.type === "project") {
-                openProject(target.id);
-                return;
+    function requestClose() {
+        if (projectIdFromHash()) {
+            if (pushedByClick) {
+                pushedByClick = false;
+                history.back();
+            } else {
+                history.replaceState(null, "", location.pathname + location.search);
             }
-            showSection(target.id);
+        }
+        closePanel();
+    }
+
+    function syncFromHash() {
+        const id = projectIdFromHash();
+        if (id) openPanel(id);
+        else closePanel();
+    }
+
+    el.grid.addEventListener("click", (event) => {
+        const link = event.target.closest("a[data-project]");
+        if (!link) return;
+        lastTrigger = link;
+        pushedByClick = true;
+    });
+
+    el.dialogClose.addEventListener("click", requestClose);
+    el.dialog.addEventListener("click", (event) => {
+        if (event.target === el.dialog) requestClose();
+    });
+    el.dialog.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        requestClose();
+    });
+    window.addEventListener("hashchange", () => {
+        if (!projectIdFromHash()) pushedByClick = false;
+        syncFromHash();
+    });
+    if (projectIdFromHash()) syncFromHash();
+
+    /* ---------- karty: spotlight a tilt ---------- */
+
+    if (pointerQuery.matches) {
+        $$(".card").forEach((card) => {
+            card.addEventListener("pointermove", (event) => {
+                const rect = card.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                card.style.setProperty("--x", x + "px");
+                card.style.setProperty("--y", y + "px");
+                if (reduced()) return;
+                const rx = (0.5 - y / rect.height) * 6; /* max ±3° */
+                const ry = (x / rect.width - 0.5) * 6;
+                card.style.transform = `perspective(1000px) translateY(-4px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+            });
+            card.addEventListener("pointerleave", () => {
+                card.style.transform = "";
+            });
+        });
+    }
+
+    /* ---------- magnetické tlačidlá ---------- */
+
+    if (pointerQuery.matches && !reduced()) {
+        const magnets = $$(".magnetic");
+        let mx = 0;
+        let my = 0;
+        let pending = false;
+        const apply = () => {
+            pending = false;
+            magnets.forEach((node) => {
+                const rect = node.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dx = mx - cx;
+                const dy = my - cy;
+                const reach = Math.max(rect.width, rect.height) / 2 + 36;
+                if (Math.hypot(dx, dy) < reach) {
+                    node.style.transform = `translate(${(dx * 0.22).toFixed(1)}px, ${(dy * 0.28).toFixed(1)}px)`;
+                } else if (node.style.transform) {
+                    node.style.transform = "";
+                }
+            });
+        };
+        window.addEventListener("pointermove", (event) => {
+            mx = event.clientX;
+            my = event.clientY;
+            if (!pending) {
+                pending = true;
+                requestAnimationFrame(apply);
+            }
+        }, { passive: true });
+    }
+
+    /* ---------- kopírovanie mena a toast ---------- */
+
+    let toastTimer = 0;
+    function showToast(text) {
+        el.toast.textContent = text;
+        el.toast.classList.add("is-on");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.toast.classList.remove("is-on"), 2000);
+    }
+
+    async function copyText(text) {
+        try {
+            await navigator.clipboard.writeText(text);
+            return true;
+        } catch (error) {
+            const area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+            document.body.appendChild(area);
+            area.select();
+            let ok = false;
+            try { ok = document.execCommand("copy"); } catch (err) { ok = false; }
+            area.remove();
+            return ok;
+        }
+    }
+
+    el.copy.addEventListener("click", async () => {
+        showToast((await copyText("astraksk")) ? "Skopírované" : "Kopírovanie sa nepodarilo");
+    });
+
+    /* ---------- hudba: len cez tlačidlo, nikdy automaticky ---------- */
+
+    const SOUND_KEY = "astraksk:sound";
+    let wantsSound = false;
+    try { wantsSound = localStorage.getItem(SOUND_KEY) === "on"; } catch (error) { wantsSound = false; }
+
+    function paintSound() {
+        const playing = !el.music.paused;
+        el.sound.querySelector("use").setAttribute("href", playing ? "#i-sound" : "#i-muted");
+        el.sound.setAttribute("aria-pressed", String(playing));
+        el.sound.setAttribute("aria-label", playing ? "Vypnúť hudbu" : "Zapnúť hudbu");
+        el.sound.classList.toggle("is-playing", playing);
+        el.sound.classList.toggle("is-resume", !playing && wantsSound);
+    }
+
+    el.sound.addEventListener("click", () => {
+        if (el.music.paused) {
+            el.music.volume = 0.22;
+            el.music.play().then(() => {
+                wantsSound = true;
+                try { localStorage.setItem(SOUND_KEY, "on"); } catch (error) { /* súkromný režim */ }
+                paintSound();
+            }).catch(() => paintSound());
+        } else {
+            el.music.pause();
+            wantsSound = false;
+            try { localStorage.setItem(SOUND_KEY, "off"); } catch (error) { /* súkromný režim */ }
+            paintSound();
         }
     });
-}
+    el.music.addEventListener("play", paintSound);
+    el.music.addEventListener("pause", paintSound);
+    paintSound();
 
-/* ================= animácie a šípky ================= */
+    /* ---------- štart ---------- */
 
-function reducedMotion() {
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-/* --- postupné odkrývanie obsahu --- */
-
-const revealObserver = "IntersectionObserver" in window
-    ? new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add("in");
-            revealObserver.unobserve(entry.target);
-            if (entry.target.classList.contains("stat")) countUp(entry.target);
-        });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: .08 })
-    : null;
-
-function watchReveals(scope = document) {
-    const items = scope.querySelectorAll(".reveal:not(.in)");
-
-    if (!revealObserver || reducedMotion()) {
-        items.forEach((item) => {
-            item.classList.add("in");
-            if (item.classList.contains("stat")) countUp(item);
-        });
-        return;
-    }
-
-    items.forEach((item) => revealObserver.observe(item));
-}
-
-/* Pri prepnutí sekcie alebo rozbalení bloku sa nábeh prehrá znova. */
-function replayReveals(scope) {
-    if (!scope) return;
-
-    scope.querySelectorAll(".reveal").forEach((item) => {
-        item.classList.remove("in");
-        const number = item.querySelector(".stat-num");
-        if (number) number.textContent = "0";
-    });
-
-    watchReveals(scope);
-}
-
-/* --- naratávanie čísel --- */
-
-function countUp(stat) {
-    const node = stat.querySelector(".stat-num");
-    if (!node) return;
-
-    const target = Number(node.dataset.count);
-    if (!Number.isFinite(target)) return;
-
-    if (reducedMotion()) {
-        node.textContent = String(target);
-        return;
-    }
-
-    const duration = 900;
-    const started = performance.now();
-
-    const step = (now) => {
-        const progress = Math.min((now - started) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        node.textContent = String(Math.round(target * eased));
-        if (progress < 1) requestAnimationFrame(step);
-    };
-
-    requestAnimationFrame(step);
-}
-
-/* --- šípka, keď je na stránke ešte obsah nižšie --- */
-
-const scrollHint = document.createElement("button");
-scrollHint.className = "scroll-hint";
-scrollHint.type = "button";
-scrollHint.setAttribute("aria-label", "Posunúť nižšie");
-scrollHint.innerHTML = '<span class="scroll-hint-arrow" aria-hidden="true"></span>';
-document.body.appendChild(scrollHint);
-
-scrollHint.addEventListener("click", () => {
-    window.scrollBy({
-        top: Math.round(window.innerHeight * .82),
-        behavior: reducedMotion() ? "auto" : "smooth"
-    });
-});
-
-function updateScrollHint() {
-    const remaining = document.documentElement.scrollHeight
-        - window.scrollY
-        - window.innerHeight;
-
-    scrollHint.classList.toggle("visible", remaining > 120);
-}
-
-window.addEventListener("scroll", updateScrollHint, { passive: true });
-window.addEventListener("resize", updateScrollHint, { passive: true });
-
-/* Výška stránky sa mení aj bez scrollu — rozbalením bloku, prepnutím sekcie,
-   doťahaním fontu. Bez tohto sa šípka objaví až pri prvom posunutí. */
-if ("ResizeObserver" in window) {
-    new ResizeObserver(() => updateScrollHint()).observe(document.body);
-}
-
-watchReveals();
-applyHash();
-updateScrollHint();
+    requestAnimationFrame(relayout);
+    motionQuery.addEventListener && motionQuery.addEventListener("change", relayout);
+})();
