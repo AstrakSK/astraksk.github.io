@@ -8,10 +8,19 @@ vlastná doména `astraksk.com` (viď `CNAME`). Repo `AstrakSK/astraksk.github.i
 Obsah aj UI sú **po slovensky** (`<html lang="sk">`). Commit správy píš tiež po slovensky —
 zodpovedá to doterajšej histórii ("V3 — redizajn, aktuálny obsah a animácie").
 
-Jedna rolovacia stránka s kotvami v štýle firemného webu: tmavý, technický dizajn,
-studené pozadie (`#05080c`), akcent tyrkysová → azúrová (`#2dd4bf` → `#38bdf8`, limetková `#a3e635`
-len ako drobný doplnok), písma Space Grotesk (text, nadpisy) a JetBrains Mono (štítky, čísla),
-menšie zaoblenia (karty 12 px, tlačidlá 10 px), animácie len cez `transform`/`opacity`.
+Jedna rolovacia stránka s kotvami. Smer V7 (unslop, 23. 11. 2026): **spoľahlivý, nočný,
+vecný**, svet serverovej konzoly. Chrome je tichý: graphite pozadie (`#05080c`), plochy
+`#0b1015`/`#10171e`, hairline okraje, **jeden akcent tyrkysová `#2dd4bf`** (plná farba, žiadne
+prechody, žiare ani farebné tiene). Zelená `--green` a jantárová `--amber` iba ako
+sémantické farby stavových bodiek. Písma Space Grotesk (text) a JetBrains Mono (štítky,
+čísla), váhy 400–600, štítky v sentence case bez rozostupov písmen. Zaoblenia: karty 12 px,
+tlačidlá 10 px, okno v hero 14 px. Animácie len cez `transform`/`opacity`/farby.
+
+**Jediné bohaté miesto** je okno „Čo práve beží“ v hero (vrstvy servera zo `stack` a projekty
+`v prevádzke` z `devProjects`, hodiny v Bratislave). **Signatúra:** živá zelená bodka, ktorá
+pulzuje iba pri veciach, čo naozaj bežia. Ostatné stavy sú tichý mono text s bodkou
+(`stateTag()`). Nepridávaj späť prechody, bodkované mriežky, grain, glow, tilt ani magnetické
+tlačidlá.
 
 ## Stack
 
@@ -21,10 +30,9 @@ Súbory sa servírujú presne tak, ako ležia v repo — čo zmeníš, to ide vo
 | Súbor | Úloha |
 |---|---|
 | `index.html` | kostra, SVG sprite, hlavička, mobilné menu, statické sekcie a texty, `<dialog>` detailu, SEO (meta, OG, JSON-LD) |
-| `style.css` | všetky štýly: tokeny v `:root`, komponenty, responzivita, `prefers-reduced-motion` na konci |
-| `bg.js` | canvas perspektívna mriežka bodov v hero, pod kurzorom sa jemne zvlní (pauza mimo viewportu a na skrytej záložke, DPR max 2, pri reduced-motion jeden statický snímok) |
+| `style.css` | všetky štýly: tokeny v `:root`, komponenty, responzivita |
 | `script.js` | `portfolioData` + render do DOM + všetka logika stránky |
-| `assets/` | fonty (`fonts/`, Space Grotesk + JetBrains Mono, variabilné woff2, latin + latin-ext), `discord-avatar.png` (originál, len pre JSON-LD), `avatar-72/128/256.webp` (na stránke), `og-image.jpg` (1200×630, náhľad pre OG/Twitter), `skin.webp` (512×512, postava zaberá len stred), `favicon.png`, `music.mp3` |
+| `assets/` | fonty (`fonts/`, Space Grotesk + JetBrains Mono, variabilné woff2, latin + latin-ext), `discord-avatar.png` (originál, len pre JSON-LD), `avatar-72/128/256.webp` (na stránke), `og-image.jpg` (1200×630, náhľad pre OG/Twitter), `skin.webp` (1024×1024, vlastný 3D render skinu AstrocrAzytv, chodidlá na 90,6 % výšky kvôli pódiu), `favicon.png`, `music.mp3` |
 | `robots.txt`, `sitemap.xml` | Allow all + odkaz na sitemap; sitemap má jednu URL, pri väčšej zmene obsahu zvýš `lastmod` |
 | `404.html` | vlastná chybová stránka pre GitHub Pages (`noindex`, absolútne cesty k fontom cez `assets/fonts/fonts.css`; `index` má `@font-face` priamo na začiatku `style.css`, pri zmene fontov uprav oboje) |
 
@@ -33,10 +41,10 @@ Súbory sa servírujú presne tak, ako ležia v repo — čo zmeníš, to ide vo
 ### 1. Cache busting `?v=`
 
 GitHub Pages posiela `Cache-Control: max-age=600`. Pri **každom** vydaní zvýš `?v=`
-v `index.html` naraz pre `style.css`, `bg.js` **aj** `script.js` (tri súbory). Bez toho
+v `index.html` naraz pre `style.css` **aj** `script.js` (`bg.js` bol vo V7 zrušený). Bez toho
 dostane vracajúci sa návštevník nové HTML so starým CSS/JS a stránka sa rozsype.
 
-Aktuálne `v=23`. Fonty verziu nemajú — tie sa nemenia.
+Aktuálne `v=25`. Fonty verziu nemajú — tie sa nemenia.
 
 ### 2. Obsah je v `portfolioData`, nie v HTML
 
@@ -46,10 +54,10 @@ Aktuálne `v=23`. Fonty verziu nemajú — tie sa nemenia.
 
 Počet projektov aj počet jazykov v `stats` sa počíta v kóde (`resolveStats()` z dĺžky
 `devProjects` a zo stackov; zoznam hľadaných jazykov je `LANGUAGES`), nepíš ich ručne.
-`featured` (teraz 2 položky) určuje veľké karty v hornom rade bento mriežky; featured karty
-ukážu všetky `points`, `closing` a ilustráciu (`FEATURE_ART`: `SHIELD_ART`, `LENS_ART`).
-Malé karty sa dorovnávajú v JS (`cell-half`), aby v mriežke nevznikla diera. Pill stavu mapuje `pill()` v `script.js`
-(`v prevádzke`, `vo vývoji`, `v príprave`, `pozastavený`, `ukončené`).
+`featured` (teraz 2 položky) určuje dve veľké karty (`.feature-grid`) so všetkými `points`
+a `closing`. Ostatné projekty sú pod nimi ako zoznam riadkov (`.project-list`), nie mriežka
+rovnakých kariet. Stav mapuje `STATE_KIND` + `stateTag()` v `script.js`
+(`v prevádzke`, `vo vývoji`, `v príprave`, `pozastavený`, `ukončené`, v hero aj `beží`).
 
 **Súkromie:** Together má verejne len stack a technickú stránku, účel a funkcie sa
 nezverejňujú. Do `portfolioData` nepatria IP adresy, cesty na disku, tokeny, ceny,
@@ -68,9 +76,9 @@ poľa `spySections` v `script.js`.
 
 | Sekcia | Statické v `index.html` | Renderuje `script.js` (kontajner) |
 |---|---|---|
-| Hero | nadpis, lead, CTA, avatar | — (nadpis je rozdelený na slová `.w > .wi` priamo v HTML s `--k`, odhalenie zdola cez masku je čisté CSS, aby LCP nečakal na JS) |
+| Hero | nadpis, lead, CTA, kostra okna stavu | `#statusInfra`, `#statusLive`, `#statusClock` (nadpis je rozdelený na slová `.w > .wi` priamo v HTML s `--k`, odhalenie zdola cez masku je čisté CSS, aby LCP nečakal na JS) |
 | O mne | nadpis, odsek | `#statList` — `stats`, count-up pri zobrazení |
-| Projekty | nadpis, lead | `#projectGrid` — bento: 2 `featured` veľké vedľa seba, ostatné malé |
+| Projekty | nadpis, lead | `#projectGrid` — 2 `featured` karty vedľa seba, ostatné ako zoznam riadkov |
 | Minecraft | nadpis, lead, skin | `#serverList`, `#timeline` (čiara sa plní podľa scrollu, body `.tl-dot.is-lit`) |
 | Infraštruktúra | nadpis, lead | `#layers` (4 poschodia + animovaný packet), `#practiceList` |
 | Siete a Škola | dve karty s leadmi | `#networkList`, `#schoolList` |
@@ -89,14 +97,15 @@ klikom, urobí `history.back()`, inak `replaceState`. Focus sa vráti na kartu.
 - Reveal pri scrolle: `.reveal` + `--i` (stagger); aktivuje sa až keď `<head>` pridá `html.js`
   (inline skript), takže bez JS je statický obsah viditeľný.
 - Hero vstup je čisté CSS (`.hero-fade`, `.wi`), nezávisí od načítania `script.js`.
-- `@media (prefers-reduced-motion: reduce)` na konci `style.css` vypína všetky animácie
-  a transitions a zobrazí obsah hneď; `bg.js` a `script.js` ho čítajú tiež.
+- **Animácie bežia vždy, aj pri `prefers-reduced-motion: reduce`** (globálne pravidlo
+  majiteľa). V CSS ani JS nesmie byť detekcia, ktorá by ich vypla.
+- Slučky sú len dve a obe niečo znamenajú: pulz živej bodky a packet vo vrstvách infraštruktúry.
 - Scrollspy: aktívna je posledná sekcia, ktorej vrch je nad čiarou v 38 % výšky (null len v hero). Klik na
   odkaz nastaví cieľ hneď a spy pozastaví do `scrollend` (fallback 150 ms ticha, max 1,5 s). Indikátor sa
   z neaktívneho stavu umiestni bez transition a len vybledne dnu.
 - Mobilné menu (<900 px): `aria-hidden`, `inert` na `main`/`footer`, focus trap, Esc.
 - Hudba sa **nespúšťa automaticky** — len plávajúce tlačidlo zvuku; stav je v
-  `localStorage` (`astraksk:sound`), pri predošlom „zapnuté“ tlačidlo len jemne pulzuje.
+  `localStorage` (`astraksk:sound`), pri predošlom „zapnuté“ má tlačidlo tyrkysový okraj.
 - Zamknutie scrollu (`html.is-locked`) kompenzuje šírku scrollbaru cez `--sb`.
 
 ## SEO

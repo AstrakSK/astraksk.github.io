@@ -9,14 +9,12 @@ const portfolioData = {
         {
             id: "astralys-shield",
             name: "AstralysShield",
-            line: "Anti-cheat, ktorý neháda z packetov, ale overuje samotného klienta.",
-            state: "vo vývoji"
+            line: "Anti-cheat, ktorý neháda z packetov, ale overuje samotného klienta."
         },
         {
             id: "astralys-lens",
             name: "AstralysLens",
-            line: "Klip z podozrivého momentu, ktorý si staff prehrá v 3D.",
-            state: "vo vývoji"
+            line: "Klip z podozrivého momentu, ktorý si staff prehrá v 3D."
         }
     ],
 
@@ -25,11 +23,40 @@ const portfolioData = {
             year: "2026",
             months: [
                 {
+                    month: "November",
+                    events: [
+                        {
+                            title: "CZSK TierTagger 3.0",
+                            note: "Graf vývoja tierov aj subtierov, náhľad hráča a port pre Minecraft 26.x."
+                        },
+                        {
+                            title: "ŽSR Mapa 2.6 s automatickými aktualizáciami",
+                            note: "Aplikácia si sama kontroluje, sťahuje a inštaluje nové verzie mimo Google Play, s overením podpisu a kontrolného súčtu."
+                        },
+                        {
+                            title: "AstralysAntiXray 2.0 a AstralysCombat 2.0",
+                            note: "AntiXray s priebežnými návnadami a prepojením na AstralysShield a AstralysAntiESP, DeluxeCombat prepracovaný na AstralysCombat. Obe verzie sú zostavené, test na serveri s hráčmi čaká."
+                        }
+                    ]
+                },
+                {
                     month: "Október",
                     events: [
                         {
-                            title: "Spoluzakladateľ Rifted",
-                            note: "Nový CZ/SK survival SMP. Staviam jeho technologický základ; server ešte nebeží."
+                            title: "AstralysShield prepísaný do Kotlinu",
+                            note: "Serverový plugin prešiel z Javy a Mavenu na Kotlin a Gradle, s novými detekciami."
+                        },
+                        {
+                            title: "AstralysAntiESP, všetky štyri fázy",
+                            note: "Skrývanie entít, blokov a podzemia pred ESP a freecam klientmi, otestované s reálnym klientom."
+                        },
+                        {
+                            title: "Zakladateľ Rifted",
+                            note: "Nový CZ/SK SMP. Staviam jeho technologický základ."
+                        },
+                        {
+                            title: "ŽSR Mapa pre Android",
+                            note: "Mapa vlakov ako aplikácia, od verzie 2.0 s prístupom na pozvánku."
                         }
                     ]
                 },
@@ -174,9 +201,9 @@ const portfolioData = {
         {
             name: "Rifted",
             status: "v príprave",
-            role: "Spoluzakladateľ",
+            role: "Zakladateľ",
             period: "október 2026 —",
-            intro: "Český a slovenský survival SMP, ktorý stavám s kamarátmi. Mám na starosti technologický základ projektu, na ktorom stavia aj technológia z Astralys. Server ešte nebeží."
+            intro: "Český a slovenský SMP, ktorý stavám s kamarátmi. Mám na starosti technologický základ projektu, na ktorom stavia aj technológia z Astralys. Zatiaľ nie je verejne otvorený."
         },
         {
             name: "Astralys.cz",
@@ -214,7 +241,7 @@ const portfolioData = {
             kind: "Mód + plugin",
             year: "2026",
             state: "vo vývoji",
-            stack: ["Java", "Fabric", "Paper", "HMAC", "SQLite"],
+            stack: ["Java", "Kotlin", "Fabric", "Paper", "Gradle", "HMAC", "SQLite"],
             summary: "Klient-server bezpečnostný systém, ktorý serveru dá kontext o stave klienta namiesto odhadovania z packetov.",
             problem: "Serverový anti-cheat vidí len to, čo mu klient pošle, a zvyšok musí odhadovať z pohybu a packetov. Čím prísnejšie hádanie, tým viac potrestaných hráčov, ktorí nič nespravili.",
             approach: "Fabric mód na klientovi a Paper plugin na serveri si pri pripojení overia identitu a potom si priebežne potvrdzujú, že komunikuje stále ten istý, nezmenený klient. Server tak nepracuje s dohadmi, ale s overenými informáciami.",
@@ -222,7 +249,8 @@ const portfolioData = {
                 "Overenie klienta pri pripojení a priebežné potvrdzovanie počas hry.",
                 "Analýza načítaných módov a klientskych rozšírení v reálnom čase.",
                 "Vyhodnocovanie rizika na škále namiesto rozhodnutia legit alebo cheat.",
-                "Modulárna architektúra — nová detekcia sa pridáva bez prepisovania existujúcich."
+                "Modulárna architektúra — nová detekcia sa pridáva bez prepisovania existujúcich.",
+                "Detekcia kódu vstreknutého do bežiacej hry. Plugin je v Kotline a oba jary sa nasadzujú ako zhodný pár."
             ],
             closing: "Aktívne sa vyvíja. Väčšina času nejde na detekciu, ale na obmedzovanie falošných poplachov — nesprávny ban stojí server viac než jeden neodhalený cheater."
         },
@@ -259,9 +287,29 @@ const portfolioData = {
                 "Štyri úrovne od ľahkej po maximálnu určujú, čo sa skrýva a ako často.",
                 "Skrývanie block entít a cenných blokov a maskovanie podzemia.",
                 "Adaptívny governor natiahne interval, keď je server preťažený.",
-                "Zvuky, častice a zdravie sa spoofujú tiež, pridaná je podpora Bedrocku."
+                "Zvuky, častice a zdravie sa spoofujú tiež, pridaná je podpora Bedrocku.",
+                "Verejné API, cez ktoré AstralysAntiXray obíde skrývanie pre svoje návnady. Menovky a hologramy sa skrývajú spolu s hráčom."
             ],
-            closing: "Všetky fázy som otestoval s reálnym klientom."
+            closing: "Fázy 1–4 som otestoval s reálnym klientom. Novšie úpravy výkonu a spolupráca s AntiXray čakajú na živý test."
+        },
+        {
+            id: "astralys-antixray",
+            name: "AstralysAntiXray",
+            kind: "Serverový plugin",
+            year: "2026",
+            state: "vo vývoji",
+            stack: ["Kotlin", "Gradle", "Paper", "SQLite", "Discord webhook"],
+            summary: "Neskrýva rudy, ale sleduje, ako hráč ťaží, a podozrivým podhodí falošné rudy, ktoré vidí len on.",
+            problem: "Xray klient nepotrebuje nič hackovať a skrývanie rúd ho nezastaví. Staff potom len háda, či hráč našiel žilu náhodou, alebo ju videl cez stenu.",
+            approach: "Plugin hodnotí štatistiku skrytých nálezov a zacielené tunely. Podozrivému pošle falošné rudy len cez paket, do sveta sa nič nezapisuje. Pri náhodnom odkrytí sa hneď vráti skutočný kameň, takže legit hráč falošnú rudu nikdy neuvidí. Predvolene len upozorňuje, ban vyžaduje viac nezávislých zásahov.",
+            points: [
+                "Štatistika skrytých nálezov, ktorej základná pravdepodobnosť sa učí z hráčov na konkrétnom serveri.",
+                "Falošné rudy viditeľné len vybranému hráčovi, v tuneloch aj ako priebežné návnady pod zemou.",
+                "Shadow mód, ktorý zapisuje, čo by plugin spravil, a záznam dôkazov pre staff.",
+                "Report vykopaného za zvolený čas a oblasť.",
+                "Prepojenie na AstralysShield a AstralysAntiESP cez vlastné API."
+            ],
+            closing: "V simulácii legit hráči nespustili žiadnu eskaláciu a xrayer ju spustil vždy. Živý test s hráčmi zatiaľ chýba."
         },
         {
             id: "together",
@@ -288,37 +336,39 @@ const portfolioData = {
             kind: "Klientský mód",
             year: "2026",
             state: "v prevádzke",
-            stack: ["Java", "Fabric", "Stonecutter", "Mixin", "Mod Menu"],
+            stack: ["Java", "Fabric", "Stonecutter", "Mixin", "Gson", "ProGuard"],
             summary: "Zobrazuje PvP tiery priamo v hre — nad hlavou, v TABe, v chate aj na karte hráča.",
             problem: "Tiery boli len na webe. Kto ich chcel vidieť počas hry, musel prepínať do prehliadača — čiže presne vo chvíli, keď je tá informácia najužitočnejšia, nebola po ruke.",
             approach: "Mód beží výhradne na klientovi — na server neposiela nič, len dokresľuje to, čo hráč aj tak vidí. Dáta si sťahuje sám a drží ich v pamäti, takže tier je nad hlavou hneď, nie po sekunde čakania. Zdrojom sú statické JSON snímky tierlistu, ktoré sa obnovujú zhruba každé dve minúty.",
             points: [
-                "Tier za nickom nad hlavou, v TABe a v chate.",
-                "Karta hráča so všetkými deviatimi kitmi a bodmi.",
-                "Obľúbení hráči — hlásenie, kto z nich je práve na serveri.",
-                "Nastavenia cez Mod Menu, dáta sa cachujú a obnovujú na povel.",
+                "Tier za nickom nad hlavou, v TABe a v chate, s detailom po nabehnutí kurzorom.",
+                "Karta hráča s postavou, tiermi a subtiermi, najlepším dosiahnutým tierom a grafom vývoja.",
+                "Hlásenie zmeny tieru u seba aj u obľúbených a prehľad, kto z obľúbených je práve na serveri.",
+                "Nastavenia priamo v hre cez príkaz a klávesovú skratku, dáta sa cachujú a obnovujú na povel.",
                 "Jeden zdroják pre dvanásť verzií Minecraftu (1.21 – 1.21.11) cez Stonecutter, port pre Minecraft 26.x je samostatný projekt.",
-                "Ikony kitov idú vlastným fontom, nie textúrami z cudzích módov."
+                "Ikony kitov idú vlastným fontom, nie textúrami z cudzích módov.",
+                "Pri výpadku služby so skinmi sa dotaz zopakuje s odstupom a použije sa skin z disku."
             ],
-            closing: ""
+            closing: "Verzia 3.0 je hotová pre obe vetvy."
         },
         {
             id: "shield-lite",
             name: "AstralysShield-Lite",
             kind: "Serverový plugin",
             year: "2026",
-            state: "v prevádzke",
+            state: "vo vývoji",
             stack: ["Java", "Paper", "ProtocolLib"],
-            summary: "Odhaľuje podvrhnutého klienta bez toho, aby si hráč čokoľvek inštaloval.",
+            summary: "Odhaľuje podvrhnutého klienta bez toho, aby si hráč čokoľvek inštaloval. ProtocolLib je voliteľný.",
             problem: "AstralysShield vyžaduje mód na klientovi. To na verejnom serveri nikto nespraví — potreboval som variant, ktorý funguje na hocikom.",
             approach: "Namiesto jedného spoľahlivého signálu skladá viac slabších: čo klient tvrdí, že je, ako sa hlási na plugin kanáloch a ako sa správa v čase. Jeden signál sa dá podvrhnúť ľahko, všetky naraz podstatne ťažšie.",
             points: [
                 "Funguje bez klientskej časti, stačí plugin na serveri.",
                 "Kombinuje viac nezávislých signálov do jedného výsledku.",
                 "História kontrol a prehľad zachytených klientov.",
-                "Príkazy na manuálnu kontrolu konkrétneho hráča."
+                "Príkazy na manuálnu kontrolu konkrétneho hráča.",
+                "Katalóg známych módov a rozpoznanie zoznamu módov klienta Lunar."
             ],
-            closing: ""
+            closing: "Záťažový test: 100 botov, TPS 20, plugin zaberal 6–9 % času hlavného vlákna."
         },
         {
             id: "chatshield",
@@ -340,26 +390,29 @@ const portfolioData = {
         },
         {
             id: "deluxecombat",
-            name: "DeluxeCombat",
+            name: "AstralysCombat",
             kind: "Serverový plugin",
             year: "2026",
             state: "vo vývoji",
-            stack: ["Java", "Paper"],
-            summary: "Fork pluginu DeluxeCombat upravený na vlastné potreby — combat tag a ochrana pred odpojením počas boja.",
+            stack: ["Java", "Maven", "Paper", "WorldGuard"],
+            summary: "Upravená verzia pluginu DeluxeCombat — combat tag, ochrana pred odpojením počas boja, odmeny za hlavu a postupné tresty za combatlog.",
             problem: "",
             approach: "",
             points: [
-                "Combat tag: hráč je po zásahu označený ako v boji.",
-                "Ochrana pred odpojením počas boja."
+                "Combat tag a ochrana pred odpojením počas boja s postupnými trestami.",
+                "Odmeny za hlavu so zabezpečenou výplatou, aby sa nedala vyplatiť dvakrát.",
+                "Natívna podpora WorldGuard pre bezpečné zóny.",
+                "Limity predmetov v inventári a pravidlá pre Mace a wind charge, všetko predvolene vypnuté a zapínateľné v GUI.",
+                "Celé GUI a hlášky preložené do češtiny."
             ],
-            closing: ""
+            closing: "Verzia 2.0 je zostavená, test na serveri čaká."
         },
         {
             id: "antigang",
             name: "AstralysAntiGang",
             kind: "Serverový plugin",
             year: "2026",
-            state: "v prevádzke",
+            state: "vo vývoji",
             stack: ["Kotlin", "Gradle", "Paper", "SQLite", "Discord webhook"],
             summary: "Rozpozná, keď na jedného hráča útočí viacero naraz, a upozorní staff.",
             problem: "Gang fighty sa na serveri riešia ťažko, lebo kým sa staff dozvie, že sa niečo deje, je po všetkom.",
@@ -379,18 +432,19 @@ const portfolioData = {
             kind: "Serverový plugin",
             year: "2026",
             state: "vo vývoji",
-            stack: ["Java", "Kotlin", "Gradle", "Paper", "Velocity", "PlaceholderAPI"],
-            summary: "Fork pluginu AuthMe (AuthMeReloaded) upravený pre Astralys — prihlasovanie a registrácia na offline serveri s limbo svetom, captchou a postupnými banmi.",
+            stack: ["Java", "Kotlin", "Gradle", "Paper", "Velocity", "MariaDB", "PlaceholderAPI"],
+            summary: "Fork pluginu AuthMe (AuthMeReloaded) upravený pre moje servery — prihlasovanie a registrácia na offline serveri s limbo svetom, captchou, kontrolou sily hesiel a sieťovou časťou na Velocity.",
             problem: "Na offline serveri hráča nič neoveruje, preto potrebuje prihlásenie. Upstream plugin pokrýva základ, mne chýbala izolácia neprihlásených hráčov a prísnejšia ochrana účtov.",
             approach: "Držím vlastnú vetvu nad upstreamom. Pri aktualizácii robím merge, nie prepis súborov, aby zostala čitateľná história vlastných úprav.",
             points: [
                 "Limbo svet: neprihlásení hráči sú izolovaní od zvyšku servera.",
-                "Captcha v inventári a kontrola sily hesla pri registrácii.",
+                "Captcha v limbe podľa otáčania hlavy, v inventári ako náhrada.",
+                "Kontrola sily hesla a anonymná kontrola uniknutých hesiel, pri ktorej heslo neopustí server.",
                 "Postupne dlhšie bany za zlé heslo.",
-                "Ochrana prémiových mien a admin príkazy na históriu pripojení.",
-                "PlaceholderAPI hook, napríklad animovaný stav prihlásenia."
+                "Velocity hub so zdieľanou databázou: hráč sa na lobby dostane, až keď auth server hlási, že je pripravený.",
+                "Automatická registrácia premium hráčov a ochrana mien."
             ],
-            closing: ""
+            closing: "Pokrytý viac než dvoma tisícami testov."
         },
         {
             id: "astralys-client",
@@ -416,17 +470,19 @@ const portfolioData = {
             kind: "Web + Android aplikácia",
             year: "2026",
             state: "vo vývoji",
-            stack: ["Kotlin", "Gradle", "WebView", "Node.js", "Leaflet", "OpenStreetMap"],
-            summary: "Osobná mapa vlakov ŽSR vo vlastnom prevedení — ako web a ako Android aplikácia. Nie je verejná.",
+            stack: ["Kotlin", "Gradle", "WebView", "Node.js", "Leaflet", "OpenStreetMap", "WorkManager"],
+            summary: "Osobná mapa vlakov ŽSR vo vlastnom prevedení — ako web a ako Android aplikácia. Prístup len na pozvánku, nie je verejná.",
             problem: "Pôvodná mapa funguje, ale chcel som ju prehľadnejšiu, s trasou po skutočných koľajach a upozorneniami na vlak, ktorý sledujem.",
-            approach: "Koľaje pochádzajú z OpenStreetMap a trasa vlaku aj pohyb značky sa vedú po tom istom grafe. Aplikácia volá zdroj priamo z telefónu, takže nepotrebuje vlastný server.",
+            approach: "Koľaje pochádzajú z OpenStreetMap a trasa vlaku aj pohyb značky sa vedú po tom istom grafe. Dáta ŽSR si aplikácia sťahuje priamo z telefónu. Malý vlastný server rieši len účty a distribúciu aktualizácií, dáta ŽSR nesprostredkúva.",
             points: [
                 "Trasa vlaku po koľajach, nie po priamke, a odhad polohy medzi stanicami.",
-                "Graf koľají sa počíta priamo v telefóne, vyhľadávanie trasy ide algoritmom A*.",
+                "Graf koľají je súčasťou aplikácie, trasa sa hľadá algoritmom A* priamo v telefóne.",
                 "Sledovanie vlaku a upozornenia cez službu na popredí a presné budíky.",
+                "Účty len na pozvánku, viazané na zariadenie cez kľúč v Android Keystore.",
+                "Automatické aktualizácie mimo Google Play s overením podpisu a kontrolného súčtu.",
                 "Vzhľad v štýle dopravcu, meškanie farbami návestidiel."
             ],
-            closing: "Web beží len lokálne."
+            closing: "Aktuálna verzia je 2.6.1. Web beží len lokálne."
         }
     ],
     stack: [
@@ -442,8 +498,8 @@ const portfolioData = {
         },
         {
             layer: "Databázy",
-            tech: "PostgreSQL",
-            note: "Oddelené databázy s vlastnými prihláseniami. Zmeny schémy len cez migrácie."
+            tech: "PostgreSQL · MariaDB",
+            note: "Oddelené databázy s vlastnými prihláseniami a šifrovaným spojením. Zmeny schémy len cez migrácie."
         },
         {
             layer: "Server",
@@ -466,7 +522,8 @@ const portfolioData = {
         "Konfigurácia smerovačov a prepínačov v Cisco Packet Traceri.",
         "Prístupové zoznamy a základné filtrovanie prevádzky.",
         "DNS a smerovanie domén vrátane nasadenia za CDN.",
-        "Riešenie výpadkov konektivity od kábla po aplikačnú vrstvu."
+        "Riešenie výpadkov konektivity od kábla po aplikačnú vrstvu.",
+        "Izolovaná lab sieť na starom smerovači s OpenWrt — DHCP, firewall zóny a overená izolácia od domácej siete."
     ],
 
     ai: [
@@ -512,9 +569,6 @@ const portfolioData = {
         "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
     }[char]));
 
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const pointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    const reduced = () => motionQuery.matches;
 
     const el = {
         header: $("#siteHeader"),
@@ -542,23 +596,30 @@ const portfolioData = {
         music: $("#bgMusic"),
         toast: $("#toast"),
         copy: $("#copyName"),
-        year: $("#year")
+        year: $("#year"),
+        statusInfra: $("#statusInfra"),
+        statusLive: $("#statusLive"),
+        clock: $("#statusClock")
     };
 
     const icon = (name) => `<svg class="ico" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 
     /* ---------- vykreslenie ---------- */
 
-    function pill(state) {
-        const kind = {
-            "v prevádzke": "live",
-            "vo vývoji": "wip",
-            "pozastavený": "paused",
-            "ukončené": "past",
-            "v príprave": "wip",
-            "aktívny": "live"
-        }[state] || "wip";
-        return `<span class="pill pill-${kind}"><i aria-hidden="true"></i>${esc(state)}</span>`;
+    /* Stav je tichý text s bodkou. Pulzuje len bodka pri tom, čo naozaj beží. */
+    const STATE_KIND = {
+        "v prevádzke": "live",
+        "aktívny": "live",
+        "beží": "live",
+        "vo vývoji": "wip",
+        "v príprave": "wip",
+        "pozastavený": "paused",
+        "ukončené": "past"
+    };
+
+    function stateTag(state) {
+        const kind = STATE_KIND[state] || "wip";
+        return `<span class="state state-${kind}"><i class="dot dot-${kind}" aria-hidden="true"></i>${esc(state)}</span>`;
     }
 
     /* Jazyky, ktoré sa hľadajú v stackoch projektov (Node.js počítam ako JavaScript). */
@@ -597,77 +658,87 @@ const portfolioData = {
         `).join("");
     }
 
-    const SHIELD_ART = `<div class="card-art" aria-hidden="true"><svg viewBox="0 0 400 140" preserveAspectRatio="xMidYMid meet">
-        <defs><linearGradient id="shieldGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
-        <g fill="none" stroke="url(#shieldGrad)" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M200 10 252 28v38c0 31-21 53-52 64-31-11-52-33-52-64V28z" stroke-width="2.4"/>
-            <path d="M200 30 234 41v25c0 20-13 35-34 43-21-8-34-23-34-43V41z" stroke-width="1.4" opacity=".55"/>
-            <path d="m182 68 13 13 25-27" stroke-width="3.4"/>
-            <path d="M20 70h110M270 70h110" stroke-width="1.2" opacity=".35"/>
-            <path d="M60 50h70M270 90h70" stroke-width="1.2" opacity=".2"/>
-        </g>
-        <g fill="url(#shieldGrad)" opacity=".7"><circle cx="20" cy="70" r="3"/><circle cx="380" cy="70" r="3"/><circle cx="60" cy="50" r="2"/><circle cx="340" cy="90" r="2"/></g>
-    </svg></div>`;
-
-    const LENS_ART = `<div class="card-art" aria-hidden="true"><svg viewBox="0 0 400 140" preserveAspectRatio="xMidYMid meet">
-        <defs><linearGradient id="lensGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2dd4bf"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
-        <g fill="none" stroke="url(#lensGrad)" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M138 34v-14h14M262 34v-14h-14M138 98v14h14M262 98v14h-14" stroke-width="2.4"/>
-            <circle cx="200" cy="66" r="26" stroke-width="1.6"/>
-            <circle cx="200" cy="66" r="9" stroke-width="1.6"/>
-            <path d="M200 30v12M200 90v12M164 66h12M224 66h12" stroke-width="1.2" opacity=".55"/>
-            <path d="M40 124h320" stroke-width="1.2" opacity=".3"/>
-            <path d="M40 124h176" stroke-width="2.2"/>
-        </g>
-        <g fill="url(#lensGrad)"><circle cx="216" cy="124" r="4"/></g>
-    </svg></div>`;
-    const FEATURE_ART = { "astralys-shield": SHIELD_ART, "astralys-lens": LENS_ART };
-
     function renderProjects() {
         const featuredIds = portfolioData.featured.map((item) => item.id);
         const featuredById = new Map(portfolioData.featured.map((item) => [item.id, item]));
         const projects = portfolioData.devProjects;
-        const ordered = [
-            ...featuredIds.map((id) => projects.find((project) => project.id === id)).filter(Boolean),
-            ...projects.filter((project) => !featuredIds.includes(project.id))
-        ];
+        const featured = featuredIds.map((id) => projects.find((project) => project.id === id)).filter(Boolean);
+        const rest = projects.filter((project) => !featuredIds.includes(project.id));
 
-        /* Malé karty tvoria trojice; zvyšok (1 alebo 2 karty) sa dorovná tak, aby v mriežke
-           neostala diera: pri zvyšku 1 sa posledné štyri roztiahnu na polovicu, pri 2 posledné dve. */
-        const smallCount = ordered.filter((project) => !featuredById.has(project.id)).length;
-        const halfCount = Math.min(smallCount, [0, 4, 2][smallCount % 3]);
-        let smallIndex = 0;
-
-        el.grid.insertAdjacentHTML("beforeend", ordered.map((project, index) => {
-            const featured = featuredById.get(project.id);
-            let size;
-            if (featured) {
-                size = `cell-feature cell-f${featuredIds.indexOf(project.id) + 1}`;
-            } else {
-                size = smallIndex >= smallCount - halfCount ? "cell-small cell-half" : "cell-small";
-                smallIndex += 1;
-            }
+        const cards = featured.map((project, index) => {
+            const meta = featuredById.get(project.id);
             return `
-            <div class="cell ${size} reveal" style="--i:${index % 3}">
-                <article class="card">
-                    <div class="card-top">
-                        <span class="card-kind">${esc(project.kind)}</span>
-                        <span class="card-year">${esc(project.year)}</span>
-                    </div>
-                    <div class="card-main">
-                        ${pill(project.state)}
-                        <h3 class="card-title"><a class="card-link" href="#projekt-${esc(project.id)}" data-project="${esc(project.id)}">${esc(project.name)}</a></h3>
-                        ${featured ? `<p class="card-line">${esc(featured.line)}</p>` : ""}
-                        <p class="card-summary">${esc(project.summary)}</p>
-                        ${featured && project.points && project.points.length ? `<ul class="card-points">${project.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>` : ""}
-                        ${featured && project.closing ? `<p class="card-closing">${esc(project.closing)}</p>` : ""}
-                        ${featured ? FEATURE_ART[project.id] || "" : ""}
-                    </div>
-                    <ul class="chips">${project.stack.map((tech) => `<li>${esc(tech)}</li>`).join("")}</ul>
-                    <span class="card-go" aria-hidden="true">${icon("arrow")}</span>
-                </article>
-            </div>`;
-        }).join(""));
+            <article class="card reveal" style="--i:${index}">
+                <div class="card-top">
+                    <span class="card-kind">${esc(project.kind)}</span>
+                    <span class="card-year">${esc(project.year)}</span>
+                </div>
+                <div class="card-main">
+                    ${stateTag(project.state)}
+                    <h3 class="card-title"><a class="card-link" href="#projekt-${esc(project.id)}" data-project="${esc(project.id)}">${esc(project.name)}</a></h3>
+                    <p class="card-line">${esc(meta.line)}</p>
+                    <p class="card-summary">${esc(project.summary)}</p>
+                    ${project.points && project.points.length ? `<ul class="card-points">${project.points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>` : ""}
+                    ${project.closing ? `<p class="card-closing">${esc(project.closing)}</p>` : ""}
+                </div>
+                <ul class="chips">${project.stack.map((tech) => `<li>${esc(tech)}</li>`).join("")}</ul>
+                <span class="card-go" aria-hidden="true">${icon("arrow")}</span>
+            </article>`;
+        }).join("");
+
+        const rows = rest.map((project) => `
+                <li class="project-row reveal">
+                    <a class="project-row-link" href="#projekt-${esc(project.id)}" data-project="${esc(project.id)}">
+                        <span class="project-name">${esc(project.name)}</span>
+                        <span class="project-summary">${esc(project.summary)}</span>
+                        <span class="project-kind">${esc(project.kind)}</span>
+                        ${stateTag(project.state)}
+                        ${icon("arrow")}
+                    </a>
+                </li>`).join("");
+
+        el.grid.insertAdjacentHTML("beforeend", `
+            <div class="feature-grid">${cards}</div>
+            <div class="project-list">
+                <p class="project-list-head" id="moreProjects">Ďalšie projekty <span>${rest.length}</span></p>
+                <ol aria-labelledby="moreProjects">${rows}</ol>
+            </div>`);
+    }
+
+    /* Okno „Čo práve beží" v hero: vrstvy vlastného servera a projekty v prevádzke,
+       oboje priamo z portfolioData, nič sa nevymýšľa. */
+    function renderStatus() {
+        if (!el.statusInfra || !el.statusLive) return;
+        const row = (name, note, state) => `
+            <li class="status-row">
+                <i class="dot dot-${STATE_KIND[state] || "wip"}" aria-hidden="true"></i>
+                <strong>${esc(name)}${note ? `<small>${esc(note)}</small>` : ""}</strong>
+                <span>${esc(state)}</span>
+            </li>`;
+        el.statusInfra.innerHTML = portfolioData.stack
+            .map((layer) => row(layer.tech, layer.layer.toLowerCase(), "beží"))
+            .join("");
+        el.statusLive.innerHTML = portfolioData.devProjects
+            .filter((project) => project.state === "v prevádzke")
+            .map((project) => row(project.name, project.kind, project.state))
+            .join("");
+    }
+
+    function startClock() {
+        if (!el.clock) return;
+        let format;
+        try {
+            format = new Intl.DateTimeFormat("sk-SK", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Bratislava" });
+        } catch (error) {
+            format = new Intl.DateTimeFormat("sk-SK", { hour: "2-digit", minute: "2-digit" });
+        }
+        const tick = () => {
+            const now = new Date();
+            el.clock.textContent = `Bratislava ${format.format(now)}`;
+            el.clock.dateTime = now.toISOString();
+            setTimeout(tick, 60000 - (now.getSeconds() * 1000 + now.getMilliseconds()) + 50);
+        };
+        tick();
     }
 
     function renderServers() {
@@ -675,7 +746,7 @@ const portfolioData = {
             <article class="server-card reveal" style="--i:${index % 2}">
                 <header>
                     <h4>${esc(server.name)}</h4>
-                    ${pill(server.status)}
+                    ${stateTag(server.status)}
                 </header>
                 <p class="server-meta">${esc(server.role)} · ${esc(server.period)}</p>
                 <p class="server-intro">${esc(server.intro)}</p>
@@ -741,7 +812,7 @@ const portfolioData = {
             <article class="ai-card reveal" style="--i:${index}">
                 <header>
                     <span class="ai-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
-                    <span class="pill pill-wip pill-plain">${esc(tool.role)}</span>
+                    <span class="ai-role">${esc(tool.role)}</span>
                 </header>
                 <h3>${esc(tool.name)}</h3>
                 <p>${esc(tool.note)}</p>
@@ -750,6 +821,8 @@ const portfolioData = {
     }
 
     renderStats();
+    renderStatus();
+    startClock();
     renderProjects();
     renderServers();
     renderTimeline();
@@ -759,7 +832,7 @@ const portfolioData = {
 
     /* ---------- reveal pri scrolle ---------- */
 
-    const revealObserver = "IntersectionObserver" in window && !reduced()
+    const revealObserver = "IntersectionObserver" in window
         ? new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -779,7 +852,7 @@ const portfolioData = {
 
     function countUp(node) {
         const target = Number(node.dataset.count);
-        if (!Number.isFinite(target) || reduced()) {
+        if (!Number.isFinite(target)) {
             node.textContent = node.dataset.count;
             return;
         }
@@ -804,7 +877,7 @@ const portfolioData = {
             });
         }, { threshold: 0.6 });
         $$(".stat-num").forEach((node) => {
-            if (!reduced()) node.textContent = "0";
+            node.textContent = "0";
             countObserver.observe(node);
         });
     }
@@ -934,8 +1007,7 @@ const portfolioData = {
     function updateTimeline() {
         if (!tlDots.length) return;
         const rect = el.timeline.getBoundingClientRect();
-        const full = reduced();
-        const px = full ? rect.height : clamp(window.innerHeight * 0.62 - rect.top, 0, rect.height);
+        const px = clamp(window.innerHeight * 0.62 - rect.top, 0, rect.height);
         el.timelineFill.style.transform = `scaleY(${rect.height ? (px / rect.height).toFixed(4) : 0})`;
         for (let i = 0; i < tlDots.length; i++) {
             tlDots[i].classList.toggle("is-lit", tlDotY[i] <= px);
@@ -1015,7 +1087,7 @@ const portfolioData = {
         setTimeout(() => {
             const first = el.menu.querySelector("a");
             if (first && menuOpen) first.focus({ preventScroll: true });
-        }, reduced() ? 0 : 120);
+        }, 120);
     }
 
     function closeMenu(restoreFocus = true) {
@@ -1081,7 +1153,7 @@ const portfolioData = {
             ? `<section class="detail-block"><h3>${label}</h3><p>${esc(text)}</p></section>`
             : "";
         el.dialogBody.innerHTML = `
-            <p class="detail-meta"><span>${esc(project.kind)}</span><span>${esc(project.year)}</span>${pill(project.state)}</p>
+            <p class="detail-meta"><span>${esc(project.kind)}</span><span>${esc(project.year)}</span>${stateTag(project.state)}</p>
             <h2 class="detail-title" id="projectTitle">${esc(project.name)}</h2>
             <p class="detail-summary">${esc(project.summary)}</p>
             ${block("Problém", project.problem)}
@@ -1120,12 +1192,8 @@ const portfolioData = {
             if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus({ preventScroll: true });
             lastTrigger = null;
         };
-        if (reduced()) {
-            finish();
-        } else {
-            el.dialog.classList.add("is-closing");
-            closeTimer = setTimeout(finish, 240);
-        }
+        el.dialog.classList.add("is-closing");
+        closeTimer = setTimeout(finish, 240);
     }
 
     function requestClose() {
@@ -1166,60 +1234,6 @@ const portfolioData = {
         syncFromHash();
     });
     if (projectIdFromHash()) syncFromHash();
-
-    /* ---------- karty: spotlight a tilt ---------- */
-
-    if (pointerQuery.matches) {
-        $$(".card").forEach((card) => {
-            card.addEventListener("pointermove", (event) => {
-                const rect = card.getBoundingClientRect();
-                const x = event.clientX - rect.left;
-                const y = event.clientY - rect.top;
-                card.style.setProperty("--x", x + "px");
-                card.style.setProperty("--y", y + "px");
-                if (reduced()) return;
-                const rx = (0.5 - y / rect.height) * 6; /* max ±3° */
-                const ry = (x / rect.width - 0.5) * 6;
-                card.style.transform = `perspective(1000px) translateY(-4px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
-            });
-            card.addEventListener("pointerleave", () => {
-                card.style.transform = "";
-            });
-        });
-    }
-
-    /* ---------- magnetické tlačidlá ---------- */
-
-    if (pointerQuery.matches && !reduced()) {
-        const magnets = $$(".magnetic");
-        let mx = 0;
-        let my = 0;
-        let pending = false;
-        const apply = () => {
-            pending = false;
-            magnets.forEach((node) => {
-                const rect = node.getBoundingClientRect();
-                const cx = rect.left + rect.width / 2;
-                const cy = rect.top + rect.height / 2;
-                const dx = mx - cx;
-                const dy = my - cy;
-                const reach = Math.max(rect.width, rect.height) / 2 + 36;
-                if (Math.hypot(dx, dy) < reach) {
-                    node.style.transform = `translate(${(dx * 0.22).toFixed(1)}px, ${(dy * 0.28).toFixed(1)}px)`;
-                } else if (node.style.transform) {
-                    node.style.transform = "";
-                }
-            });
-        };
-        window.addEventListener("pointermove", (event) => {
-            mx = event.clientX;
-            my = event.clientY;
-            if (!pending) {
-                pending = true;
-                requestAnimationFrame(apply);
-            }
-        }, { passive: true });
-    }
 
     /* ---------- kopírovanie mena a toast ---------- */
 
@@ -1290,5 +1304,4 @@ const portfolioData = {
     /* ---------- štart ---------- */
 
     requestAnimationFrame(relayout);
-    motionQuery.addEventListener && motionQuery.addEventListener("change", relayout);
 })();
