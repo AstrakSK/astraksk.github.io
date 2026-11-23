@@ -1022,18 +1022,22 @@ main:focus { outline: none; }
     background: var(--muted);
 }
 
-.ai-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ai-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .ai-card {
     padding: 28px;
     border: 1px solid var(--line);
     border-radius: var(--r-card);
     background: var(--surface);
 }
-.ai-card header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; }
+.ai-card header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.ai-logo { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--text); }
+.ai-logo svg { width: 26px; height: 26px; }
+.ai-card .ai-maker { margin: 0 0 6px; font-family: var(--font-label); font-size: .78rem; color: var(--muted); }
 .ai-index,
 .ai-role { font-family: var(--font-label); font-size: .78rem; color: var(--muted); }
-.ai-card h3 { font-weight: 600; font-size: 1.7rem; letter-spacing: -.03em; }
-.ai-card p { margin-top: 12px; font-size: .96rem; color: var(--muted); }
+.ai-card h3 { font-weight: 600; font-size: 1.5rem; letter-spacing: -.02em; }
+.ai-card h3 + p { margin-top: 12px; }
+.ai-card p { font-size: .96rem; color: var(--muted); }
 
 /* ---------- kontakt ---------- */
 
@@ -1250,7 +1254,7 @@ main:focus { outline: none; }
     .about-grid,
     .duo { grid-template-columns: 1fr; }
     .ai-grid { grid-template-columns: 1fr; }
-    .ai-card header { margin-bottom: 24px; }
+    .ai-card header { margin-bottom: 20px; }
 
     .mc-grid { grid-template-columns: 1fr; gap: 24px; }
     .mc-side { position: static; }

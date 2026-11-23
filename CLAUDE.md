@@ -44,7 +44,7 @@ GitHub Pages posiela `Cache-Control: max-age=600`. Pri **každom** vydaní zvý�
 v `index.html` naraz pre `style.css` **aj** `script.js` (`bg.js` bol vo V7 zrušený). Bez toho
 dostane vracajúci sa návštevník nové HTML so starým CSS/JS a stránka sa rozsype.
 
-Aktuálne `v=25`. Fonty verziu nemajú — tie sa nemenia.
+Aktuálne `v=26`. Fonty verziu nemajú — tie sa nemenia.
 
 ### 2. Obsah je v `portfolioData`, nie v HTML
 
@@ -82,7 +82,7 @@ poľa `spySections` v `script.js`.
 | Minecraft | nadpis, lead, skin | `#serverList`, `#timeline` (čiara sa plní podľa scrollu, body `.tl-dot.is-lit`) |
 | Infraštruktúra | nadpis, lead | `#layers` (4 poschodia + animovaný packet), `#practiceList` |
 | Siete a Škola | dve karty s leadmi | `#networkList`, `#schoolList` |
-| AI spoločníci | nadpis, lead | `#aiList` |
+| Modely, s ktorými pracujem | nadpis, lead | `#aiList` (karty s oficiálnymi logami výrobcov z `AI_LOGOS`, farby značiek sú výnimka z jedného akcentu) |
 | Kontakt | celý pás | — (tlačidlo „Skopírovať meno“ + toast v `script.js`) |
 
 ### Detail projektu
