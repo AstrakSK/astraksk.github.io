@@ -44,7 +44,7 @@ GitHub Pages posiela `Cache-Control: max-age=600`. Pri **každom** vydaní zvý�
 v `index.html` naraz pre `style.css` **aj** `script.js` (`bg.js` bol vo V7 zrušený). Bez toho
 dostane vracajúci sa návštevník nové HTML so starým CSS/JS a stránka sa rozsype.
 
-Aktuálne `v=26`. Fonty verziu nemajú — tie sa nemenia.
+Aktuálne `v=27`. Fonty verziu nemajú — tie sa nemenia.
 
 ### 2. Obsah je v `portfolioData`, nie v HTML
 

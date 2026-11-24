@@ -1037,6 +1037,11 @@ main:focus { outline: none; }
 .ai-role { font-family: var(--font-label); font-size: .78rem; color: var(--muted); }
 .ai-card h3 { font-weight: 600; font-size: 1.5rem; letter-spacing: -.02em; }
 .ai-card h3 + p { margin-top: 12px; }
+.ai-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.ai-models { margin: 20px 0 0; padding: 16px 0 0; list-style: none; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.ai-models li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.ai-models span { color: var(--text); font-weight: 500; }
+.ai-models small { font-family: var(--font-label); font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .ai-card p { font-size: .96rem; color: var(--muted); }
 
 /* ---------- kontakt ---------- */
