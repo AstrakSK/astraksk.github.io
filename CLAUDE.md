@@ -44,7 +44,7 @@ GitHub Pages posiela `Cache-Control: max-age=600`. Pri **každom** vydaní zvý�
 v `index.html` naraz pre `style.css` **aj** `script.js` (`bg.js` bol vo V7 zrušený). Bez toho
 dostane vracajúci sa návštevník nové HTML so starým CSS/JS a stránka sa rozsype.
 
-Aktuálne `v=27`. Fonty verziu nemajú — tie sa nemenia.
+Aktuálne `v=28`. Fonty verziu nemajú — tie sa nemenia.
 
 ### 2. Obsah je v `portfolioData`, nie v HTML
 
@@ -68,10 +68,13 @@ V HTML ostávajú len statické texty: hero nadpis a lead, leady sekcií, text �
 
 ## Štruktúra stránky a kde sa čo renderuje
 
-Kotvy: `#top` (hero), `#o-mne`, `#projekty`, `#minecraft`, `#infrastruktura`,
-`#siete-skola`, `#ai`, `#kontakt`. Navigácia (`data-nav` na odkazoch) pozná len
-`o-mne`, `projekty`, `minecraft`, `infrastruktura`, `kontakt`; `siete-skola` a `ai`
-zdieľajú zvýraznenie s Infraštruktúrou (mapa `navKey` v `script.js`). Pridanie sekcie do scrollspy = zápis do
+Poradie je postavené ako portfólio pre zamestnávateľa (24. 11. 2026): kto som a čo používam,
+projekty, ako pracujem (AI), infraštruktúra, Minecraft skúsenosti, siete a škola, kontakt.
+Kotvy: `#top`, `#o-mne`, `#projekty`, `#ai`, `#infrastruktura`, `#minecraft`, `#siete-skola`,
+`#kontakt`. Navigácia (`data-nav`) pozná všetky okrem `siete-skola`, ktorá zdieľa zvýraznenie
+s Minecraftom (mapa `navKey` v `script.js`). Kód projektov je súkromný (nie open source), preto
+web nikde neodkazuje na GitHub repozitáre; hovorí to poznámka `.private-note` v Projektoch
+a riadok `.detail-private` v detaile. `skills` v `portfolioData` = blok „Čo používam“ v O mne. Pridanie sekcie do scrollspy = zápis do
 poľa `spySections` v `script.js`.
 
 | Sekcia | Statické v `index.html` | Renderuje `script.js` (kontajner) |

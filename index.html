@@ -40,7 +40,7 @@
     <!-- Pri každom vydaní zvýš ?v= naraz pri style.css a script.js.
          Bez toho môžu vracajúci sa návštevníci dostať nové HTML so starým CSS
          a JS (Pages posiela Cache-Control: max-age=600). Fonty verziu nemajú. -->
-    <link rel="stylesheet" href="style.css?v=27">
+    <link rel="stylesheet" href="style.css?v=28">
 
     <script type="application/ld+json">
     {
@@ -73,6 +73,7 @@
     <svg class="sprite" aria-hidden="true" focusable="false">
         <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="M16 9.5a4 4 0 0 1 0 5"/><path d="M18.5 7a7.5 7.5 0 0 1 0 10"/></symbol>
         <symbol id="i-muted" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z"/><path d="m16 10 4 4M20 10l-4 4"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></symbol>
         <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
         <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
         <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
@@ -96,8 +97,9 @@
             <nav class="site-nav" id="siteNav" aria-label="Hlavná navigácia">
                 <a href="#o-mne" data-nav="o-mne">O mne</a>
                 <a href="#projekty" data-nav="projekty">Projekty</a>
-                <a href="#minecraft" data-nav="minecraft">Minecraft</a>
+                <a href="#ai" data-nav="ai">Ako pracujem</a>
                 <a href="#infrastruktura" data-nav="infrastruktura">Infraštruktúra</a>
+                <a href="#minecraft" data-nav="minecraft">Minecraft</a>
                 <a href="#kontakt" data-nav="kontakt">Kontakt</a>
                 <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
             </nav>
@@ -116,11 +118,12 @@
 
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
         <nav class="mobile-nav" aria-label="Mobilná navigácia">
-            <a href="#o-mne" data-nav="o-mne" style="--i:0"><small>01</small>O mne</a>
-            <a href="#projekty" data-nav="projekty" style="--i:1"><small>02</small>Projekty</a>
-            <a href="#minecraft" data-nav="minecraft" style="--i:2"><small>03</small>Minecraft</a>
-            <a href="#infrastruktura" data-nav="infrastruktura" style="--i:3"><small>04</small>Infraštruktúra</a>
-            <a href="#kontakt" data-nav="kontakt" style="--i:4"><small>05</small>Kontakt</a>
+            <a href="#o-mne" data-nav="o-mne" style="--i:0">O mne</a>
+            <a href="#projekty" data-nav="projekty" style="--i:1">Projekty</a>
+            <a href="#ai" data-nav="ai" style="--i:2">Ako pracujem</a>
+            <a href="#infrastruktura" data-nav="infrastruktura" style="--i:3">Infraštruktúra</a>
+            <a href="#minecraft" data-nav="minecraft" style="--i:4">Minecraft</a>
+            <a href="#kontakt" data-nav="kontakt" style="--i:5">Kontakt</a>
         </nav>
         <a class="btn btn-primary mobile-discord" style="--i:5" href="https://discord.com/users/700729479068385362" target="_blank" rel="noopener noreferrer">
             <svg class="ico" aria-hidden="true"><use href="#i-discord"/></svg>
@@ -191,6 +194,7 @@
                             vlastné pluginy tam, kde hotové riešenie nestačilo. Posledný rok k tomu
                             pribudol Kotlin, backend a vlastný server, na ktorom to celé beží.
                         </p>
+                        <dl class="skills reveal" id="skillList" style="--i:3" aria-label="Čo používam"></dl>
                     </div>
                     <dl class="stats" id="statList"></dl>
                 </div>
@@ -207,11 +211,49 @@
                         a backend k nej. Väčšina vznikla preto, že som na daný problém nenašiel
                         riešenie, ktoré by robilo presne to, čo som potreboval.
                     </p>
+                    <p class="private-note reveal" style="--i:3">
+                        <svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg>
+                        <span>Kód všetkých projektov je súkromný. Nič z toho nie je open source, preto tu nie sú odkazy na GitHub.</span>
+                    </p>
                 </header>
 
                 <div class="projects" id="projectGrid">
                     <noscript><p class="muted">Zoznam projektov sa načíta cez JavaScript.</p></noscript>
                 </div>
+            </div>
+        </section>
+
+        <!-- ============ AI ============ -->
+        <section class="section" id="ai" aria-labelledby="aiTitle">
+            <div class="container">
+                <header class="section-head">
+                    <h2 class="section-title reveal" id="aiTitle" style="--i:1">Ako pracujem</h2>
+                    <p class="section-lead reveal" style="--i:2">
+                        Pri vývoji používam AI každý deň — Claude Code ako hlavný nástroj a ďalšie modely na to, v čom sú silnejšie. Päť rodín modelov mi kryje rôzne časti práce —
+                        každý tam, kde mi reálne šetrí čas. Rozhodnutia a výsledná podoba
+                        zostávajú na mne.
+                    </p>
+                </header>
+                <div class="ai-grid" id="aiList"></div>
+            </div>
+        </section>
+
+        <!-- ============ INFRAŠTRUKTÚRA ============ -->
+        <section class="section" id="infrastruktura" aria-labelledby="infraTitle">
+            <div class="container">
+                <header class="section-head">
+                    <h2 class="section-title reveal" id="infraTitle" style="--i:1">Infraštruktúra</h2>
+                    <p class="section-lead reveal" style="--i:2">
+                        Vlastný VPS s Ubuntu, na ňom Docker a reverzná proxy, ktorá rozdeľuje
+                        prevádzku medzi navzájom oddelené služby. Postavené a spravované celé mnou,
+                        vrátane certifikátov, záloh a prístupov.
+                    </p>
+                </header>
+
+                <ol class="layers" id="layers" aria-label="Vrstvy infraštruktúry zhora nadol"></ol>
+
+                <h3 class="subhead reveal">Ako to prevádzkujem</h3>
+                <ul class="practice-grid" id="practiceList"></ul>
             </div>
         </section>
 
@@ -249,25 +291,6 @@
             </div>
         </section>
 
-        <!-- ============ INFRAŠTRUKTÚRA ============ -->
-        <section class="section" id="infrastruktura" aria-labelledby="infraTitle">
-            <div class="container">
-                <header class="section-head">
-                    <h2 class="section-title reveal" id="infraTitle" style="--i:1">Infraštruktúra</h2>
-                    <p class="section-lead reveal" style="--i:2">
-                        Vlastný VPS s Ubuntu, na ňom Docker a reverzná proxy, ktorá rozdeľuje
-                        prevádzku medzi navzájom oddelené služby. Postavené a spravované celé mnou,
-                        vrátane certifikátov, záloh a prístupov.
-                    </p>
-                </header>
-
-                <ol class="layers" id="layers" aria-label="Vrstvy infraštruktúry zhora nadol"></ol>
-
-                <h3 class="subhead reveal">Ako to prevádzkujem</h3>
-                <ul class="practice-grid" id="practiceList"></ul>
-            </div>
-        </section>
-
         <!-- ============ SIETE A ŠKOLA ============ -->
         <section class="section" id="siete-skola" aria-labelledby="netTitle">
             <div class="container">
@@ -295,21 +318,6 @@
                         <ul class="dash-list" id="schoolList"></ul>
                     </article>
                 </div>
-            </div>
-        </section>
-
-        <!-- ============ AI ============ -->
-        <section class="section" id="ai" aria-labelledby="aiTitle">
-            <div class="container">
-                <header class="section-head">
-                    <h2 class="section-title reveal" id="aiTitle" style="--i:1">Modely, s ktorými pracujem</h2>
-                    <p class="section-lead reveal" style="--i:2">
-                        Nerobím na tom sám. Päť rodín modelov mi kryje rôzne časti práce —
-                        každý tam, kde mi reálne šetrí čas. Rozhodnutia a výsledná podoba
-                        zostávajú na mne.
-                    </p>
-                </header>
-                <div class="ai-grid" id="aiList"></div>
             </div>
         </section>
 
@@ -360,7 +368,7 @@
         <source src="assets/music.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js?v=27"></script>
+    <script src="script.js?v=28"></script>
 </body>
 
 </html>

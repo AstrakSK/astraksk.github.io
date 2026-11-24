@@ -526,6 +526,18 @@ main:focus { outline: none; }
 }
 
 .stats { display: flex; flex-direction: column; padding-top: 6px; }
+
+/* Čo používam: riadok = oblasť (mono štítok) + technológie. Hairline medzi riadkami. */
+.skills { margin: 36px 0 0; border-top: 1px solid var(--line); }
+.skill-row { display: grid; grid-template-columns: 132px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.skill-row dt { font-family: var(--font-label); font-size: .78rem; color: var(--muted); padding-top: 3px; }
+.skill-row dd { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--body-text); }
+
+/* Súkromný kód: tichá poznámka, nie výstraha. */
+.private-note { display: flex; align-items: flex-start; gap: 10px; max-width: 64ch; margin-top: 20px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--muted); font-size: .94rem; }
+.private-note .ico { flex: none; width: 18px; height: 18px; margin-top: 2px; }
+.detail-private { display: flex; align-items: center; gap: 8px; margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+.detail-private .ico { flex: none; width: 16px; height: 16px; }
 .stat {
     display: flex;
     flex-direction: column-reverse;
@@ -1260,6 +1272,7 @@ main:focus { outline: none; }
     .duo { grid-template-columns: 1fr; }
     .ai-grid { grid-template-columns: 1fr; }
     .ai-card header { margin-bottom: 20px; }
+    .skill-row { grid-template-columns: 1fr; gap: 6px; }
 
     .mc-grid { grid-template-columns: 1fr; gap: 24px; }
     .mc-side { position: static; }

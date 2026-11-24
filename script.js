@@ -526,6 +526,17 @@ const portfolioData = {
         "Izolovaná lab sieť na starom smerovači s OpenWrt — DHCP, firewall zóny a overená izolácia od domácej siete."
     ],
 
+    /* Zhrnutie pre „O mne“. Len technológie, ktoré sú v stack-och projektov, v infraštruktúre
+       alebo v škole — nič navyše. */
+    skills: [
+        { label: "Jazyky", items: ["Java", "Kotlin", "TypeScript", "JavaScript", "Python"] },
+        { label: "Backend a dáta", items: ["Spring Boot", "Node.js", "Javalin", "PostgreSQL", "MariaDB", "SQLite"] },
+        { label: "Frontend", items: ["HTML", "CSS", "React", "Preact", "three.js"] },
+        { label: "Server", items: ["Ubuntu", "Docker", "Caddy", "Git"] },
+        { label: "Minecraft", items: ["Paper", "Fabric", "Velocity", "PacketEvents"] },
+        { label: "Android", items: ["Jetpack Compose", "Room"] },
+        { label: "AI pri vývoji", items: ["Claude Code", "Codex"] }
+    ],
     ai: [
         {
             name: "Claude",
@@ -619,6 +630,7 @@ const portfolioData = {
         main: $("#obsah"),
         footer: $(".site-footer"),
         stats: $("#statList"),
+        skills: $("#skillList"),
         grid: $("#projectGrid"),
         servers: $("#serverList"),
         timeline: $("#timeline"),
@@ -686,6 +698,15 @@ const portfolioData = {
             }
             return stat;
         });
+    }
+
+    function renderSkills() {
+        if (!el.skills) return;
+        el.skills.innerHTML = portfolioData.skills.map((group) => `
+            <div class="skill-row">
+                <dt>${esc(group.label)}</dt>
+                <dd>${group.items.map((item) => `<span>${esc(item)}</span>`).join("")}</dd>
+            </div>`).join("");
     }
 
     function renderStats() {
@@ -872,6 +893,7 @@ const portfolioData = {
     }
 
     renderStats();
+    renderSkills();
     renderStatus();
     startClock();
     renderProjects();
@@ -957,10 +979,10 @@ const portfolioData = {
 
     /* ---------- hlavička, progress, scrollspy, časová os ---------- */
 
-    const spySections = ["o-mne", "projekty", "minecraft", "infrastruktura", "siete-skola", "ai", "kontakt"]
+    const spySections = ["o-mne", "projekty", "ai", "infrastruktura", "minecraft", "siete-skola", "kontakt"]
         .map((id) => document.getElementById(id))
         .filter(Boolean);
-    const navKey = { "siete-skola": "infrastruktura", ai: "infrastruktura" };
+    const navKey = { "siete-skola": "minecraft" };
     const navLinks = $$("a[data-nav]");
     let activeKey = null;
     let tlDots = [];
@@ -1219,6 +1241,7 @@ const portfolioData = {
                 <h3>Stack</h3>
                 <ul class="chips">${project.stack.map((tech) => `<li>${esc(tech)}</li>`).join("")}</ul>
             </section>
+            <p class="detail-private"><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg>Zdrojový kód je súkromný, projekt nie je open source.</p>
         `;
         el.dialog.scrollTop = 0;
         $(".detail-inner", el.dialog).scrollTop = 0;
